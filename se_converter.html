@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Express 勤怠変換ツール</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --surface2: #fdf0f2;
+    --border: #f0d0d5;
+    --accent: #F4566F;
+    --accent2: #d03050;
+    --accent-light: #fde8ec;
+    --success: #0fa968;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --text: #1a1a1a;
+    --text-muted: #7a5a60;
+    --text-dim: #b8909a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 32px 24px;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(244,86,111,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244,86,111,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  header {
+    border-left: 4px solid var(--accent);
+    padding-left: 16px;
+    margin-bottom: 40px;
+  }
+  .header-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #1a1a1a 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .header-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Tab navigation */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    background: #fff;
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .tab {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .tab:hover { color: var(--accent); background: var(--accent-light); }
+  .tab.active {
+    background: var(--accent);
+    color: white;
+  }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(244,86,111,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* Drop zone */
+  .dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .dropzone:hover, .dropzone.drag-over {
+    border-color: var(--accent);
+    background: rgba(244,86,111,0.05);
+  }
+  .dropzone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .dropzone-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .dropzone-text {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .dropzone-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .dropzone.loaded {
+    border-color: var(--success);
+    background: rgba(62,207,142,0.05);
+  }
+  .dropzone.loaded .dropzone-icon { color: var(--success); }
+  .file-name {
+    font-size: 13px;
+    color: var(--success);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Two column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Convert button */
+  .btn-convert {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+    color: white;
+  }
+  .btn-convert:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(244,86,111,0.35);
+  }
+  .btn-convert:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Log */
+  .log {
+    background: #fdf5f6;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    line-height: 1.8;
+    max-height: 200px;
+    overflow-y: auto;
+    color: var(--text-muted);
+  }
+  .log .ok { color: var(--success); }
+  .log .warn { color: var(--warning); }
+  .log .err { color: var(--danger); }
+  .log .info { color: var(--accent); }
+
+  /* Stats bar */
+  .stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .stat {
+    background: #fdf5f6;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Download button */
+  .btn-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: 1px solid var(--success);
+    border-radius: 8px;
+    background: rgba(62,207,142,0.1);
+    color: var(--success);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-dl:hover {
+    background: rgba(62,207,142,0.2);
+    transform: translateY(-1px);
+  }
+
+  /* Mapping table */
+  .mapping-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .mapping-table th {
+    background: #fdf5f6;
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.5px;
+  }
+  .mapping-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(240,208,213,0.8);
+    color: var(--text);
+  }
+  .mapping-table tr:hover td { background: rgba(244,86,111,0.03); }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .badge-new { background: rgba(244,86,111,0.15); color: var(--accent); }
+  .badge-ok { background: rgba(62,207,142,0.15); color: var(--success); }
+
+  input[type="text"] {
+    background: #fdf5f6;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    padding: 5px 8px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { border-color: var(--accent); }
+
+  .btn-add {
+    padding: 8px 16px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: rgba(244,86,111,0.1);
+    color: var(--accent);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-add:hover { background: rgba(244,86,111,0.2); }
+
+  .btn-del {
+    padding: 4px 10px;
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--danger);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-del:hover { background: rgba(239,68,68,0.1); }
+
+  .row-input {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .row-input label {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    min-width: 80px;
+  }
+
+  .notice {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--warning);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="header-label">JUST FINE — 勤怠データ変換システム</div>
+    <h1>Staff Express 勤怠変換ツール</h1>
+    <p class="header-desc">各派遣管理システムの勤怠CSVをStaff Expressのインポート形式に変換します</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('settings')">⚙ 設定</button>
+    <button class="tab" onclick="switchTab('cloudstaffing')">CloudStaffing</button>
+    <button class="tab" onclick="switchTab('staffia')">Staffia</button>
+    <button class="tab" onclick="switchTab('hrstation')">HR-Station</button>
+  </div>
+
+  <!-- ===== 設定パネル ===== -->
+  <div class="panel active" id="panel-settings">
+
+    <!-- 配置一覧 -->
+    <div class="card">
+      <div class="card-title">Staff Express 配置一覧（全システム共通）</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;line-height:1.7;">
+        Staff Expressから出力した配置一覧CSVを月初に1回だけ読み込んでください。<br>
+        読み込んだデータはすべての変換タブで共通利用されます。
+      </p>
+      <div class="dropzone" id="dz-haichi" ondragover="dzDrag(event,'dz-haichi')" ondragleave="dzLeave('dz-haichi')" ondrop="dzDrop(event,'dz-haichi','se-haichi')">
+        <input type="file" accept=".csv,.xlsx" onchange="loadFile(event,'se-haichi','dz-haichi')">
+        <span class="dropzone-icon">📂</span>
+        <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
+        <div class="dropzone-sub">Staff Expressから出力した契約一覧</div>
+        <div class="file-name" id="fn-se-haichi"></div>
+      </div>
+    </div>
+
+    <!-- Staffia対応表 -->
+    <div class="card">
+      <div class="card-title">Staffia ↔ Staff Express 対応表</div>
+
+      <!-- Google Sheets連携設定 -->
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;">
+        <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:10px;">🔗 Googleスプレッドシート連携</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+          AdminがGAS WebアプリのURLを設定すると、全拠点で対応表を共有できます。<br>
+          設定方法は別途配布の手順書を参照してください。
+        </p>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input type="text" id="gas-url" placeholder="https://script.google.com/macros/s/xxxx/exec" style="flex:1;min-width:260px;">
+          <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
+          <button class="btn-add" onclick="fetchFromSheets()" id="btn-fetch" style="background:rgba(244,86,111,0.15);">📥 スプレッドシートから読込</button>
+          <button class="btn-add" onclick="pushToSheets()" id="btn-push" style="background:rgba(244,86,111,0.15);">📤 スプレッドシートへ保存</button>
+        </div>
+        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
+      </div>
+
+      <!-- 手動追加 -->
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+        新規スタッフは下記フォームから追加できます。追加後は「スプレッドシートへ保存」で全拠点に反映されます。
+      </p>
+      <div class="row-input">
+        <label>Staffia氏名コード</label>
+        <input type="text" id="new-staffia-code" placeholder="例: s283033" style="max-width:150px;">
+        <label>スタッフ名</label>
+        <input type="text" id="new-name" placeholder="例: 久我　昌利" style="max-width:160px;">
+        <label>SEスタッフNO</label>
+        <input type="text" id="new-se-no" placeholder="例: 158986" style="max-width:120px;">
+        <label>SE案件管理NO</label>
+        <input type="text" id="new-anken-no" placeholder="例: 43182-000" style="max-width:140px;">
+        <button class="btn-add" onclick="addMapping()">＋ 追加</button>
+      </div>
+
+      <div id="mapping-table-wrap">
+        <div class="empty-state" id="mapping-empty">まだ対応表が登録されていません</div>
+        <table class="mapping-table" id="mapping-table" style="display:none">
+          <thead>
+            <tr>
+              <th>Staffia氏名コード</th>
+              <th>スタッフ名</th>
+              <th>SEスタッフNO</th>
+              <th>SE案件管理NO</th>
+              <th>状態</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="mapping-tbody"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn-add" onclick="exportMapping()">⬇ CSVでエクスポート</button>
+        <div class="dropzone" style="flex:1;min-width:200px;padding:10px 16px;" id="dz-mapping-import">
+          <input type="file" accept=".csv,.xlsx,.xls" onchange="importMapping(event)">
+          <span style="font-size:12px;color:var(--text-muted);">📥 CSVから読み込む</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CloudStaffing パネル ===== -->
+  <div class="panel" id="panel-cloudstaffing">
+    <div class="notice" id="cs-haichi-notice" style="display:none">
+      ⚠ 設定タブで配置一覧CSVをまだ読み込んでいません。先に設定タブで読み込んでください。
+    </div>
+    <div class="card">
+      <div class="card-title">STEP 1 — CloudStaffing 勤怠CSVをアップロード</div>
+      <div class="dropzone" id="dz-cs" ondragover="dzDrag(event,'dz-cs')" ondragleave="dzLeave('dz-cs')" ondrop="dzDrop(event,'dz-cs','cs-kintai')">
+        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,'cs-kintai','dz-cs')">
+        <span class="dropzone-icon">📋</span>
+        <div class="dropzone-text">CSVをドロップ または クリック</div>
+        <div class="dropzone-sub">CloudStaffingから出力した勤怠データ（CSV/Excel）</div>
+        <div class="file-name" id="fn-cs-kintai"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">STEP 2 — 変換実行</div>
+      <button class="btn-convert" id="btn-cs-convert" onclick="convertCS()" disabled>変換してCSVをダウンロード</button>
+    </div>
+
+    <div class="card" id="cs-result-card" style="display:none">
+      <div class="card-title">変換結果</div>
+      <div class="stats" id="cs-stats"></div>
+      <div class="log" id="cs-log"></div>
+      <div style="margin-top:16px;">
+        <a class="btn-dl" id="cs-dl-btn" href="#" download="SE_勤怠インポート_CloudStaffing.csv">
+          ⬇ CSVをダウンロード
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HR-Station パネル ===== -->
+  <div class="panel" id="panel-hrstation">
+    <div class="card">
+      <div class="card-title">STEP 1 — HR-Station 勤怠CSVをアップロード</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+        スタッフコード（F列）の下6桁をStaff ExpressのスタッフNOとして使用します。<br>
+        案件NOは設定タブの配置一覧から就業期間で自動特定します。
+      </p>
+      <div class="dropzone" id="dz-hrstation" ondragover="dzDrag(event,'dz-hrstation')" ondragleave="dzLeave('dz-hrstation')" ondrop="dzDrop(event,'dz-hrstation','hrstation-kintai')">
+        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,'hrstation-kintai','dz-hrstation')">
+        <span class="dropzone-icon">📋</span>
+        <div class="dropzone-text">HR-StationのCSVをドロップ または クリック</div>
+        <div class="dropzone-sub">CSV・Excelどちらも対応</div>
+        <div class="file-name" id="fn-hrstation-kintai"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">STEP 2 — 変換実行</div>
+      <button class="btn-convert" id="btn-hrstation-convert" onclick="convertHRStation()" disabled>変換してCSVをダウンロード</button>
+    </div>
+
+    <div class="card" id="hrstation-result-card" style="display:none">
+      <div class="card-title">変換結果</div>
+      <div class="stats" id="hrstation-stats"></div>
+      <div class="log" id="hrstation-log"></div>
+      <div style="margin-top:16px;">
+        <a class="btn-dl" id="hrstation-dl-btn" href="#" download="SE_勤怠インポート_HRStation.csv">
+          ⬇ CSVをダウンロード
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Staffia パネル ===== -->
+  <div class="panel" id="panel-staffia">
+    <div class="notice">
+      ⚠ Staffiaの「氏名コード」はStaff ExpressのスタッフNOと直接対応していません。<br>
+      「設定」タブで事前にマッピングを登録してください。未登録のスタッフは警告が出ます。
+    </div>
+
+    <div class="card">
+      <div class="card-title">STEP 1 — Staffia勤怠CSVをアップロード</div>
+      <div class="dropzone" id="dz-staffia" ondragover="dzDrag(event,'dz-staffia')" ondragleave="dzLeave('dz-staffia')" ondrop="dzDrop(event,'dz-staffia','staffia-kintai')">
+        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,'staffia-kintai','dz-staffia')">
+        <span class="dropzone-icon">📋</span>
+        <div class="dropzone-text">StaffiaのCSVをドロップ または クリック</div>
+        <div class="dropzone-sub">CSV・Excelどちらも対応</div>
+        <div class="file-name" id="fn-staffia-kintai"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">STEP 2 — 変換実行</div>
+      <button class="btn-convert" id="btn-staffia-convert" onclick="convertStaffia()" disabled>変換してCSVをダウンロード</button>
+    </div>
+
+    <div class="card" id="staffia-result-card" style="display:none">
+      <div class="card-title">変換結果</div>
+      <div class="stats" id="staffia-stats"></div>
+      <div class="log" id="staffia-log"></div>
+      <div style="margin-top:16px;">
+        <a class="btn-dl" id="staffia-dl-btn" href="#" download="SE_勤怠インポート_Staffia.csv">
+          ⬇ CSVをダウンロード
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===================== State =====================
+const files = {};
+let mappingData = []; // {staffiaCode, name, seNo, ankenNo}
+
+// ===================== Tab =====================
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const tabs = ['settings','cloudstaffing','staffia','hrstation'];
+    t.classList.toggle('active', tabs[i] === tab);
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  if (tab === 'cloudstaffing') {
+    const notice = document.getElementById('cs-haichi-notice');
+    if (notice) notice.style.display = files['se-haichi'] ? 'none' : 'block';
+  }
+}
+
+// ===================== Drop zone =====================
+function dzDrag(e, id) { e.preventDefault(); document.getElementById(id).classList.add('drag-over'); }
+function dzLeave(id) { document.getElementById(id).classList.remove('drag-over'); }
+function dzDrop(e, dzId, fileKey) {
+  e.preventDefault();
+  dzLeave(dzId);
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file, fileKey, dzId);
+}
+function loadFile(e, fileKey, dzId) {
+  const file = e.target.files[0];
+  if (file) processFile(file, fileKey, dzId);
+}
+
+function processFile(file, fileKey, dzId) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  const isExcel = (ext === 'xlsx' || ext === 'xls');
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    let csvText = '';
+    if (isExcel) {
+      try {
+        const wb = XLSX.read(e.target.result, { type: 'array', cellDates: true });
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        csvText = XLSX.utils.sheet_to_csv(ws, { blankrows: false });
+      } catch(err) {
+        alert('Excelの読み込みに失敗しました: ' + err.message);
+        return;
+      }
+    } else {
+      // CSV: Shift-JIS → UTF-8変換済みテキスト
+      csvText = e.target.result;
+    }
+    files[fileKey] = { name: file.name, data: csvText };
+    const dz = document.getElementById(dzId);
+    dz.classList.add('loaded');
+    const fnEl = document.getElementById('fn-' + fileKey.replace('_','-'));
+    if (fnEl) fnEl.textContent = '✓ ' + file.name;
+    checkButtons();
+  };
+
+  if (isExcel) {
+    reader.readAsArrayBuffer(file);
+  } else {
+    reader.readAsText(file, 'Shift-JIS');
+  }
+}
+
+function checkButtons() {
+  // CloudStaffing: 勤怠CSV + 配置一覧（設定タブ共通）
+  const csBtn = document.getElementById('btn-cs-convert');
+  if (csBtn) csBtn.disabled = !(files['cs-kintai'] && files['se-haichi']);
+  // Staffia: 勤怠CSVのみ（配置一覧は設定タブ共通だが必須ではない）
+  const stBtn = document.getElementById('btn-staffia-convert');
+  if (stBtn) stBtn.disabled = !files['staffia-kintai'];
+  const hrBtn = document.getElementById('btn-hrstation-convert');
+  if (hrBtn) hrBtn.disabled = !files['hrstation-kintai'];
+  // 配置一覧読込済みなら警告非表示
+  const notice = document.getElementById('cs-haichi-notice');
+  if (notice && files['se-haichi']) notice.style.display = 'none';
+}
+
+// ===================== CSV Parser =====================
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  return lines.map(line => {
+    const cells = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { cells.push(cur.trim()); cur = ''; }
+      else cur += c;
+    }
+    cells.push(cur.trim());
+    return cells;
+  });
+}
+
+function csvToObjects(text) {
+  const rows = parseCSV(text);
+  if (rows.length < 2) return [];
+  const headers = rows[0];
+  return rows.slice(1).map(row => {
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = row[i] || ''; });
+    return obj;
+  });
+}
+
+// ===================== Time utils =====================
+// "08:50" → minutes
+function timeToMin(t) {
+  if (!t || t === '0:00' || t === '00:00') return 0;
+  const m = t.match(/(\d+):(\d+)/);
+  if (!m) return 0;
+  return parseInt(m[1]) * 60 + parseInt(m[2]);
+}
+
+// 4桁数字 "0850" → "08:50"
+function int4ToTime(n) {
+  if (!n || n === '0' || n === 0) return '00:00';
+  const s = String(parseInt(n)).padStart(4, '0');
+  return s.slice(0,2) + ':' + s.slice(2,4);
+}
+
+// minutes → "HH:MM"
+function minToTime(m) {
+  if (m <= 0) return '00:00';
+  const h = Math.floor(m / 60);
+  const min = m % 60;
+  return String(h).padStart(2,'0') + ':' + String(min).padStart(2,'0');
+}
+
+// date "2026/02/01" or "20260201" → "YYYY/MM/DD"
+function normalizeDate(d) {
+  if (!d) return '';
+  d = String(d).trim();
+  if (/^\d{8}$/.test(d)) return d.slice(0,4)+'/'+d.slice(4,6)+'/'+d.slice(6,8);
+  if (/^\d{4}\/\d{2}\/\d{2}/.test(d)) return d.slice(0,10);
+  return d;
+}
+
+// ===================== エラーチェック共通ユーティリティ =====================
+
+// CSVフォーマットチェック：必須列が揃っているか
+function checkColumns(rows, requiredCols, sourceName) {
+  if (!rows || rows.length === 0) return [`[${sourceName}] データが空です`];
+  const headers = Object.keys(rows[0]);
+  return requiredCols
+    .filter(c => !headers.includes(c))
+    .map(c => `[${sourceName}] 必須列「${c}」が見つかりません。フォーマットを確認してください`);
+}
+
+// 重複チェック：スタッフNO×日付の重複
+function checkDuplicates(rows, staffKey, dateKey, sourceName) {
+  const seen = {};
+  const dups = [];
+  rows.forEach(row => {
+    const key = `${(row[staffKey]||'').trim()}_${normalizeDate((row[dateKey]||'').trim())}`;
+    if (seen[key]) dups.push(key.replace('_', ' / '));
+    seen[key] = true;
+  });
+  return [...new Set(dups)].map(d => `[${sourceName}] 重複データ: スタッフNO・日付 ${d}`);
+}
+
+// 時間矛盾チェック：終業 <= 始業（深夜跨ぎを除く）
+function checkTimeOrder(start, end, staffNo, date, sourceName) {
+  if (!start || !end) return null;
+  const s = timeToMin(start);
+  const e = timeToMin(end);
+  if (e > 0 && e < s) return `[${sourceName}] 時間矛盾: スタッフ${staffNo} ${date} 始業${start} > 終業${end}`;
+  return null;
+}
+
+// 案件NO重複チェック：同一スタッフ・同一日付に案件NOが複数マッチ
+function findAllAnken(haichiMap, staffNo, date) {
+  const list = haichiMap[staffNo] || [];
+  return list.filter(h => (!h.start || date >= h.start) && (!h.end || date <= h.end));
+}
+
+// ===================== CloudStaffing 変換 =====================
+function convertCS() {
+  const log = [];
+  const addLog = (type, msg) => log.push({type, msg});
+  addLog('info', 'CloudStaffing 変換開始...');
+
+  // --- フォーマットチェック ---
+  const csRows = csvToObjects(files['cs-kintai'].data);
+  addLog('info', `勤怠データ読込: ${csRows.length}件`);
+
+  const csRequired = ['派遣元スタッフコード','日付','始業時刻','終業時刻','休憩時間','所定内就労時間','超過就労時間','深夜就労時間'];
+  const csColErrors = checkColumns(csRows, csRequired, 'CloudStaffing勤怠CSV');
+  csColErrors.forEach(e => addLog('err', e));
+  if (csColErrors.length > 0) { showResult('cs', 0, 0, 0, 0, log, null); return; }
+
+  const haichiRows = csvToObjects(files['se-haichi'].data);
+  addLog('info', `配置一覧読込: ${haichiRows.length}件`);
+
+  const haichiRequired = ['スタッフNO','案件管理NO','就業開始日','就業終了日'];
+  const haichiColErrors = checkColumns(haichiRows, haichiRequired, '配置一覧CSV');
+  haichiColErrors.forEach(e => addLog('err', e));
+  if (haichiColErrors.length > 0) { showResult('cs', 0, 0, 0, 0, log, null); return; }
+
+  // --- 重複チェック ---
+  const dupErrors = checkDuplicates(csRows, '派遣元スタッフコード', '日付', 'CloudStaffing');
+  dupErrors.forEach(e => addLog('warn', e));
+
+  // Build haichi lookup
+  const haichiMap = {};
+  haichiRows.forEach(row => {
+    const staffNo = (row['スタッフNO'] || '').trim();
+    const ankenNo = (row['案件管理NO'] || '').trim();
+    const start = normalizeDate(row['就業開始日'] || '');
+    const end = normalizeDate(row['就業終了日'] || '');
+    if (!staffNo || !ankenNo) return;
+    if (!haichiMap[staffNo]) haichiMap[staffNo] = [];
+    haichiMap[staffNo].push({ ankenNo, start, end });
+  });
+
+  const results = [];
+  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0, multiAnken = 0;
+
+  csRows.forEach(row => {
+    const staffNo = (row['派遣元スタッフコード'] || '').trim();
+    const dateRaw = (row['日付'] || '').trim();
+    const date = normalizeDate(dateRaw);
+    const isAbsent = (row['勤休区分'] || '').trim() === '欠勤';
+    const isHoliday = (row['勤休区分'] || '').trim() === '休日';
+
+    if (!staffNo || !date) return;
+
+    // 案件NOの特定（複数ヒット警告）
+    const ankenMatches = findAllAnken(haichiMap, staffNo, date);
+    let ankenNo = '';
+    if (ankenMatches.length === 0) {
+      unmatched++;
+      addLog('warn', `案件NO未特定: スタッフ${staffNo} ${date}`);
+    } else if (ankenMatches.length > 1) {
+      multiAnken++;
+      ankenNo = ankenMatches[0].ankenNo;
+      addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}（先頭を使用）`);
+      matched++;
+    } else {
+      ankenNo = ankenMatches[0].ankenNo;
+      matched++;
+    }
+
+    if (isAbsent || isHoliday) {
+      absent++;
+      results.push({ 'スタッフNO': staffNo, '就業年月日': date,
+        '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
+        '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
+        '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+      return;
+    }
+
+    const start = (row['始業時刻'] || '').trim();
+    const end = (row['終業時刻'] || '').trim();
+    const rest = (row['休憩時間'] || '').trim();
+    const kihon = (row['所定内就労時間'] || '').trim();
+    const zangyou = (row['超過就労時間'] || '').trim();
+    const shinya = (row['深夜就労時間'] || '').trim();
+
+    // 時間矛盾チェック
+    const timeErr = checkTimeOrder(start, end, staffNo, date, 'CloudStaffing');
+    if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+
+    results.push({ 'スタッフNO': staffNo, '就業年月日': date,
+      '支給始業時間': start, '支給終業時間': end, '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
+      '支給基本時間': kihon, '支給残業時間': zangyou, '支給深夜時間': shinya, '支給出勤区分': '0',
+      '請求始業時間': start, '請求終業時間': end, '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
+      '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
+      '案件管理NO': ankenNo });
+  });
+
+  // サマリーログ
+  addLog('ok', `変換完了: ${results.length}件`);
+  addLog('ok', `案件NO特定: ${matched}件`);
+  if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
+  if (unmatched > 0) addLog('warn', `案件NO未特定: ${unmatched}件（配置一覧を確認してください）`);
+  if (multiAnken > 0) addLog('warn', `案件NO複数ヒット: ${multiAnken}件（先頭の案件NOを使用）`);
+  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
+  if (absent > 0) addLog('info', `欠勤/休日: ${absent}件（時間空白で出力）`);
+  if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0 && multiAnken === 0) {
+    addLog('ok', 'エラーなし — インポートの準備ができています');
+  }
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+
+  showResult('cs', results.length, matched, unmatched, absent, log, url);
+}
+
+function showResult(prefix, total, matched, unmatched, absent, log, url) {
+  const card = document.getElementById(prefix+'-result-card');
+  card.style.display = 'block';
+
+  document.getElementById(prefix+'-stats').innerHTML = `
+    <div class="stat"><span class="stat-num">${total}</span><div class="stat-label">変換件数</div></div>
+    <div class="stat"><span class="stat-num" style="color:var(--success)">${matched}</span><div class="stat-label">案件NO特定</div></div>
+    <div class="stat"><span class="stat-num" style="color:${unmatched>0?'var(--warning)':'var(--text-muted)'}">${unmatched}</span><div class="stat-label">未特定</div></div>
+    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">${absent}</span><div class="stat-label">欠勤/休日</div></div>
+  `;
+
+  const logEl = document.getElementById(prefix+'-log');
+  logEl.innerHTML = log.map(l => `<div class="${l.type}">[${l.type.toUpperCase()}] ${l.msg}</div>`).join('');
+
+  const dlBtn = document.getElementById(prefix+'-dl-btn');
+  dlBtn.href = url;
+  card.scrollIntoView({behavior:'smooth'});
+}
+
+// ===================== Staffia 変換 =====================
+function convertStaffia() {
+  const log = [];
+  const addLog = (type, msg) => log.push({type, msg});
+  addLog('info', 'Staffia 変換開始...');
+
+  // --- フォーマットチェック ---
+  const rows = csvToObjects(files['staffia-kintai'].data);
+  addLog('info', `勤怠データ読込: ${rows.length}件`);
+
+  const stRequired = ['氏名コード','氏名','日付','出勤状況','勤務開始時間','勤務終了時間','所定内労働時間','時間外１','深夜１'];
+  const stColErrors = checkColumns(rows, stRequired, 'Staffia勤怠CSV');
+  stColErrors.forEach(e => addLog('err', e));
+  if (stColErrors.length > 0) { showResult('staffia', 0, 0, 0, 0, log, null); return; }
+
+  // --- 重複チェック ---
+  const dupErrors = checkDuplicates(rows, '氏名コード', '日付', 'Staffia');
+  dupErrors.forEach(e => addLog('warn', e));
+
+  // Build mapping lookup
+  const mapLookup = {};
+  mappingData.forEach(m => { mapLookup[m.staffiaCode] = m; });
+
+  const results = [];
+  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0;
+  const unmatchedCodes = new Set();
+
+  rows.forEach(row => {
+    const staffiaCode = (row['氏名コード'] || '').trim();
+    const dateRaw = (row['日付'] || '').trim();
+    const date = normalizeDate(dateRaw);
+    const status = (row['出勤状況'] || '').trim();
+
+    if (!staffiaCode || !date) return;
+
+    const mapping = mapLookup[staffiaCode];
+    if (!mapping) {
+      unmatchedCodes.add(`${staffiaCode}（${row['氏名']||''}）`);
+      unmatched++;
+    } else {
+      matched++;
+    }
+
+    const seNo = mapping ? mapping.seNo : '';
+    const ankenNo = mapping ? mapping.ankenNo : '';
+
+    // 欠勤・休日
+    if (status === '／' || status === '' || !row['勤務開始時間'] || row['勤務開始時間'] === '0') {
+      absent++;
+      results.push({ 'スタッフNO': seNo, '就業年月日': date,
+        '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
+        '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
+        '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+      return;
+    }
+
+    const startTime = int4ToTime(row['勤務開始時間']);
+    const endTime = int4ToTime(row['勤務終了時間']);
+
+    // 時間矛盾チェック
+    const timeErr = checkTimeOrder(startTime, endTime, seNo||staffiaCode, date, 'Staffia');
+    if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+
+    // 休憩時間計算
+    let restMin = 0;
+    for (let i = 1; i <= 3; i++) {
+      const rs = row[`休憩${i}・開始時間`] || '';
+      const re = row[`休憩${i}・終了時間`] || '';
+      if (rs && re && rs !== '0' && re !== '0') {
+        const rsMin = timeToMin(int4ToTime(rs));
+        const reMin = timeToMin(int4ToTime(re));
+        if (reMin > rsMin) restMin += reMin - rsMin;
+      }
+    }
+
+    const restTime = minToTime(restMin);
+    const kihonTime = minToTime(parseInt(row['所定内労働時間'] || '0'));
+    const zangyouTime = minToTime(parseInt(row['時間外１']||'0') + parseInt(row['時間外２']||'0'));
+    const shinyaTime = minToTime(parseInt(row['深夜１']||'0') + parseInt(row['深夜２']||'0'));
+
+    results.push({ 'スタッフNO': seNo, '就業年月日': date,
+      '支給始業時間': startTime, '支給終業時間': endTime,
+      '支給基本休憩時間': restTime, '支給深夜休憩時間': '0:00',
+      '支給基本時間': kihonTime, '支給残業時間': zangyouTime, '支給深夜時間': shinyaTime, '支給出勤区分': '0',
+      '請求始業時間': startTime, '請求終業時間': endTime,
+      '請求基本休憩時間': restTime, '請求深夜休憩時間': '0:00',
+      '請求基本時間': kihonTime, '請求残業時間': zangyouTime, '請求深夜時間': shinyaTime, '請求出勤区分': '0',
+      '案件管理NO': ankenNo });
+  });
+
+  // サマリーログ
+  if (unmatchedCodes.size > 0) {
+    addLog('warn', `対応表未登録: ${[...unmatchedCodes].join(', ')}`);
+    addLog('warn', '未登録スタッフのスタッフNO・案件NOは空白になります。設定タブの対応表に追加してください。');
+  }
+  addLog('ok', `変換完了: ${results.length}件`);
+  addLog('ok', `対応表マッチ: ${matched}件`);
+  if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
+  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
+  if (absent > 0) addLog('info', `欠勤/休日/休み: ${absent}件（時間空白で出力）`);
+  if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0) {
+    addLog('ok', 'エラーなし — インポートの準備ができています');
+  }
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+
+  showResult('staffia', results.length, matched, unmatched, absent, log, url);
+}
+
+// ===================== HR-Station 変換 =====================
+function convertHRStation() {
+  const log = [];
+  const addLog = (type, msg) => log.push({type, msg});
+  addLog('info', 'HR-Station 変換開始...');
+
+  // --- フォーマットチェック ---
+  const rows = csvToObjects(files['hrstation-kintai'].data);
+  addLog('info', `勤怠データ読込: ${rows.length}件`);
+
+  const hrRequired = ['スタッフコード','就業年月日','区分','勤務開始時刻実績','勤務終了時刻実績','休憩時間（実績）','契約内'];
+  const hrColErrors = checkColumns(rows, hrRequired, 'HR-Station勤怠CSV');
+  hrColErrors.forEach(e => addLog('err', e));
+  if (hrColErrors.length > 0) { showResult('hrstation', 0, 0, 0, 0, log, null); return; }
+
+  // --- 重複チェック ---
+  const dupErrors = checkDuplicates(rows, 'スタッフコード', '就業年月日', 'HR-Station');
+  dupErrors.forEach(e => addLog('warn', e));
+
+  // 配置一覧ロード（設定タブ共通）
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const haichiMap = {};
+  haichiRows.forEach(row => {
+    const staffNo = (row['スタッフNO'] || '').trim();
+    const ankenNo = (row['案件管理NO'] || '').trim();
+    const start = normalizeDate(row['就業開始日'] || '');
+    const end = normalizeDate(row['就業終了日'] || '');
+    if (!staffNo || !ankenNo) return;
+    if (!haichiMap[staffNo]) haichiMap[staffNo] = [];
+    haichiMap[staffNo].push({ ankenNo, start, end });
+  });
+
+  const results = [];
+  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0, multiAnken = 0;
+
+  rows.forEach(row => {
+    const rawCode = (row['スタッフコード'] || '').trim();
+    const staffNo = rawCode.slice(-6); // 下6桁
+    const date = normalizeDate((row['就業年月日'] || '').trim());
+    const kubun = String(row['区分'] || '').trim();
+
+    if (!rawCode || !date) return;
+
+    // 案件NO特定（配置一覧から）
+    const ankenMatches = findAllAnken(haichiMap, staffNo, date);
+    let ankenNo = '';
+    if (ankenMatches.length === 0) {
+      if (haichiRows.length > 0) { unmatched++; addLog('warn', `案件NO未特定: スタッフ${staffNo} ${date}`); }
+    } else if (ankenMatches.length > 1) {
+      multiAnken++;
+      ankenNo = ankenMatches[0].ankenNo;
+      addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}（先頭を使用）`);
+      matched++;
+    } else {
+      ankenNo = ankenMatches[0].ankenNo;
+      matched++;
+    }
+
+    // 区分=1 or d のみ出勤扱い（それ以外は休日・欠勤）
+    const isWork = (kubun === '1' || kubun === 'd');
+    if (!isWork) {
+      absent++;
+      results.push({ 'スタッフNO': staffNo, '就業年月日': date,
+        '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
+        '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
+        '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+      return;
+    }
+
+    // 時間 "8:50" → "08:50" に正規化
+    const normalizeTime = t => {
+      if (!t || t === 'nan') return '';
+      const m = String(t).trim().match(/^(\d{1,2}):(\d{2})$/);
+      if (!m) return '';
+      return String(m[1]).padStart(2,'0') + ':' + m[2];
+    };
+
+    const start = normalizeTime(row['勤務開始時刻実績']);
+    const end   = normalizeTime(row['勤務終了時刻実績']);
+    const rest  = normalizeTime(row['休憩時間（実績）']);
+
+    // 基本時間（契約内）
+    const kihon = normalizeTime(row['契約内']);
+    // 残業 = 法定内契約外 + 法定外契約外
+    const zanMin = timeToMin(normalizeTime(row['法定内契約外']||'')) + timeToMin(normalizeTime(row['法定外契約外']||''));
+    const zangyou = minToTime(zanMin);
+    // 深夜
+    const shinya = normalizeTime(row['深夜勤務'] || '');
+
+    // 時間矛盾チェック
+    const timeErr = checkTimeOrder(start, end, staffNo, date, 'HR-Station');
+    if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+
+    results.push({ 'スタッフNO': staffNo, '就業年月日': date,
+      '支給始業時間': start, '支給終業時間': end,
+      '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
+      '支給基本時間': kihon, '支給残業時間': zangyou, '支給深夜時間': shinya || '00:00', '支給出勤区分': '0',
+      '請求始業時間': start, '請求終業時間': end,
+      '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
+      '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya || '00:00', '請求出勤区分': '0',
+      '案件管理NO': ankenNo });
+  });
+
+  // サマリーログ
+  addLog('ok', `変換完了: ${results.length}件`);
+  addLog('ok', `スタッフNO特定: ${results.length - absent}件（下6桁抽出）`);
+  if (haichiRows.length === 0) addLog('warn', '配置一覧が未読込のため案件NOは空白です。設定タブで読み込んでください。');
+  if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
+  if (unmatched > 0) addLog('warn', `案件NO未特定: ${unmatched}件（配置一覧を確認してください）`);
+  if (multiAnken > 0) addLog('warn', `案件NO複数ヒット: ${multiAnken}件（先頭の案件NOを使用）`);
+  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
+  if (absent > 0) addLog('info', `休日・欠勤: ${absent}件（時間空白で出力）`);
+  if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0 && multiAnken === 0) {
+    addLog('ok', 'エラーなし — インポートの準備ができています');
+  }
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+
+  showResult('hrstation', results.length, matched, unmatched, absent, log, url);
+}
+
+// ===================== Google Sheets連携 =====================
+const GAS_URL_KEY = 'se_converter_gas_url';
+
+function saveGasUrl() {
+  const url = document.getElementById('gas-url').value.trim();
+  if (!url) { setGasStatus('URLを入力してください', 'warn'); return; }
+  localStorage.setItem(GAS_URL_KEY, url);
+  setGasStatus('✅ URLを保存しました', 'ok');
+}
+
+function loadGasUrl() {
+  const saved = localStorage.getItem(GAS_URL_KEY);
+  if (saved) document.getElementById('gas-url').value = saved;
+}
+
+function setGasStatus(msg, type) {
+  const el = document.getElementById('gas-status');
+  const colors = { ok: 'var(--success)', warn: 'var(--warning)', err: 'var(--danger)', info: 'var(--accent)' };
+  el.style.color = colors[type] || 'var(--text-muted)';
+  el.textContent = msg;
+}
+
+async function fetchFromSheets() {
+  const url = document.getElementById('gas-url').value.trim();
+  if (!url) { setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
+  setGasStatus('読み込み中...', 'info');
+  try {
+    const res = await fetch(url + '?action=get');
+    if (!res.ok) throw new Error('通信エラー: ' + res.status);
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('データ形式が不正です');
+
+    let added = 0, skipped = 0;
+    data.forEach(r => {
+      if (!r.staffiaCode || !r.seNo) return;
+      if (mappingData.find(m => m.staffiaCode === r.staffiaCode)) { skipped++; return; }
+      mappingData.push({ staffiaCode: r.staffiaCode, name: r.name||'', seNo: r.seNo, ankenNo: r.ankenNo||'' });
+      added++;
+    });
+    renderMapping();
+    setGasStatus(`✅ 読込完了 — 新規追加:${added}件 / スキップ:${skipped}件（登録済）`, 'ok');
+  } catch(e) {
+    setGasStatus('❌ 読込失敗: ' + e.message, 'err');
+  }
+}
+
+async function pushToSheets() {
+  const url = document.getElementById('gas-url').value.trim();
+  if (!url) { setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
+  if (mappingData.length === 0) { setGasStatus('⚠ 対応表が空です', 'warn'); return; }
+  if (!confirm(`対応表 ${mappingData.length}件をGoogleスプレッドシートに保存します。よろしいですか？`)) return;
+  setGasStatus('保存中...', 'info');
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'set', data: mappingData })
+    });
+    if (!res.ok) throw new Error('通信エラー: ' + res.status);
+    const result = await res.json();
+    setGasStatus(`✅ 保存完了 — ${mappingData.length}件をスプレッドシートに書き込みました`, 'ok');
+  } catch(e) {
+    setGasStatus('❌ 保存失敗: ' + e.message, 'err');
+  }
+}
+
+// ===================== Mapping管理 =====================
+function renderMapping() {
+  const tbody = document.getElementById('mapping-tbody');
+  const table = document.getElementById('mapping-table');
+  const empty = document.getElementById('mapping-empty');
+
+  if (mappingData.length === 0) {
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  table.style.display = 'table';
+  empty.style.display = 'none';
+
+  tbody.innerHTML = mappingData.map((m, i) => `
+    <tr>
+      <td><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent)">${m.staffiaCode}</span></td>
+      <td>${m.name}</td>
+      <td><span style="font-family:'Space Mono',monospace">${m.seNo}</span></td>
+      <td><span style="font-family:'Space Mono',monospace">${m.ankenNo}</span></td>
+      <td><span class="badge badge-ok">登録済</span></td>
+      <td><button class="btn-del" onclick="removeMapping(${i})">削除</button></td>
+    </tr>
+  `).join('');
+}
+
+function addMapping() {
+  const code = document.getElementById('new-staffia-code').value.trim();
+  const name = document.getElementById('new-name').value.trim();
+  const seNo = document.getElementById('new-se-no').value.trim();
+  const ankenNo = document.getElementById('new-anken-no').value.trim();
+
+  if (!code || !seNo) {
+    alert('Staffia氏名コードとStaff Express スタッフNOは必須です');
+    return;
+  }
+  if (mappingData.find(m => m.staffiaCode === code)) {
+    alert(`${code} はすでに登録されています`);
+    return;
+  }
+  mappingData.push({ staffiaCode: code, name, seNo, ankenNo });
+  renderMapping();
+
+  document.getElementById('new-staffia-code').value = '';
+  document.getElementById('new-name').value = '';
+  document.getElementById('new-se-no').value = '';
+  document.getElementById('new-anken-no').value = '';
+}
+
+function removeMapping(i) {
+  if (!confirm('削除しますか？')) return;
+  mappingData.splice(i, 1);
+  renderMapping();
+}
+
+function exportMapping() {
+  if (mappingData.length === 0) { alert('対応表が空です'); return; }
+  const csv = ['Staffia氏名コード,スタッフ名,Staff Express スタッフNO,Staff Express 案件管理NO',
+    ...mappingData.map(m => [m.staffiaCode, m.name, m.seNo, m.ankenNo].join(','))
+  ].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'staffia_mapping.csv';
+  a.click();
+}
+
+function importMapping(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const rows = csvToObjects(ev.target.result);
+    let added = 0, skipped = 0, invalid = 0;
+    const newEntries = [];
+
+    rows.forEach(r => {
+      const code = (r['Staffia氏名コード'] || '').trim();
+      const seNo = (r['Staff Express スタッフNO'] || '').trim();
+      // 必須項目チェック
+      if (!code || !seNo) { invalid++; return; }
+      // 既存チェック（Staffiaコードが一致するものはスキップ）
+      if (mappingData.find(m => m.staffiaCode === code)) { skipped++; return; }
+      mappingData.push({
+        staffiaCode: code,
+        name: (r['スタッフ名'] || '').trim(),
+        seNo,
+        ankenNo: (r['Staff Express 案件管理NO'] || '').trim()
+      });
+      newEntries.push(code);
+      added++;
+    });
+
+    renderMapping();
+
+    // 結果メッセージを組み立て
+    const lines = [];
+    if (added > 0)   lines.push(`✅ 新規追加: ${added}件`);
+    if (skipped > 0) lines.push(`⏭ 登録済みのためスキップ: ${skipped}件`);
+    if (invalid > 0) lines.push(`⚠ 必須項目不足のためスキップ: ${invalid}件`);
+    if (added === 0 && skipped > 0) lines.push('（全員すでに登録済みでした）');
+
+    // インポート結果をトースト表示
+    showImportToast(lines.join('\n'));
+    // ファイル入力リセット（同じファイルを再度読めるように）
+    e.target.value = '';
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+function showImportToast(message) {
+  // 既存のトーストを削除
+  const existing = document.getElementById('import-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'import-toast';
+  toast.style.cssText = `
+    position: fixed; bottom: 32px; right: 32px; z-index: 9999;
+    background: white; border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px; padding: 16px 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px; line-height: 1.8;
+    max-width: 320px; white-space: pre-line;
+    color: var(--text);
+    animation: slideIn 0.3s ease;
+  `;
+  toast.innerHTML = `<div style="font-weight:700;margin-bottom:6px;color:var(--accent)">対応表インポート結果</div>${message}`;
+
+  // アニメーション
+  const style = document.createElement('style');
+  style.textContent = '@keyframes slideIn { from { transform: translateX(120%); opacity:0; } to { transform: translateX(0); opacity:1; } }';
+  document.head.appendChild(style);
+
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.transition = 'opacity 0.4s';
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+}
+
+// init
+loadGasUrl();
+renderMapping();
+</script>
+</body>
+</html>
