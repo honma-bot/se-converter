@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0052)file:///C:/Users/honma/Downloads/se_converter_4.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Staff Express 勤怠変換ツール</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
 
@@ -418,10 +418,10 @@
   </header>
 
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('settings')">⚙ 設定</button>
-    <button class="tab" onclick="switchTab('cloudstaffing')">CloudStaffing</button>
-    <button class="tab" onclick="switchTab('staffia')">Staffia</button>
-    <button class="tab" onclick="switchTab('hrstation')">HR-Station</button>
+    <button class="tab active" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
+    <button class="tab" onclick="switchTab(&#39;cloudstaffing&#39;)">CloudStaffing</button>
+    <button class="tab" onclick="switchTab(&#39;staffia&#39;)">Staffia</button>
+    <button class="tab" onclick="switchTab(&#39;hrstation&#39;)">HR-Station</button>
   </div>
 
   <!-- ===== 設定パネル ===== -->
@@ -434,8 +434,8 @@
         Staff Expressから出力した配置一覧CSVを月初に1回だけ読み込んでください。<br>
         読み込んだデータはすべての変換タブで共通利用されます。
       </p>
-      <div class="dropzone" id="dz-haichi" ondragover="dzDrag(event,'dz-haichi')" ondragleave="dzLeave('dz-haichi')" ondrop="dzDrop(event,'dz-haichi','se-haichi')">
-        <input type="file" accept=".csv,.xlsx" onchange="loadFile(event,'se-haichi','dz-haichi')">
+      <div class="dropzone" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
+        <input type="file" accept=".csv,.xlsx" onchange="loadFile(event,&#39;se-haichi&#39;,&#39;dz-haichi&#39;)">
         <span class="dropzone-icon">📂</span>
         <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
         <div class="dropzone-sub">Staff Expressから出力した契約一覧</div>
@@ -480,7 +480,7 @@
       </div>
 
       <div id="mapping-table-wrap">
-        <div class="empty-state" id="mapping-empty">まだ対応表が登録されていません</div>
+        <div class="empty-state" id="mapping-empty" style="display: block;">まだ対応表が登録されていません</div>
         <table class="mapping-table" id="mapping-table" style="display:none">
           <thead>
             <tr>
@@ -513,8 +513,8 @@
     </div>
     <div class="card">
       <div class="card-title">STEP 1 — CloudStaffing 勤怠CSVをアップロード</div>
-      <div class="dropzone" id="dz-cs" ondragover="dzDrag(event,'dz-cs')" ondragleave="dzLeave('dz-cs')" ondrop="dzDrop(event,'dz-cs','cs-kintai')">
-        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,'cs-kintai','dz-cs')">
+      <div class="dropzone" id="dz-cs" ondragover="dzDrag(event,&#39;dz-cs&#39;)" ondragleave="dzLeave(&#39;dz-cs&#39;)" ondrop="dzDrop(event,&#39;dz-cs&#39;,&#39;cs-kintai&#39;)">
+        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,&#39;cs-kintai&#39;,&#39;dz-cs&#39;)">
         <span class="dropzone-icon">📋</span>
         <div class="dropzone-text">CSVをドロップ または クリック</div>
         <div class="dropzone-sub">CloudStaffingから出力した勤怠データ（CSV/Excel）</div>
@@ -524,7 +524,7 @@
 
     <div class="card">
       <div class="card-title">STEP 2 — 変換実行</div>
-      <button class="btn-convert" id="btn-cs-convert" onclick="convertCS()" disabled>変換してCSVをダウンロード</button>
+      <button class="btn-convert" id="btn-cs-convert" onclick="convertCS()" disabled="">変換してCSVをダウンロード</button>
     </div>
 
     <div class="card" id="cs-result-card" style="display:none">
@@ -532,7 +532,7 @@
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_4.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -547,8 +547,8 @@
         スタッフコード（F列）の下6桁をStaff ExpressのスタッフNOとして使用します。<br>
         案件NOは設定タブの配置一覧から就業期間で自動特定します。
       </p>
-      <div class="dropzone" id="dz-hrstation" ondragover="dzDrag(event,'dz-hrstation')" ondragleave="dzLeave('dz-hrstation')" ondrop="dzDrop(event,'dz-hrstation','hrstation-kintai')">
-        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,'hrstation-kintai','dz-hrstation')">
+      <div class="dropzone" id="dz-hrstation" ondragover="dzDrag(event,&#39;dz-hrstation&#39;)" ondragleave="dzLeave(&#39;dz-hrstation&#39;)" ondrop="dzDrop(event,&#39;dz-hrstation&#39;,&#39;hrstation-kintai&#39;)">
+        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,&#39;hrstation-kintai&#39;,&#39;dz-hrstation&#39;)">
         <span class="dropzone-icon">📋</span>
         <div class="dropzone-text">HR-StationのCSVをドロップ または クリック</div>
         <div class="dropzone-sub">CSV・Excelどちらも対応</div>
@@ -558,7 +558,7 @@
 
     <div class="card">
       <div class="card-title">STEP 2 — 変換実行</div>
-      <button class="btn-convert" id="btn-hrstation-convert" onclick="convertHRStation()" disabled>変換してCSVをダウンロード</button>
+      <button class="btn-convert" id="btn-hrstation-convert" onclick="convertHRStation()" disabled="">変換してCSVをダウンロード</button>
     </div>
 
     <div class="card" id="hrstation-result-card" style="display:none">
@@ -566,7 +566,7 @@
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_4.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -582,8 +582,8 @@
 
     <div class="card">
       <div class="card-title">STEP 1 — Staffia勤怠CSVをアップロード</div>
-      <div class="dropzone" id="dz-staffia" ondragover="dzDrag(event,'dz-staffia')" ondragleave="dzLeave('dz-staffia')" ondrop="dzDrop(event,'dz-staffia','staffia-kintai')">
-        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,'staffia-kintai','dz-staffia')">
+      <div class="dropzone" id="dz-staffia" ondragover="dzDrag(event,&#39;dz-staffia&#39;)" ondragleave="dzLeave(&#39;dz-staffia&#39;)" ondrop="dzDrop(event,&#39;dz-staffia&#39;,&#39;staffia-kintai&#39;)">
+        <input type="file" accept=".csv,.xlsx,.xls" onchange="loadFile(event,&#39;staffia-kintai&#39;,&#39;dz-staffia&#39;)">
         <span class="dropzone-icon">📋</span>
         <div class="dropzone-text">StaffiaのCSVをドロップ または クリック</div>
         <div class="dropzone-sub">CSV・Excelどちらも対応</div>
@@ -593,7 +593,7 @@
 
     <div class="card">
       <div class="card-title">STEP 2 — 変換実行</div>
-      <button class="btn-convert" id="btn-staffia-convert" onclick="convertStaffia()" disabled>変換してCSVをダウンロード</button>
+      <button class="btn-convert" id="btn-staffia-convert" onclick="convertStaffia()" disabled="">変換してCSVをダウンロード</button>
     </div>
 
     <div class="card" id="staffia-result-card" style="display:none">
@@ -601,7 +601,7 @@
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_4.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1216,10 +1216,9 @@ async function pushToSheets() {
   if (!confirm(`対応表 ${mappingData.length}件をGoogleスプレッドシートに保存します。よろしいですか？`)) return;
   setGasStatus('保存中...', 'info');
   try {
-    const res = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'set', data: mappingData })
-    });
+    // GETパラメータでデータを送信（CORS回避）
+    const encoded = encodeURIComponent(JSON.stringify(mappingData));
+    const res = await fetch(`${url}?action=set&data=${encoded}`, { method: 'GET' });
     if (!res.ok) throw new Error('通信エラー: ' + res.status);
     const result = await res.json();
     setGasStatus(`✅ 保存完了 — ${mappingData.length}件をスプレッドシートに書き込みました`, 'ok');
@@ -1376,5 +1375,6 @@ function showImportToast(message) {
 loadGasUrl();
 renderMapping();
 </script>
-</body>
-</html>
+
+
+</body></html>
