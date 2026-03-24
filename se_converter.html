@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_22.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_23.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1213,31 +1213,53 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
 // 未登録スタッフの一時保存
 const pendingUnmatched = {};
 
-// 配置一覧から氏名あいまい検索
+// 配置一覧から氏名あいまい検索（精度向上版）
 function searchHaichiByName(name) {
   if (!files['se-haichi']) return [];
   const haichiRows = csvToObjects(files['se-haichi'].data);
-  const normalize = s => String(s||'').replace(/[　 ]/g,'').toLowerCase();
+  const normalize = s => String(s||'').replace(/[　 \s]/g,'').toLowerCase();
   const searchName = normalize(name);
   if (!searchName) return [];
 
-  // 姓のみ抽出（スペース前）
-  const lastName = searchName.split(/\s/)[0];
+  // 姓・名を分割（スペース区切り）
+  const parts = String(name||'').trim().split(/[　 ]+/);
+  const lastName  = normalize(parts[0] || '');
+  const firstName = normalize(parts[1] || '');
+
+  // スコアリング関数
+  function scoreMatch(staffName) {
+    const sn = normalize(staffName);
+    // 完全一致
+    if (sn === searchName) return 100;
+    // 姓名両方一致
+    const snParts = staffName.trim().split(/[　 ]+/);
+    const snLast  = normalize(snParts[0] || '');
+    const snFirst = normalize(snParts[1] || '');
+    if (snLast === lastName && firstName && snFirst === firstName) return 90;
+    // 姓一致＋名の前方一致
+    if (snLast === lastName && firstName && snFirst.startsWith(firstName.slice(0,1))) return 70;
+    // 姓一致のみ
+    if (snLast === lastName) return 50;
+    // 名一致のみ（姓が読み方違い等）
+    if (firstName && snFirst === firstName) return 30;
+    // 姓の前方一致
+    if (snLast.startsWith(lastName.slice(0,1)) && lastName.length >= 1) return 10;
+    return 0;
+  }
 
   return haichiRows
-    .filter(r => {
-      const staffName = normalize(r['スタッフ名']||'');
-      return staffName.includes(lastName) || lastName.includes(staffName.slice(0,2));
-    })
     .map(r => ({
       staffNo: String(r['スタッフNO']||'').trim(),
       name: String(r['スタッフ名']||'').trim(),
       company: String(r['得意先名']||'').trim(),
       office: String(r['配置部門']||'').trim(),
-      ankenNo: String(r['案件管理NO']||'').trim()
+      ankenNo: String(r['案件管理NO']||'').trim(),
+      score: scoreMatch(String(r['スタッフ名']||''))
     }))
+    .filter(r => r.score >= 50 && r.name.trim() !== '') // 姓一致以上かつ氏名あり
+    .sort((a, b) => b.score - a.score) // スコア順
     .filter((v, i, arr) => arr.findIndex(x => x.staffNo === v.staffNo) === i) // 重複除去
-    .slice(0, 8); // 最大8件
+    .slice(0, 6); // 最大6件
 }
 
 function renderUnmatchedRows(prefix) {
