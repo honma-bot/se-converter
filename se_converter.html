@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_17.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_18.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_17.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_17.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_17.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_17.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_17.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2156,21 +2156,46 @@ function setGasStatus(msg, type) {
   el.textContent = msg;
 }
 
+function jsonp(url, params) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'gasCallback_' + Date.now();
+    const fullUrl = url + '?' + Object.entries({...params, callback: cbName})
+      .map(([k,v]) => k + '=' + encodeURIComponent(v)).join('&');
+    const script = document.createElement('script');
+    script.src = fullUrl;
+    window[cbName] = (data) => {
+      delete window[cbName];
+      document.head.removeChild(script);
+      resolve(data);
+    };
+    script.onerror = () => {
+      delete window[cbName];
+      document.head.removeChild(script);
+      reject(new Error('通信エラー（スクリプト読み込み失敗）'));
+    };
+    setTimeout(() => {
+      if (window[cbName]) {
+        delete window[cbName];
+        if (script.parentNode) document.head.removeChild(script);
+        reject(new Error('タイムアウト（10秒）'));
+      }
+    }, 10000);
+    document.head.appendChild(script);
+  });
+}
+
 async function fetchFromSheets() {
   const url = document.getElementById('gas-url').value.trim();
   if (!url) { setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
   setGasStatus('読み込み中...', 'info');
   try {
-    const res = await fetch(url + '?action=get');
-    if (!res.ok) throw new Error('通信エラー: ' + res.status);
-    const data = await res.json();
+    const data = await jsonp(url, { action: 'get' });
     if (!Array.isArray(data)) throw new Error('データ形式が不正です');
-
     let added = 0, skipped = 0;
     data.forEach(r => {
       if (!r.staffiaCode || !r.seNo) return;
-      if (mappingData.find(m => m.staffiaCode === r.staffiaCode)) { skipped++; return; }
-      mappingData.push({ staffiaCode: r.staffiaCode, name: r.name||'', seNo: r.seNo, ankenNo: r.ankenNo||'' });
+      if (mappingData.find(m => m.staffiaCode === r.staffiaCode && m.type === (r.type||'staffia'))) { skipped++; return; }
+      mappingData.push({ type: r.type||'staffia', staffiaCode: r.staffiaCode, name: r.name||'', seNo: r.seNo, ankenNo: r.ankenNo||'' });
       added++;
     });
     renderMapping();
@@ -2187,11 +2212,8 @@ async function pushToSheets() {
   if (!confirm(`対応表 ${mappingData.length}件をGoogleスプレッドシートに保存します。よろしいですか？`)) return;
   setGasStatus('保存中...', 'info');
   try {
-    // GETパラメータでデータを送信（CORS回避）
-    const encoded = encodeURIComponent(JSON.stringify(mappingData));
-    const res = await fetch(`${url}?action=set&data=${encoded}`, { method: 'GET' });
-    if (!res.ok) throw new Error('通信エラー: ' + res.status);
-    const result = await res.json();
+    const result = await jsonp(url, { action: 'set', data: JSON.stringify(mappingData) });
+    if (result.error) throw new Error(result.error);
     setGasStatus(`✅ 保存完了 — ${mappingData.length}件をスプレッドシートに書き込みました`, 'ok');
   } catch(e) {
     setGasStatus('❌ 保存失敗: ' + e.message, 'err');
