@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)file:///C:/Users/honma/Downloads/se_converter_8.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_12.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_8.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_8.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_8.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_8.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_8.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -926,6 +926,7 @@ function convertCS() {
   addLog('info', 'CloudStaffing 変換開始...');
   pendingMultiAnken['cs'] = [];
   pendingUnmatched['cs'] = [];
+  pendingTimeErrors['cs'] = [];
 
   // --- フォーマットチェック ---
   const csRows = csvToObjects(files['cs-kintai'].data);
@@ -1013,7 +1014,11 @@ function convertCS() {
 
     // 時間矛盾チェック
     const timeErr = checkTimeOrder(start, end, staffNo, date, 'CloudStaffing');
-    if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+    if (timeErr) {
+      addLog('warn', timeErr); timeErrors++;
+      if (!pendingTimeErrors['cs']) pendingTimeErrors['cs'] = [];
+      pendingTimeErrors['cs'].push({ staffNo, name: row['スタッフ名']||'', date, start, end });
+    }
 
     results.push({ 'スタッフNO': staffNo, '就業年月日': date,
       '支給始業時間': start, '支給終業時間': end, '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
@@ -1054,6 +1059,9 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
     <div class="stat"><span class="stat-num" style="color:${unmatched>0?'var(--warning)':'var(--text-muted)'}">${unmatched}</span><div class="stat-label">未登録</div></div>
     <div class="stat"><span class="stat-num" style="color:var(--text-muted)">${absent}</span><div class="stat-label">欠勤/休日</div></div>
   `;
+
+  // 要確認サマリーバナーは各UIレンダリング後に構築（タイマーで遅延）
+  setTimeout(() => buildWarnSummary(prefix), 100);
 
   const logEl = document.getElementById(prefix+'-log');
   logEl.innerHTML = log.map(l => `<div class="${l.type}">[${l.type.toUpperCase()}] ${l.msg}</div>`).join('');
@@ -1116,9 +1124,43 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
     renderMultiAnkenRows(prefix);
   }
 
+  // 時間矛盾UIを追加
+  const existingTimeUI = resultCard.querySelector('.time-error-ui');
+  if (existingTimeUI) existingTimeUI.remove();
+  if (pendingTimeErrors[prefix] && pendingTimeErrors[prefix].length > 0) {
+    const ui3 = document.createElement('div');
+    ui3.className = 'time-error-ui';
+    ui3.style.cssText = 'margin-top:20px;';
+    ui3.innerHTML = `
+      <div class="card-title" style="color:var(--warning);margin-bottom:12px;">
+        ⏰ 時間矛盾 ${pendingTimeErrors[prefix].length}件 — 始業・終業時間を確認してください
+      </div>
+      <table class="mapping-table" style="margin-bottom:12px;">
+        <thead><tr>
+          <th>スタッフNO</th><th>氏名</th><th>日付</th><th>始業</th><th>終業</th><th>対応</th>
+        </tr></thead>
+        <tbody id="${prefix}-time-tbody"></tbody>
+      </table>
+      <button class="btn-convert" style="max-width:320px;padding:12px;" onclick="applyTimeCorrections('${prefix}')">
+        🔄 修正内容を反映して再出力
+      </button>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">※「このままOK」にした行はそのままCSVに出力されます。</p>
+    `;
+    const multiUI = resultCard.querySelector('.multi-anken-ui');
+    const unmatchedUI2 = resultCard.querySelector('.unmatched-ui');
+    const insertRef = multiUI || unmatchedUI2 || resultCard.querySelector('.log');
+    insertRef.insertAdjacentElement('afterend', ui3);
+    renderTimeErrorRows(prefix);
+  }
+
   if (url) {
     const dlBtn = document.getElementById(prefix+'-dl-btn');
     dlBtn.href = url;
+    // ファイル名に年月を自動付与
+    const now = new Date();
+    const ym = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0');
+    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
+    dlBtn.download = `SE_勤怠インポート_${nameMap[prefix]||prefix}_${ym}.csv`;
     document.querySelector(`#${prefix}-result-card .btn-dl`).style.display = 'inline-flex';
   } else {
     document.querySelector(`#${prefix}-result-card .btn-dl`).style.display = 'none';
@@ -1235,7 +1277,13 @@ function reExportWithSelection(prefix) {
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const dlBtn = document.getElementById(`${prefix}-dl-btn`);
-  if (dlBtn) dlBtn.href = url;
+  if (dlBtn) {
+    dlBtn.href = url;
+    const now = new Date();
+    const ym = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0');
+    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
+    dlBtn.download = `SE_勤怠インポート_${nameMap[prefix]||prefix}_${ym}.csv`;
+  }
   showImportToast('✅ 選択内容で再出力しました。CSVをダウンロードしてください。');
 
   // UIを非表示
@@ -1245,6 +1293,143 @@ function reExportWithSelection(prefix) {
 
 // 変換結果データの一時保存
 const pendingResultData = {};
+const pendingTimeErrors = {};
+
+function buildWarnSummary(prefix) {
+  const resultCard = document.getElementById(prefix + '-result-card');
+  if (!resultCard) return;
+
+  const existingSummary = resultCard.querySelector('.warn-summary');
+  if (existingSummary) existingSummary.remove();
+
+  const warnItems = [];
+  if (resultCard.querySelector('.multi-anken-ui'))
+    warnItems.push({ icon:'📋', label:'案件NO複数ヒット', count: (pendingMultiAnken[prefix]||[]).length, target: 'multi-anken-ui', color: '#F4566F' });
+  if (resultCard.querySelector('.unmatched-ui'))
+    warnItems.push({ icon:'⚠', label:'案件NO未特定', count: (pendingUnmatched[prefix]||[]).length, target: 'unmatched-ui', color: '#d97706' });
+  if (resultCard.querySelector('.time-error-ui'))
+    warnItems.push({ icon:'⏰', label:'時間矛盾', count: (pendingTimeErrors[prefix]||[]).length, target: 'time-error-ui', color: '#d97706' });
+
+  if (warnItems.length === 0) return;
+
+  const summary = document.createElement('div');
+  summary.className = 'warn-summary';
+  summary.style.cssText = 'background:#fff8f0;border:1px solid #fde8c0;border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;';
+  summary.innerHTML = '<span style="font-size:12px;font-weight:700;color:#d97706;margin-right:4px;">⚠ 要確認</span>' +
+    warnItems.map(item =>
+      `<button onclick="toggleSection('${prefix}','${item.target}')"
+        style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid ${item.color};border-radius:20px;background:white;color:${item.color};font-size:12px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;">
+        ${item.icon} ${item.label}&nbsp;<span style="background:${item.color};color:white;border-radius:10px;padding:1px 8px;font-size:11px;">${item.count}件</span>
+      </button>`
+    ).join('');
+
+  const statsEl = resultCard.querySelector('.stats');
+  statsEl.insertAdjacentElement('afterend', summary);
+}
+
+function renderTimeErrorRows(prefix) {
+  const tbody = document.getElementById(prefix + '-time-tbody');
+  if (!tbody) return;
+  const list = pendingTimeErrors[prefix] || [];
+  tbody.innerHTML = list.map((e, i) => `
+    <tr id="${prefix}-time-row-${i}" style="${e.resolved ? 'opacity:0.4;' : ''}">
+      <td><span style="font-family:'Space Mono',monospace;font-size:11px">${e.staffNo}</span></td>
+      <td>${e.name||''}</td>
+      <td>${e.date}</td>
+      <td>
+        ${e.editing ?
+          `<input type="text" value="${e.start}" id="${prefix}-time-start-${i}"
+            style="width:70px;font-size:12px;padding:4px;border:1px solid var(--border);border-radius:4px;">` :
+          `<span style="color:${e.resolved ? 'var(--success)' : 'var(--danger)'}">${e.start}</span>`
+        }
+      </td>
+      <td>
+        ${e.editing ?
+          `<input type="text" value="${e.end}" id="${prefix}-time-end-${i}"
+            style="width:70px;font-size:12px;padding:4px;border:1px solid var(--border);border-radius:4px;">` :
+          `<span style="color:${e.resolved ? 'var(--success)' : 'var(--danger)'}">${e.end}</span>`
+        }
+      </td>
+      <td style="white-space:nowrap;">
+        ${e.resolved ? `<span style="color:var(--success);font-size:12px;">✓ 処理済</span>` : `
+          ${e.editing ?
+            `<button class="btn-add" onclick="saveTimeEdit('${prefix}',${i})" style="font-size:11px;padding:4px 10px;">保存</button>` :
+            `<button class="btn-add" onclick="editTimeRow('${prefix}',${i})" style="font-size:11px;padding:4px 10px;">✏ 修正</button>`
+          }
+          <button class="btn-add" onclick="skipTimeRow('${prefix}',${i})"
+            style="font-size:11px;padding:4px 10px;border-color:var(--success);color:var(--success);margin-left:4px;">✓ OK</button>
+        `}
+      </td>
+    </tr>
+  `).join('');
+}
+
+function editTimeRow(prefix, idx) {
+  pendingTimeErrors[prefix][idx].editing = true;
+  renderTimeErrorRows(prefix);
+}
+
+function saveTimeEdit(prefix, idx) {
+  const newStart = document.getElementById(prefix + '-time-start-' + idx).value.trim();
+  const newEnd   = document.getElementById(prefix + '-time-end-' + idx).value.trim();
+  pendingTimeErrors[prefix][idx].start = newStart;
+  pendingTimeErrors[prefix][idx].end   = newEnd;
+  pendingTimeErrors[prefix][idx].editing = false;
+  pendingTimeErrors[prefix][idx].resolved = true;
+  renderTimeErrorRows(prefix);
+}
+
+function skipTimeRow(prefix, idx) {
+  pendingTimeErrors[prefix][idx].resolved = true;
+  pendingTimeErrors[prefix][idx].editing  = false;
+  renderTimeErrorRows(prefix);
+}
+
+function applyTimeCorrections(prefix) {
+  const corrections = {};
+  (pendingTimeErrors[prefix] || []).forEach(e => {
+    if (e.resolved) {
+      corrections[e.staffNo + '_' + e.date] = { start: e.start, end: e.end };
+    }
+  });
+
+  const corrected = (pendingResultData[prefix] || []).map(row => {
+    const key = row['スタッフNO'] + '_' + row['就業年月日'];
+    if (corrections[key]) {
+      return { ...row, '支給始業時間': corrections[key].start, '支給終業時間': corrections[key].end,
+                       '請求始業時間': corrections[key].start, '請求終業時間': corrections[key].end };
+    }
+    return row;
+  });
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const csv = [cols.join(','), ...corrected.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const dlBtn = document.getElementById(prefix + '-dl-btn');
+  if (dlBtn) dlBtn.href = url;
+  pendingResultData[prefix] = corrected;
+  showImportToast('✅ 修正内容を反映しました。CSVをダウンロードしてください。');
+}
+
+function toggleSection(prefix, className) {
+  const resultCard = document.getElementById(prefix + '-result-card');
+  if (!resultCard) return;
+  const target = resultCard.querySelector('.' + className);
+  if (!target) return;
+  // 折りたたみトグル
+  if (target.style.display === 'none') {
+    target.style.display = 'block';
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (target.dataset.collapsed === '1') {
+    target.style.display = 'block';
+    target.dataset.collapsed = '0';
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    target.dataset.collapsed = '1';
+    target.style.display = 'none';
+  }
+}
 
 function bulkRegisterMapping(prefix) {
   const list = pendingUnmatched[prefix] || [];
@@ -1336,7 +1521,11 @@ function convertStaffia() {
 
     // 時間矛盾チェック
     const timeErr = checkTimeOrder(startTime, endTime, seNo||staffiaCode, date, 'Staffia');
-    if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+    if (timeErr) {
+      addLog('warn', timeErr); timeErrors++;
+      if (!pendingTimeErrors['staffia']) pendingTimeErrors['staffia'] = [];
+      pendingTimeErrors['staffia'].push({ staffNo: seNo||staffiaCode, name: row['氏名']||'', date, start: startTime, end: endTime });
+    }
 
     // 休憩時間計算
     let restMin = 0;
@@ -1394,6 +1583,9 @@ function convertHRStation() {
   const log = [];
   const addLog = (type, msg) => log.push({type, msg});
   addLog('info', 'HR-Station 変換開始...');
+  pendingUnmatched['hrstation'] = [];
+  pendingMultiAnken['hrstation'] = [];
+  pendingTimeErrors['hrstation'] = [];
 
   // --- フォーマットチェック ---
   const rows = csvToObjects(files['hrstation-kintai'].data);
@@ -1436,11 +1628,22 @@ function convertHRStation() {
     const ankenMatches = findAllAnken(haichiMap, staffNo, date);
     let ankenNo = '';
     if (ankenMatches.length === 0) {
-      if (haichiRows.length > 0) { unmatched++; addLog('warn', `案件NO未特定: スタッフ${staffNo} ${date}`); }
+      if (haichiRows.length > 0) {
+        unmatched++;
+        addLog('warn', `案件NO未特定: スタッフ${staffNo} ${date}`);
+        if (!pendingUnmatched['hrstation'].find(x => x.code === staffNo)) {
+          pendingUnmatched['hrstation'].push({ type:'hrstation', code: staffNo, name: row['スタッフ氏名']||'', seNo: staffNo, ankenNo:'' });
+        }
+      }
     } else if (ankenMatches.length > 1) {
       multiAnken++;
       ankenNo = ankenMatches[0].ankenNo;
-      addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}（先頭を使用）`);
+      addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}`);
+      pendingMultiAnken['hrstation'].push({
+        staffNo, name: row['スタッフ氏名']||'', date,
+        candidates: ankenMatches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+        selected: ankenMatches[0].ankenNo
+      });
       matched++;
     } else {
       ankenNo = ankenMatches[0].ankenNo;
@@ -1481,7 +1684,11 @@ function convertHRStation() {
 
     // 時間矛盾チェック
     const timeErr = checkTimeOrder(start, end, staffNo, date, 'HR-Station');
-    if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+    if (timeErr) {
+      addLog('warn', timeErr); timeErrors++;
+      if (!pendingTimeErrors['hrstation']) pendingTimeErrors['hrstation'] = [];
+      pendingTimeErrors['hrstation'].push({ staffNo, name: row['スタッフ氏名']||'', date, start, end });
+    }
 
     results.push({ 'スタッフNO': staffNo, '就業年月日': date,
       '支給始業時間': start, '支給終業時間': end,
@@ -1511,6 +1718,7 @@ function convertHRStation() {
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
 
+  pendingResultData['hrstation'] = results;
   showResult('hrstation', results.length, matched, unmatched, absent, log, url);
 }
 
@@ -1626,7 +1834,11 @@ function convertTMJ() {
 
     // 時間矛盾チェック
     const timeErr = checkTimeOrder(start, end, seNo||empNo, date, 'TMJ');
-    if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+    if (timeErr) {
+      addLog('warn', timeErr); timeErrors++;
+      if (!pendingTimeErrors['tmj']) pendingTimeErrors['tmj'] = [];
+      pendingTimeErrors['tmj'].push({ staffNo: seNo||empNo, name: row['氏名']||'', date, start, end });
+    }
 
     results.push({ 'スタッフNO': seNo, '就業年月日': date,
       '支給始業時間': start, '支給終業時間': end,
