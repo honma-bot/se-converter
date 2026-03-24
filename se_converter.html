@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_21.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_22.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_22.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -751,6 +751,7 @@ function processFile(file, fileKey, dzId) {
         // リプライオリティ用にワークブックをグローバルに保持（同じreaderで）
         if (fileKey === 'replyority-kintai') {
           window.replyorityWB = XLSX.read(e.target.result, { type: 'array', cellDates: false });
+          console.log('replyorityWB loaded:', window.replyorityWB.SheetNames.length, 'sheets');
         }
 
         const ws = wb.Sheets[wb.SheetNames[0]];
@@ -2138,15 +2139,21 @@ function convertReplyority() {
   const addLog = (type, msg) => log.push({type, msg});
   addLog('info', 'リプライオリティ 変換開始...');
   pendingUnmatched['replyority'] = [];
+  pendingMultiAnken['replyority'] = [];
+  pendingTimeErrors['replyority'] = [];
 
   // SheetJSで複数シートを読み込む
   const fileInfo = files['replyority-kintai'];
   if (!fileInfo) { addLog('err', 'ファイルが読み込まれていません'); showResult('replyority',0,0,0,0,log,null); return; }
+  addLog('info', `replyorityWB状態: ${replyorityWB ? replyorityWB.SheetNames.length+'シート' : 'null'}`);
 
-  // fileInfoのrawデータからシートを再読込（processFileでCSV変換済みのため、rawが必要）
-  // → rawExcelDataとして別途保持する方式に変更済み
-  const wb = replyorityWB;
-  if (!wb) { addLog('err', 'Excelファイルを再読込してください（ドロップし直し）'); showResult('replyority',0,0,0,0,log,null); return; }
+  // replyorityWBを使用（processFileで保持済み）
+  let wb = replyorityWB;
+  if (!wb) {
+    addLog('err', 'Excelワークブックが読み込まれていません。ファイルをドロップし直してから少し待って再度実行してください。');
+    showResult('replyority',0,0,0,0,log,null);
+    return;
+  }
 
   // 対応表（replyority種別）
   const mapLookup = {};
