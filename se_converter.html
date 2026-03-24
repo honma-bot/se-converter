@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_27.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_29.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Staff Express 勤怠変換ツール</title>
-<script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script>
+<script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script>
 <script>
 // SheetJS読み込み確認
 window.addEventListener('load', function() {
@@ -419,7 +419,7 @@ window.addEventListener('load', function() {
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
-</head>
+<script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script></head>
 <body>
 <div class="container">
   <header>
@@ -469,6 +469,7 @@ window.addEventListener('load', function() {
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <input type="text" id="gas-url" placeholder="https://script.google.com/macros/s/xxxx/exec" style="flex:1;min-width:260px;">
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
+          <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
         <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
       </div>
@@ -504,7 +505,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_27.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -539,7 +540,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_27.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -574,7 +575,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_27.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -608,7 +609,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_27.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -643,7 +644,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_27.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2251,6 +2252,23 @@ function convertReplyority() {
 // ===================== Google Sheets連携 =====================
 const GAS_URL_KEY = 'se_converter_gas_url';
 
+function testGasConnection() {
+  const url = document.getElementById('gas-url').value.trim();
+  if (!url) { setGasStatus('⚠ URLを入力してください', 'warn'); return; }
+  setGasStatus('接続テスト中...', 'info');
+  jsonp(url, { action: 'get' })
+    .then(data => {
+      if (Array.isArray(data)) {
+        setGasStatus(`✅ 接続OK — GASから ${data.length}件 取得できました`, 'ok');
+      } else {
+        setGasStatus('⚠ 接続できましたがデータ形式が不正です: ' + JSON.stringify(data).slice(0, 80), 'warn');
+      }
+    })
+    .catch(e => {
+      setGasStatus('❌ 接続失敗: ' + e.message + '　※GASのデプロイ設定・アクセス権を確認してください', 'err');
+    });
+}
+
 function saveGasUrl() {
   const url = document.getElementById('gas-url').value.trim();
   if (!url) { setGasStatus('URLを入力してください', 'warn'); return; }
@@ -2319,11 +2337,27 @@ async function fetchFromSheets(silent) {
 
 async function pushToSheets() {
   const url = document.getElementById('gas-url').value.trim();
-  if (!url || mappingData.length === 0) return;
+  if (!url) { setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
+  if (mappingData.length === 0) { setGasStatus('⚠ 対応表が空です', 'warn'); return; }
+
+  setGasStatus('保存中...', 'info');
   try {
-    const result = await jsonp(url, { action: 'set', data: JSON.stringify(mappingData) });
-    if (result && result.error) throw new Error(result.error);
-    setGasStatus(`✅ 保存完了 — ${mappingData.length}件`, 'ok');
+    // GAS は POST をリダイレクト(302)するため no-cors で送信
+    await fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'set', data: mappingData })
+    });
+    // no-cors では応答本文を読めないため、GETで保存確認する
+    setGasStatus('確認中...', 'info');
+    await new Promise(r => setTimeout(r, 1200)); // GAS の書込み待ち
+    const saved = await jsonp(url, { action: 'get' });
+    if (Array.isArray(saved)) {
+      setGasStatus(`✅ 保存完了 — ${mappingData.length}件（確認済）`, 'ok');
+    } else {
+      setGasStatus('⚠ 送信しましたが確認できませんでした。GASのログを確認してください。', 'warn');
+    }
   } catch(e) {
     setGasStatus('❌ 保存失敗: ' + e.message, 'err');
   }
