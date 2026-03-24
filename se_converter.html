@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_18.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_19.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_18.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1125,7 +1125,7 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
         <tbody id="${prefix}-unmatched-tbody"></tbody>
       </table>
       <button class="btn-convert" style="max-width:300px;padding:12px;" onclick="bulkRegisterMapping('${prefix}')">
-        ✅ 対応表に一括登録
+        ✅ マッチング済みを対応表に一括登録
       </button>
     `;
     resultCard.insertBefore(ui, resultCard.querySelector('.log').nextSibling);
@@ -1196,27 +1196,120 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
 // 未登録スタッフの一時保存
 const pendingUnmatched = {};
 
+// 配置一覧から氏名あいまい検索
+function searchHaichiByName(name) {
+  if (!files['se-haichi']) return [];
+  const haichiRows = csvToObjects(files['se-haichi'].data);
+  const normalize = s => String(s||'').replace(/[　 ]/g,'').toLowerCase();
+  const searchName = normalize(name);
+  if (!searchName) return [];
+
+  // 姓のみ抽出（スペース前）
+  const lastName = searchName.split(/\s/)[0];
+
+  return haichiRows
+    .filter(r => {
+      const staffName = normalize(r['スタッフ名']||'');
+      return staffName.includes(lastName) || lastName.includes(staffName.slice(0,2));
+    })
+    .map(r => ({
+      staffNo: String(r['スタッフNO']||'').trim(),
+      name: String(r['スタッフ名']||'').trim(),
+      company: String(r['得意先名']||'').trim(),
+      office: String(r['配置部門']||'').trim(),
+      ankenNo: String(r['案件管理NO']||'').trim()
+    }))
+    .filter((v, i, arr) => arr.findIndex(x => x.staffNo === v.staffNo) === i) // 重複除去
+    .slice(0, 8); // 最大8件
+}
+
 function renderUnmatchedRows(prefix) {
   const tbody = document.getElementById(`${prefix}-unmatched-tbody`);
   if (!tbody) return;
   const list = pendingUnmatched[prefix] || [];
-  tbody.innerHTML = list.map((item, i) => `
-    <tr>
-      <td><span class="badge badge-new">${item.type}</span></td>
-      <td><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent)">${item.code}</span></td>
-      <td>${item.name}</td>
-      <td>
-        <input type="text" placeholder="例: 100001"
-          style="width:100px;"
-          value="${item.seNo||''}"
-          oninput="onSeNoInput('${prefix}',${i},this.value)"
-          onchange="onSeNoInput('${prefix}',${i},this.value)">
+
+  tbody.innerHTML = list.map((item, i) => {
+    const candidates = searchHaichiByName(item.name);
+    const candidateHTML = candidates.length > 0
+      ? `<div style="margin-top:6px;">
+          ${candidates.map(c => `
+            <div onclick="selectHaichiMatch('${prefix}',${i},'${c.staffNo}','${c.ankenNo}')"
+              style="display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border);
+                border-radius:6px;margin-bottom:4px;cursor:pointer;background:white;transition:all 0.15s;flex-wrap:wrap;"
+              onmouseover="this.style.borderColor='var(--accent)';this.style.background='var(--accent-light)';"
+              onmouseout="this.style.borderColor='var(--border)';this.style.background='white';">
+              <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);min-width:60px;">${c.staffNo}</span>
+              <span style="font-weight:700;font-size:12px;min-width:80px;">${c.name}</span>
+              <span style="font-size:11px;color:var(--text-muted);">${c.company}</span>
+              <span style="font-size:11px;color:var(--text-dim);background:var(--surface2);padding:2px 6px;border-radius:4px;">${c.office}</span>
+            </div>
+          `).join('')}
+        </div>`
+      : `<div style="font-size:11px;color:var(--text-dim);margin-top:4px;">配置一覧に候補が見つかりません。手動で入力してください。</div>`;
+
+    return `<tr id="${prefix}-unmatched-row-${i}">
+      <td style="vertical-align:top;padding-top:10px;"><span class="badge badge-new">${item.type}</span></td>
+      <td style="vertical-align:top;padding-top:10px;"><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent)">${item.code}</span></td>
+      <td style="vertical-align:top;padding-top:10px;font-weight:700;">${item.name}</td>
+      <td colspan="2">
+        ${item.matched
+          ? `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(15,169,104,0.08);border:1px solid var(--success);border-radius:6px;">
+              <span style="color:var(--success);font-weight:700;">✓ マッチング済</span>
+              <span style="font-family:'Space Mono',monospace;font-size:11px;">${item.seNo}</span>
+              <span style="font-size:12px;">${item.matchedName||''}</span>
+              <span style="font-size:11px;color:var(--text-muted);">${item.matchedCompany||''}</span>
+              <span style="font-size:11px;color:var(--text-dim);">${item.matchedOffice||''}</span>
+              <button class="btn-del" onclick="clearMatch('${prefix}',${i})" style="margin-left:auto;font-size:10px;">取消</button>
+            </div>`
+          : `<div>
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">配置一覧から選択してください：</div>
+              ${candidateHTML}
+              <div style="display:flex;gap:6px;margin-top:6px;align-items:center;">
+                <span style="font-size:11px;color:var(--text-dim);">手動入力:</span>
+                <input type="text" placeholder="スタッフNO" id="${prefix}-manual-seno-${i}"
+                  style="width:80px;font-size:11px;padding:4px 6px;border:1px solid var(--border);border-radius:4px;"
+                  onchange="onManualSeNoInput('${prefix}',${i},this.value)">
+                <span id="${prefix}-manual-anken-${i}" style="font-size:11px;color:var(--text-muted);"></span>
+              </div>
+            </div>`
+        }
       </td>
-      <td id="${prefix}-anken-${i}">
-        <span style="font-size:11px;color:var(--text-dim);">SEスタッフNO入力後に自動検索</span>
-      </td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
+}
+
+function selectHaichiMatch(prefix, idx, staffNo, ankenNo) {
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const matched = haichiRows.find(r => String(r['スタッフNO']||'').trim() === staffNo);
+  pendingUnmatched[prefix][idx].seNo = staffNo;
+  pendingUnmatched[prefix][idx].ankenNo = ankenNo;
+  pendingUnmatched[prefix][idx].matched = true;
+  pendingUnmatched[prefix][idx].matchedName = matched ? String(matched['スタッフ名']||'').trim() : '';
+  pendingUnmatched[prefix][idx].matchedCompany = matched ? String(matched['得意先名']||'').trim() : '';
+  pendingUnmatched[prefix][idx].matchedOffice = matched ? String(matched['配置部門']||'').trim() : '';
+  renderUnmatchedRows(prefix);
+}
+
+function clearMatch(prefix, idx) {
+  pendingUnmatched[prefix][idx].seNo = '';
+  pendingUnmatched[prefix][idx].ankenNo = '';
+  pendingUnmatched[prefix][idx].matched = false;
+  renderUnmatchedRows(prefix);
+}
+
+function onManualSeNoInput(prefix, idx, seNo) {
+  seNo = seNo.trim();
+  pendingUnmatched[prefix][idx].seNo = seNo;
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const matches = haichiRows.filter(r => String(r['スタッフNO']||'').trim() === seNo);
+  const cell = document.getElementById(`${prefix}-manual-anken-${idx}`);
+  if (matches.length > 0) {
+    const ankenNo = String(matches[0]['案件管理NO']||'').trim();
+    pendingUnmatched[prefix][idx].ankenNo = ankenNo;
+    if (cell) cell.textContent = '→ ' + ankenNo;
+  } else {
+    if (cell) cell.textContent = '未見つかりません';
+  }
 }
 
 function onSeNoInput(prefix, idx, seNo) {
@@ -1527,9 +1620,9 @@ function toggleSection(prefix, className) {
 
 function bulkRegisterMapping(prefix) {
   const list = pendingUnmatched[prefix] || [];
-  let added = 0, skipped = 0;
+  let added = 0, skipped = 0, noMatch = 0;
   list.forEach(item => {
-    if (!item.seNo) { skipped++; return; }
+    if (!item.seNo) { noMatch++; return; }
     if (mappingData.find(m => m.staffiaCode === item.code && m.type === item.type)) { skipped++; return; }
     mappingData.push({
       type: item.type,
@@ -1541,7 +1634,19 @@ function bulkRegisterMapping(prefix) {
     added++;
   });
   renderMapping();
-  showImportToast(`✅ 対応表に${added}件登録しました${skipped>0?' / '+skipped+'件スキップ':''}`);
+
+  // スプレッドシートへ自動保存
+  const gasUrl = document.getElementById('gas-url').value.trim();
+  if (gasUrl && added > 0) {
+    pushToSheets().then(() => {
+      showImportToast(`✅ 対応表に${added}件登録 → スプレッドシートへ自動保存しました${noMatch>0?' / 未選択'+noMatch+'件':''}`);
+    }).catch(() => {
+      showImportToast(`✅ 対応表に${added}件登録（スプレッドシート保存は手動で実行してください）`);
+    });
+  } else {
+    showImportToast(`✅ 対応表に${added}件登録しました${noMatch>0?' / 未選択'+noMatch+'件':''}`);
+  }
+
   // UIを非表示
   const ui = document.querySelector(`#${prefix}-result-card .unmatched-ui`);
   if (ui) ui.remove();
