@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_33.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_34.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -505,7 +505,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -540,7 +540,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -575,7 +575,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -609,7 +609,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -644,7 +644,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1096,9 +1096,14 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
         </tr></thead>
         <tbody id="${prefix}-unmatched-tbody"></tbody>
       </table>
-      <button class="btn-convert" style="max-width:300px;padding:12px;" onclick="bulkRegisterMapping('${prefix}')">
-        ✅ マッチング済みを対応表に一括登録
-      </button>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+        <button class="btn-convert" style="flex:1;padding:12px;" onclick="bulkRegisterMapping('${prefix}')">
+          ✅ 登録してCSVをダウンロード
+        </button>
+      </div>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px;">
+        ※「変換不要」にしたスタッフはCSVに出力されません。マッチング済みのスタッフのみ対応表に登録されます。
+      </p>
     `;
     resultCard.insertBefore(ui, resultCard.querySelector('.log').nextSibling);
     renderUnmatchedRows(prefix);
@@ -1251,12 +1256,17 @@ function renderUnmatchedRows(prefix) {
         </div>`
       : `<div style="font-size:11px;color:var(--text-dim);margin-top:4px;">配置一覧に候補が見つかりません。手動で入力してください。</div>`;
 
-    return `<tr id="${prefix}-unmatched-row-${i}">
+    return `<tr id="${prefix}-unmatched-row-${i}" style="${item.skipped ? 'opacity:0.4;' : ''}">
       <td style="vertical-align:top;padding-top:10px;"><span class="badge badge-new">${item.type}</span></td>
       <td style="vertical-align:top;padding-top:10px;"><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent)">${item.code}</span></td>
       <td style="vertical-align:top;padding-top:10px;font-weight:700;">${item.name}</td>
       <td colspan="2">
-        ${item.matched
+        ${item.skipped
+          ? `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(180,180,180,0.1);border:1px solid #ccc;border-radius:6px;">
+              <span style="color:#999;font-weight:700;">⏭ 変換・取込不要</span>
+              <button class="btn-del" onclick="pendingUnmatched['${prefix}'][${i}].skipped=false;renderUnmatchedRows('${prefix}')" style="margin-left:auto;font-size:10px;">取消</button>
+            </div>`
+          : item.matched
           ? `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(15,169,104,0.08);border:1px solid var(--success);border-radius:6px;">
               <span style="color:var(--success);font-weight:700;">✓ マッチング済</span>
               <span style="font-family:'Space Mono',monospace;font-size:11px;">${item.seNo}</span>
@@ -1274,6 +1284,8 @@ function renderUnmatchedRows(prefix) {
                   style="width:80px;font-size:11px;padding:4px 6px;border:1px solid var(--border);border-radius:4px;"
                   onchange="onManualSeNoInput('${prefix}',${i},this.value)">
                 <span id="${prefix}-manual-anken-${i}" style="font-size:11px;color:var(--text-muted);"></span>
+                <button class="btn-del" onclick="pendingUnmatched['${prefix}'][${i}].skipped=true;renderUnmatchedRows('${prefix}')"
+                  style="margin-left:auto;border-color:#999;color:#999;font-size:10px;">⏭ 変換不要</button>
               </div>
             </div>`
         }
@@ -1464,15 +1476,20 @@ function reExportWithSelection(prefix) {
   });
 
   const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
-  const csv = [cols.join(','), ...corrected.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  // ブランク行（始業時間なし）を除外
+  const exportRows = corrected.filter(r => r['支給始業時間'] && r['支給始業時間'] !== '');
+  const csv = [cols.join(','), ...exportRows.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   setDownloadBtn(prefix, url);
   showImportToast('✅ 選択内容で再出力しました。CSVをダウンロードしてください。');
 
-  // UIを非表示
+  // UIを非表示 & データクリア（再変換しても出てこないように）
   const ui = document.querySelector(`#${prefix}-result-card .multi-anken-ui`);
   if (ui) ui.remove();
+  pendingMultiAnken[prefix] = [];
+  // warn-summaryも更新
+  setTimeout(() => buildWarnSummary(prefix), 50);
 }
 
 // 変換結果データの一時保存
@@ -1674,6 +1691,7 @@ function bulkRegisterMapping(prefix) {
   const list = pendingUnmatched[prefix] || [];
   let added = 0, skipped = 0, noMatch = 0;
   list.forEach(item => {
+    if (item.skipped) { noMatch++; return; } // 変換不要スタッフはスキップ
     if (!item.seNo) { noMatch++; return; }
     if (mappingData.find(m => m.staffiaCode === item.code && m.type === item.type)) { skipped++; return; }
     mappingData.push({
@@ -1699,10 +1717,55 @@ function bulkRegisterMapping(prefix) {
     showImportToast(`✅ 対応表に${added}件登録しました${noMatch>0?' / 未選択'+noMatch+'件':''}`);
   }
 
+  // skippedスタッフのコードセット
+  const skippedCodes = new Set(
+    (pendingUnmatched[prefix]||[]).filter(x => x.skipped).map(x => x.seNo || x.code)
+  );
+
+  // pendingResultDataからskipped・未登録スタッフの行を除外して再CSV出力
+  const allResults = pendingResultData[prefix] || [];
+  const matchedCodes = new Set(
+    (pendingUnmatched[prefix]||[]).filter(x => x.matched && !x.skipped).map(x => x.seNo)
+  );
+  // 案件NO補完（bulkRegisterで登録した内容を反映）
+  const unmatchedLookup = {};
+  (pendingUnmatched[prefix]||[]).forEach(x => { if (x.seNo) unmatchedLookup[x.code] = x; });
+
+  const exportRows = allResults
+    .map(r => {
+      // unmatchedLookupで案件NOを補完
+      const staffCode = Object.keys(unmatchedLookup).find(k => unmatchedLookup[k].seNo === r['スタッフNO']);
+      if (staffCode && unmatchedLookup[staffCode] && !unmatchedLookup[staffCode].skipped) {
+        return { ...r, '案件管理NO': r['案件管理NO'] || unmatchedLookup[staffCode].ankenNo || '' };
+      }
+      return r;
+    })
+    .filter(r => {
+      if (!r['支給始業時間'] || r['支給始業時間'] === '') return false; // ブランク除外
+      if (skippedCodes.has(r['スタッフNO'])) return false;             // 変換不要除外
+      return true;
+    });
+
+  if (exportRows.length > 0) {
+    const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+    const csv = [cols.join(','), ...exportRows.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+    const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    setDownloadBtn(prefix, url);
+    // 自動ダウンロード
+    const a = document.createElement('a');
+    a.href = url;
+    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
+    const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
+    a.download = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+
   // UIを非表示
   const ui = document.querySelector(`#${prefix}-result-card .unmatched-ui`);
   if (ui) ui.remove();
   pendingUnmatched[prefix] = [];
+  setTimeout(() => buildWarnSummary(prefix), 50);
 }
 
 // ===================== Staffia 変換 =====================
