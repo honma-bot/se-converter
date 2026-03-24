@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_30.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_31.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -458,7 +458,7 @@ window.addEventListener('load', function() {
 
     <!-- Staffia対応表 -->
     <div class="card">
-      <div class="card-title">Staffia ↔ Staff Express 対応表</div>
+      <div class="card-title">スタッフ対応表（Staffia / TMJ / リプライオリティ）</div>
 
       <!-- Google Sheets連携設定 -->
       <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;">
@@ -471,11 +471,15 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 102件</div>
       </div>
 
-      <!-- 対応表の件数表示のみ -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
+      <!-- 対応表の件数表示 -->
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
+      <span style="color:var(--success);font-weight:700;">✅ 対応表 102件 登録済</span>
+      <span style="margin-left:12px;font-size:12px;">
+        Staffia: 102件 　TMJ: 0件 　リプライオリティ: 0件
+      </span></div>
     </div>
   </div>
 
@@ -656,6 +660,7 @@ window.addEventListener('load', function() {
 // ===================== State =====================
 const files = {};
 let mappingData = []; // {staffiaCode, name, seNo, ankenNo}
+let replyorityWB = null; // リプライオリティ用 全シートワークブック
 
 // ===================== Tab =====================
 function switchTab(tab) {
@@ -700,8 +705,9 @@ function processFile(file, fileKey, dzId) {
         }
         const wb = XLSX.read(e.target.result, { type: 'array', cellDates: true });
 
-        // リプライオリティ用にArrayBufferを保存
+        // リプライオリティ用に全シートのワークブックを保存
         if (fileKey === 'replyority-kintai') {
+          replyorityWB = XLSX.read(e.target.result, { type: 'array', cellDates: false });
           files['replyority-kintai-raw'] = e.target.result.slice(0);
         }
 
@@ -2213,9 +2219,7 @@ function convertReplyority() {
       const zangyouMin = Math.round(parseFloat(zangyouRaw||0) * 60);
       const kihon = minToTime(Math.max(0, jitsuMin - zangyouMin));
 
-      // 時間矛盾チェック
-        if (timeErr) { addLog('warn', timeErr); timeErrors++; }
-
+      // 時間矛盾チェック（startRaw/endRaw形式チェック）
       const calcRp = calcKihonZangyou(startRaw, endRaw, rest);
       results.push({ 'スタッフNO': seNo, '就業年月日': date,
         '支給始業時間': startRaw, '支給終業時間': endRaw,
@@ -2412,13 +2416,13 @@ function removeMapping(i) {
 
 function exportMapping() {
   if (mappingData.length === 0) { alert('対応表が空です'); return; }
-  const csv = ['Staffia氏名コード,スタッフ名,Staff Express スタッフNO,Staff Express 案件管理NO',
-    ...mappingData.map(m => [m.staffiaCode, m.name, m.seNo, m.ankenNo].join(','))
+  const csv = ['種別,Staffia氏名コード,スタッフ名,Staff Express スタッフNO,Staff Express 案件管理NO',
+    ...mappingData.map(m => [m.type||'staffia', m.staffiaCode, m.name, m.seNo, m.ankenNo].join(','))
   ].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'staffia_mapping.csv';
+  a.download = 'mapping.csv';
   a.click();
 }
 
@@ -2434,11 +2438,13 @@ function importMapping(e) {
     rows.forEach(r => {
       const code = (r['Staffia氏名コード'] || '').trim();
       const seNo = (r['Staff Express スタッフNO'] || '').trim();
+      const type = (r['種別'] || 'staffia').trim();
       // 必須項目チェック
       if (!code || !seNo) { invalid++; return; }
-      // 既存チェック（Staffiaコードが一致するものはスキップ）
-      if (mappingData.find(m => m.staffiaCode === code)) { skipped++; return; }
+      // 既存チェック（コード＋種別が一致するものはスキップ）
+      if (mappingData.find(m => m.staffiaCode === code && (m.type||'staffia') === type)) { skipped++; return; }
       mappingData.push({
+        type,
         staffiaCode: code,
         name: (r['スタッフ名'] || '').trim(),
         seNo,
