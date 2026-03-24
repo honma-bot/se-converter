@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_29.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_30.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2457,8 +2457,22 @@ function importMapping(e) {
     if (invalid > 0) lines.push(`⚠ 必須項目不足のためスキップ: ${invalid}件`);
     if (added === 0 && skipped > 0) lines.push('（全員すでに登録済みでした）');
 
-    // インポート結果をトースト表示
-    showImportToast(lines.join('\n'));
+    // 新規追加があればスプレッドシートに自動保存
+    if (added > 0) {
+      lines.push('💾 スプレッドシートに保存中...');
+      showImportToast(lines.join('\n'));
+      pushToSheets().then(() => {
+        lines[lines.length - 1] = '💾 スプレッドシートに保存しました';
+        showImportToast(lines.join('\n'));
+      }).catch(() => {
+        lines[lines.length - 1] = '⚠ スプレッドシートへの保存に失敗しました';
+        showImportToast(lines.join('\n'));
+      });
+    } else {
+      // インポート結果をトースト表示
+      showImportToast(lines.join('\n'));
+    }
+
     // ファイル入力リセット（同じファイルを再度読めるように）
     e.target.value = '';
   };
