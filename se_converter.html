@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_12.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_15.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_15.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_15.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_15.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_15.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_12.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_15.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -919,6 +919,37 @@ function findAllAnken(haichiMap, staffNo, date) {
   return list.filter(h => (!h.start || date >= h.start) && (!h.end || date <= h.end));
 }
 
+// 期間重複チェック：2つの案件の就業期間が重複しているか
+function hasOverlap(candidates) {
+  for (let i = 0; i < candidates.length; i++) {
+    for (let j = i + 1; j < candidates.length; j++) {
+      const a = candidates[i], b = candidates[j];
+      // 期間が重複している = aの開始がbの終了以前 かつ aの終了がbの開始以降
+      const aStart = a.start || '0000/00/00';
+      const aEnd   = a.end   || '9999/99/99';
+      const bStart = b.start || '0000/00/00';
+      const bEnd   = b.end   || '9999/99/99';
+      if (aStart <= bEnd && aEnd >= bStart) return true;
+    }
+  }
+  return false;
+}
+
+// 複数案件ヒット時の自動振り分け or 手動選択判定
+// 戻り値: { autoResolved: bool, ankenNo: string }
+function resolveMultiAnken(candidates, date) {
+  if (candidates.length <= 1) return { autoResolved: true, ankenNo: candidates[0]?.ankenNo || '' };
+  // 期間重複なし → 日付で自動振り分け（各候補の就業期間内に該当する1件を選ぶ）
+  if (!hasOverlap(candidates)) {
+    const match = candidates.find(c =>
+      (!c.start || date >= c.start) && (!c.end || date <= c.end)
+    );
+    if (match) return { autoResolved: true, ankenNo: match.ankenNo };
+  }
+  // 期間重複あり → 手動選択が必要
+  return { autoResolved: false, ankenNo: candidates[0].ankenNo };
+}
+
 // ===================== CloudStaffing 変換 =====================
 function convertCS() {
   const log = [];
@@ -980,16 +1011,22 @@ function convertCS() {
       unmatched++;
       addLog('warn', `案件NO未特定: スタッフ${staffNo} ${date}`);
     } else if (ankenMatches.length > 1) {
-      multiAnken++;
-      ankenNo = ankenMatches[0].ankenNo;
-      addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}`);
-      if (!pendingMultiAnken['cs']) pendingMultiAnken['cs'] = [];
-      pendingMultiAnken['cs'].push({
-        staffNo, name: row['スタッフ名']||'', date,
-        candidates: ankenMatches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
-        selected: ankenMatches[0].ankenNo
-      });
-      matched++;
+      const resolved = resolveMultiAnken(ankenMatches, date);
+      ankenNo = resolved.ankenNo;
+      if (resolved.autoResolved) {
+        addLog('info', `案件NO自動振分: スタッフ${staffNo} ${date} → ${ankenNo}（期間で自動判定）`);
+        matched++;
+      } else {
+        multiAnken++;
+        addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}（手動選択が必要）`);
+        if (!pendingMultiAnken['cs']) pendingMultiAnken['cs'] = [];
+        pendingMultiAnken['cs'].push({
+          staffNo, name: row['スタッフ名']||'', date,
+          candidates: ankenMatches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+          selected: ankenMatches[0].ankenNo
+        });
+        matched++;
+      }
     } else {
       ankenNo = ankenMatches[0].ankenNo;
       matched++;
@@ -1033,7 +1070,7 @@ function convertCS() {
   addLog('ok', `案件NO特定: ${matched}件`);
   if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
   if (unmatched > 0) addLog('warn', `案件NO未特定: ${unmatched}件（配置一覧を確認してください）`);
-  if (multiAnken > 0) addLog('warn', `案件NO複数ヒット: ${multiAnken}件（先頭の案件NOを使用）`);
+  if (multiAnken > 0) addLog('warn', `案件NO複数ヒット（手動選択必要）: ${multiAnken}件`);
   if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
   if (absent > 0) addLog('info', `欠勤/休日: ${absent}件（時間空白で出力）`);
   if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0 && multiAnken === 0) {
@@ -1100,27 +1137,22 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
     const ui2 = document.createElement('div');
     ui2.className = 'multi-anken-ui';
     ui2.style.cssText = 'margin-top:20px;';
+    // スタッフ数を計算
+    const staffCount = [...new Set((pendingMultiAnken[prefix]||[]).map(x=>x.staffNo))].length;
     ui2.innerHTML = `
       <div class="card-title" style="color:var(--accent);margin-bottom:12px;">
-        📋 案件NO複数ヒット ${pendingMultiAnken[prefix].length}件 — 正しい案件NOを選択してください
+        📋 案件NO複数ヒット — ${staffCount}名分の案件NOを選択してください
       </div>
-      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
-        同月内に複数業務に就いているスタッフです。各日付の正しい案件NOを選択して再出力してください。
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;line-height:1.7;">
+        スタッフごとに正しい案件NOを選択してください。一括適用と個別変更が使えます。
       </p>
-      <table class="mapping-table" style="margin-bottom:12px;">
-        <thead><tr>
-          <th>スタッフNO</th><th>氏名</th><th>日付</th><th>案件NO選択</th>
-        </tr></thead>
-        <tbody id="${prefix}-multi-tbody"></tbody>
-      </table>
-      <button class="btn-convert" style="max-width:300px;padding:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));" onclick="reExportWithSelection('${prefix}')">
-        🔄 選択内容で再出力
-      </button>
+      <div id="${prefix}-multi-wizard"></div>
     `;
     // unmatchedUIの後か、logの後に挿入
     const unmatchedUiEl = resultCard.querySelector('.unmatched-ui');
     const insertAfter = unmatchedUiEl || resultCard.querySelector('.log');
     insertAfter.insertAdjacentElement('afterend', ui2);
+    multiAnkenPage[prefix] = 0;
     renderMultiAnkenRows(prefix);
   }
 
@@ -1133,23 +1165,16 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
     ui3.style.cssText = 'margin-top:20px;';
     ui3.innerHTML = `
       <div class="card-title" style="color:var(--warning);margin-bottom:12px;">
-        ⏰ 時間矛盾 ${pendingTimeErrors[prefix].length}件 — 始業・終業時間を確認してください
+        ⏰ 時間矛盾 — ${[...new Set((pendingTimeErrors[prefix]||[]).map(e=>e.staffNo))].length}名・${(pendingTimeErrors[prefix]||[]).length}件 — 1名ずつ確認・修正してください
       </div>
-      <table class="mapping-table" style="margin-bottom:12px;">
-        <thead><tr>
-          <th>スタッフNO</th><th>氏名</th><th>日付</th><th>始業</th><th>終業</th><th>対応</th>
-        </tr></thead>
-        <tbody id="${prefix}-time-tbody"></tbody>
-      </table>
-      <button class="btn-convert" style="max-width:320px;padding:12px;" onclick="applyTimeCorrections('${prefix}')">
-        🔄 修正内容を反映して再出力
-      </button>
-      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">※「このままOK」にした行はそのままCSVに出力されます。</p>
+      <div id="${prefix}-time-wizard"></div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">※「✓ OK」にした行はそのままCSVに出力されます。「💾 修正」で時間を訂正できます。</p>
     `;
     const multiUI = resultCard.querySelector('.multi-anken-ui');
     const unmatchedUI2 = resultCard.querySelector('.unmatched-ui');
     const insertRef = multiUI || unmatchedUI2 || resultCard.querySelector('.log');
     insertRef.insertAdjacentElement('afterend', ui3);
+    timeErrorPage[prefix] = 0;
     renderTimeErrorRows(prefix);
   }
 
@@ -1233,28 +1258,97 @@ function onSeNoInput(prefix, idx, seNo) {
 // 複数案件NO一時保存
 const pendingMultiAnken = {};
 
-function renderMultiAnkenRows(prefix) {
-  const tbody = document.getElementById(`${prefix}-multi-tbody`);
-  if (!tbody) return;
+// スタッフ別にグループ化
+function groupMultiAnkenByStaff(prefix) {
   const list = pendingMultiAnken[prefix] || [];
-  tbody.innerHTML = list.map((item, i) => {
-    const opts = item.candidates.map(c =>
-      `<option value="${c.ankenNo}" ${c.ankenNo === item.selected ? 'selected' : ''}>
-        ${c.ankenNo}（${c.start}〜${c.end}）
-      </option>`
-    ).join('');
-    return `<tr>
-      <td><span style="font-family:'Space Mono',monospace;font-size:11px">${item.staffNo}</span></td>
-      <td>${item.name||''}</td>
-      <td>${item.date}</td>
-      <td>
-        <select style="font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface2);color:var(--text);"
-          onchange="pendingMultiAnken['${prefix}'][${i}].selected=this.value">
-          ${opts}
-        </select>
-      </td>
-    </tr>`;
-  }).join('');
+  const groups = {};
+  list.forEach((item, i) => {
+    const key = item.staffNo;
+    if (!groups[key]) groups[key] = { staffNo: item.staffNo, name: item.name, items: [] };
+    groups[key].items.push({ ...item, idx: i });
+  });
+  return Object.values(groups);
+}
+
+// 現在のウィザードページ
+const multiAnkenPage = {};
+
+function renderMultiAnkenRows(prefix) {
+  const container = document.getElementById(`${prefix}-multi-wizard`);
+  if (!container) return;
+  const groups = groupMultiAnkenByStaff(prefix);
+  if (groups.length === 0) return;
+  if (multiAnkenPage[prefix] === undefined) multiAnkenPage[prefix] = 0;
+  const page = Math.min(multiAnkenPage[prefix], groups.length - 1);
+  const group = groups[page];
+  const candidates = group.items[0].candidates;
+
+  container.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);">
+        <span style="color:var(--accent)">${page+1}/${groups.length}人目</span>：
+        ${group.name}
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text-muted);margin-left:6px;">${group.staffNo}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);">${group.items.length}日分</div>
+    </div>
+
+    <!-- 一括適用 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:12px;font-weight:700;color:var(--text-muted);">全日付に一括適用：</span>
+      <select id="${prefix}-bulk-select" style="font-size:12px;padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:white;color:var(--text);flex:1;min-width:200px;">
+        ${candidates.map(c => `<option value="${c.ankenNo}">${c.ankenNo}（${c.start}〜${c.end}）</option>`).join('')}
+      </select>
+      <button class="btn-add" onclick="bulkApplyAnken('${prefix}')" style="white-space:nowrap;">一括適用</button>
+    </div>
+
+    <!-- 日付別個別変更 -->
+    <table class="mapping-table" style="margin-bottom:16px;">
+      <thead><tr>
+        <th>日付</th><th>案件NO選択</th>
+      </tr></thead>
+      <tbody>
+        ${group.items.map((item) => `
+          <tr>
+            <td>${item.date}</td>
+            <td>
+              <select style="font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:white;color:var(--text);width:100%;"
+                onchange="pendingMultiAnken['${prefix}'][${item.idx}].selected=this.value"
+                id="${prefix}-anken-sel-${item.idx}">
+                ${item.candidates.map(c =>
+                  `<option value="${c.ankenNo}" ${c.ankenNo === item.selected ? 'selected' : ''}>${c.ankenNo}（${c.start}〜${c.end}）</option>`
+                ).join('')}
+              </select>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+
+    <!-- ナビゲーション -->
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      ${page > 0 ? `<button class="btn-add" onclick="multiAnkenPage['${prefix}']=${page-1};renderMultiAnkenRows('${prefix}')">← 前のスタッフ</button>` : ''}
+      ${page < groups.length - 1 ?
+        `<button class="btn-convert" style="flex:1;padding:12px;" onclick="multiAnkenPage['${prefix}']=${page+1};renderMultiAnkenRows('${prefix}')">
+          確定して次のスタッフへ →
+        </button>` :
+        `<button class="btn-convert" style="flex:1;padding:12px;background:linear-gradient(135deg,var(--success),#0d9a5e);" onclick="reExportWithSelection('${prefix}')">
+          ✅ 全員完了 — 再出力する
+        </button>`
+      }
+    </div>
+  `;
+}
+
+function bulkApplyAnken(prefix) {
+  const groups = groupMultiAnkenByStaff(prefix);
+  const page = multiAnkenPage[prefix] || 0;
+  const group = groups[page];
+  const selected = document.getElementById(prefix + '-bulk-select').value;
+  group.items.forEach(item => {
+    pendingMultiAnken[prefix][item.idx].selected = selected;
+  });
+  renderMultiAnkenRows(prefix);
 }
 
 function reExportWithSelection(prefix) {
@@ -1636,15 +1730,21 @@ function convertHRStation() {
         }
       }
     } else if (ankenMatches.length > 1) {
-      multiAnken++;
-      ankenNo = ankenMatches[0].ankenNo;
-      addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}`);
-      pendingMultiAnken['hrstation'].push({
-        staffNo, name: row['スタッフ氏名']||'', date,
-        candidates: ankenMatches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
-        selected: ankenMatches[0].ankenNo
-      });
-      matched++;
+      const resolved = resolveMultiAnken(ankenMatches, date);
+      ankenNo = resolved.ankenNo;
+      if (resolved.autoResolved) {
+        addLog('info', `案件NO自動振分: スタッフ${staffNo} ${date} → ${ankenNo}（期間で自動判定）`);
+        matched++;
+      } else {
+        multiAnken++;
+        addLog('warn', `案件NO複数ヒット: スタッフ${staffNo} ${date} → ${ankenMatches.map(a=>a.ankenNo).join(' / ')}（手動選択が必要）`);
+        pendingMultiAnken['hrstation'].push({
+          staffNo, name: row['スタッフ氏名']||'', date,
+          candidates: ankenMatches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+          selected: ankenMatches[0].ankenNo
+        });
+        matched++;
+      }
     } else {
       ankenNo = ankenMatches[0].ankenNo;
       matched++;
@@ -1706,7 +1806,7 @@ function convertHRStation() {
   if (haichiRows.length === 0) addLog('warn', '配置一覧が未読込のため案件NOは空白です。設定タブで読み込んでください。');
   if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
   if (unmatched > 0) addLog('warn', `案件NO未特定: ${unmatched}件（配置一覧を確認してください）`);
-  if (multiAnken > 0) addLog('warn', `案件NO複数ヒット: ${multiAnken}件（先頭の案件NOを使用）`);
+  if (multiAnken > 0) addLog('warn', `案件NO複数ヒット（手動選択必要）: ${multiAnken}件`);
   if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
   if (absent > 0) addLog('info', `休日・欠勤: ${absent}件（時間空白で出力）`);
   if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0 && multiAnken === 0) {
