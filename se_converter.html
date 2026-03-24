@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_34.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_35.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -447,11 +447,15 @@ window.addEventListener('load', function() {
         Staff Expressから出力した配置一覧CSVを月初に1回だけ読み込んでください。<br>
         読み込んだデータはすべての変換タブで共通利用されます。
       </p>
+      <div id="haichi-saved-notice" style="display:none;font-size:12px;color:var(--success);background:rgba(15,169,104,0.08);border:1px solid rgba(15,169,104,0.3);border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <span id="haichi-saved-notice-text"></span>
+        <button class="btn-del" onclick="clearHaichiCache()" style="white-space:nowrap;font-size:11px;">🗑 キャッシュ削除</button>
+      </div>
       <div class="dropzone" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
         <input type="file" accept=".csv,.xlsx" onchange="loadFile(event,&#39;se-haichi&#39;,&#39;dz-haichi&#39;)">
         <span class="dropzone-icon">📂</span>
         <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
-        <div class="dropzone-sub">Staff Expressから出力した契約一覧</div>
+        <div class="dropzone-sub">読み込むと自動保存され、次回起動時も自動で復元されます</div>
         <div class="file-name" id="fn-se-haichi"></div>
       </div>
     </div>
@@ -505,7 +509,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -540,7 +544,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -575,7 +579,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -609,7 +613,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -644,7 +648,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_34.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -732,6 +736,16 @@ function processFile(file, fileKey, dzId) {
       csvText = e.target.result;
     }
     files[fileKey] = { name: file.name, data: csvText };
+
+    // 配置一覧はlocalStorageに自動保存
+    if (fileKey === 'se-haichi') {
+      try {
+        localStorage.setItem('se_haichi_data', csvText);
+        localStorage.setItem('se_haichi_name', file.name);
+        localStorage.setItem('se_haichi_saved', new Date().toLocaleDateString('ja-JP'));
+      } catch(e) { console.warn('localStorage保存失敗:', e); }
+    }
+
     const dz = document.getElementById(dzId);
     dz.classList.add('loaded');
     const fnEl = document.getElementById('fn-' + fileKey.replace('_','-'));
@@ -2340,6 +2354,22 @@ function convertReplyority() {
 // ===================== Google Sheets連携 =====================
 const GAS_URL_KEY = 'se_converter_gas_url';
 
+function clearHaichiCache() {
+  if (!confirm('保存済みの配置一覧を削除しますか？\n次回起動時は再アップロードが必要になります。')) return;
+  localStorage.removeItem('se_haichi_data');
+  localStorage.removeItem('se_haichi_name');
+  localStorage.removeItem('se_haichi_saved');
+  delete files['se-haichi'];
+  const dz = document.getElementById('dz-haichi');
+  if (dz) dz.classList.remove('loaded');
+  const fnEl = document.getElementById('fn-se-haichi');
+  if (fnEl) fnEl.textContent = '';
+  const notice = document.getElementById('haichi-saved-notice');
+  if (notice) notice.style.display = 'none';
+  checkButtons();
+  alert('削除しました。新しい配置一覧をアップロードしてください。');
+}
+
 function testGasConnection() {
   const url = document.getElementById('gas-url').value.trim();
   if (!url) { setGasStatus('⚠ URLを入力してください', 'warn'); return; }
@@ -2606,8 +2636,29 @@ function showImportToast(message) {
 // init
 loadGasUrl();
 renderMapping();
-// ページ読み込み時にGASのURLが保存されていれば自動で対応表を読み込む
+// ページ読み込み時の自動復元
 window.addEventListener('load', () => {
+  // 配置一覧をlocalStorageから復元
+  const savedHaichi = localStorage.getItem('se_haichi_data');
+  const savedName   = localStorage.getItem('se_haichi_name');
+  const savedDate   = localStorage.getItem('se_haichi_saved');
+  if (savedHaichi && savedName) {
+    files['se-haichi'] = { name: savedName, data: savedHaichi };
+    const dz = document.getElementById('dz-haichi');
+    if (dz) dz.classList.add('loaded');
+    const fnEl = document.getElementById('fn-se-haichi');
+    if (fnEl) fnEl.textContent = '✓ ' + savedName + (savedDate ? '　（' + savedDate + ' 保存）' : '');
+    checkButtons();
+    // 設定タブに保存済みバッジを表示
+    const notice = document.getElementById('haichi-saved-notice');
+    if (notice) {
+      const noticeText = document.getElementById('haichi-saved-notice-text');
+    if (noticeText) noticeText.textContent = '✅ 前回保存の配置一覧を自動読込しました（' + savedDate + '）';
+      notice.style.display = 'flex';
+    }
+  }
+
+  // GAS対応表の自動読込
   const savedUrl = localStorage.getItem(GAS_URL_KEY);
   if (savedUrl) {
     setTimeout(() => fetchFromSheets(true), 800);
