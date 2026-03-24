@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_31.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_32.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -471,15 +471,11 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 102件</div>
+        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
-      <span style="color:var(--success);font-weight:700;">✅ 対応表 102件 登録済</span>
-      <span style="margin-left:12px;font-size:12px;">
-        Staffia: 102件 　TMJ: 0件 　リプライオリティ: 0件
-      </span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
     </div>
   </div>
 
@@ -509,7 +505,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -544,7 +540,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -579,7 +575,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -613,7 +609,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -648,7 +644,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_28.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -797,6 +793,22 @@ function csvToObjects(text) {
 }
 
 // ===================== Time utils =====================
+
+// Excel時刻小数（0.375 = 09:00）→ "HH:MM" 変換
+function excelTimeToHHMM(val) {
+  if (val === '' || val === null || val === undefined) return '';
+  // 既にHH:MM形式の文字列の場合はそのまま
+  if (typeof val === 'string' && /^\d{1,2}:\d{2}/.test(val.trim())) {
+    const parts = val.trim().split(':');
+    return String(parseInt(parts[0])).padStart(2,'0') + ':' + String(parseInt(parts[1])).padStart(2,'0');
+  }
+  const n = parseFloat(val);
+  if (isNaN(n)) return '';
+  const totalMin = Math.round(n * 24 * 60);
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+}
 
 // 8時間基準で基本時間・残業時間を計算
 // start/end: "08:50" 形式, rest: "01:00" 形式
@@ -1136,17 +1148,24 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
     renderTimeErrorRows(prefix);
   }
 
+  const dlBtn = document.getElementById(prefix+'-dl-btn');
   if (url) {
-    const dlBtn = document.getElementById(prefix+'-dl-btn');
-    dlBtn.href = url;
-    // ファイル名に年月を自動付与
     const now = new Date();
     const ym = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0');
     const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
-    dlBtn.download = `SE_勤怠インポート_${nameMap[prefix]||prefix}_${ym}.csv`;
-    document.querySelector(`#${prefix}-result-card .btn-dl`).style.display = 'inline-flex';
+    const filename = `SE_勤怠インポート_${nameMap[prefix]||prefix}_${ym}.csv`;
+    dlBtn.onclick = (e) => {
+      e.preventDefault();
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+    dlBtn.style.display = 'inline-flex';
   } else {
-    document.querySelector(`#${prefix}-result-card .btn-dl`).style.display = 'none';
+    dlBtn.style.display = 'none';
   }
   card.scrollIntoView({behavior:'smooth'});
 }
@@ -2176,8 +2195,8 @@ function convertReplyority() {
       const day = String(parseInt(dmatch[2])).padStart(2, '0');
       const date = `${year}/${month}/${day}`;
 
-      const startRaw = String(row[7] || '').trim();
-      const endRaw   = String(row[8] || '').trim();
+      const startRaw = excelTimeToHHMM(row[7]);
+      const endRaw   = excelTimeToHHMM(row[8]);
       const restRaw  = row[13]; // 時間単位（数値）
       const jitsuRaw = row[9];  // 時間単位（数値）
       const zangyouRaw = row[11];
