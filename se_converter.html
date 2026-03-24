@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_23.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_24.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_23.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -702,7 +702,6 @@ window.addEventListener('load', function() {
 <script>
 // ===================== State =====================
 const files = {};
-let replyorityWB = null;
 let mappingData = []; // {staffiaCode, name, seNo, ankenNo}
 
 // ===================== Tab =====================
@@ -748,10 +747,9 @@ function processFile(file, fileKey, dzId) {
         }
         const wb = XLSX.read(e.target.result, { type: 'array', cellDates: true });
 
-        // リプライオリティ用にワークブックをグローバルに保持（同じreaderで）
+        // リプライオリティ用にArrayBufferを保存
         if (fileKey === 'replyority-kintai') {
-          window.replyorityWB = XLSX.read(e.target.result, { type: 'array', cellDates: false });
-          console.log('replyorityWB loaded:', window.replyorityWB.SheetNames.length, 'sheets');
+          files['replyority-kintai-raw'] = e.target.result.slice(0);
         }
 
         const ws = wb.Sheets[wb.SheetNames[0]];
@@ -1259,7 +1257,14 @@ function searchHaichiByName(name) {
     .filter(r => r.score >= 50 && r.name.trim() !== '') // 姓一致以上かつ氏名あり
     .sort((a, b) => b.score - a.score) // スコア順
     .filter((v, i, arr) => arr.findIndex(x => x.staffNo === v.staffNo) === i) // 重複除去
-    .slice(0, 6); // 最大6件
+    .slice(0, 8) // 最大8件取得
+    .filter((r, i, arr) => {
+      // 90点以上（姓名両方一致）がある場合はそれだけ表示
+      const hasHighScore = arr.some(x => x.score >= 90);
+      if (hasHighScore) return r.score >= 90;
+      // 高スコアがない場合は姓一致のみ（最大4件）
+      return i < 4;
+    });
 }
 
 function renderUnmatchedRows(prefix) {
