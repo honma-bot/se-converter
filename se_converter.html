@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_19.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_21.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -552,7 +552,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +587,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +622,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +656,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +691,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_19.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_21.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -747,13 +747,16 @@ function processFile(file, fileKey, dzId) {
           return;
         }
         const wb = XLSX.read(e.target.result, { type: 'array', cellDates: true });
+
+        // リプライオリティ用にワークブックをグローバルに保持（同じreaderで）
+        if (fileKey === 'replyority-kintai') {
+          window.replyorityWB = XLSX.read(e.target.result, { type: 'array', cellDates: false });
+        }
+
         const ws = wb.Sheets[wb.SheetNames[0]];
         // 配置一覧は1行目がタイトル行のため2行目からヘッダーとして読む
         if (fileKey === 'se-haichi') {
-          const jsonData = XLSX.utils.sheet_to_json(ws, { defval: '' });
-          // ヘッダーが2行目にある場合の対応
           const allRows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
-          // ヘッダー行を探す（「スタッフNO」または「案件管理NO」がある行）
           let headerRowIdx = 0;
           for (let i = 0; i < Math.min(5, allRows.length); i++) {
             if (allRows[i].includes('スタッフNO') || allRows[i].includes('案件管理NO')) {
@@ -772,7 +775,6 @@ function processFile(file, fileKey, dzId) {
         return;
       }
     } else {
-      // CSV: Shift-JIS → UTF-8変換済みテキスト
       csvText = e.target.result;
     }
     files[fileKey] = { name: file.name, data: csvText };
@@ -787,16 +789,6 @@ function processFile(file, fileKey, dzId) {
     reader.readAsArrayBuffer(file);
   } else {
     reader.readAsText(file, 'Shift-JIS');
-  }
-  // リプライオリティ用にワークブックをグローバルに保持
-  if (fileKey === 'replyority-kintai' && isExcel) {
-    const wbReader = new FileReader();
-    wbReader.onload = (e2) => {
-      if (typeof XLSX !== 'undefined') {
-        window.replyorityWB = XLSX.read(e2.target.result, { type: 'array', cellDates: false });
-      }
-    };
-    wbReader.readAsArrayBuffer(file);
   }
 }
 
@@ -847,6 +839,28 @@ function csvToObjects(text) {
 }
 
 // ===================== Time utils =====================
+
+// 8時間基準で基本時間・残業時間を計算
+// start/end: "08:50" 形式, rest: "01:00" 形式
+// 戻り値: { kihon: "08:00", zangyou: "00:30" }
+function calcKihonZangyou(start, end, rest) {
+  const BASE_MIN = 8 * 60; // 8時間
+  const sMin = timeToMin(start);
+  const eMin = timeToMin(end);
+  const rMin = timeToMin(rest);
+  if (!sMin || !eMin) return { kihon: '00:00', zangyou: '00:00' };
+  
+  // 深夜跨ぎ対応
+  let jitsuMin = eMin - sMin - rMin;
+  if (jitsuMin < 0) jitsuMin += 24 * 60;
+  
+  const kihonMin   = Math.min(jitsuMin, BASE_MIN);
+  const zangyouMin = Math.max(0, jitsuMin - BASE_MIN);
+  return {
+    kihon:   minToTime(kihonMin),
+    zangyou: minToTime(zangyouMin)
+  };
+}
 // "08:50" → minutes
 function timeToMin(t) {
   if (!t || t === '0:00' || t === '00:00') return 0;
@@ -1057,11 +1071,12 @@ function convertCS() {
       pendingTimeErrors['cs'].push({ staffNo, name: row['スタッフ名']||'', date, start, end });
     }
 
+    const calc = calcKihonZangyou(start, end, rest);
     results.push({ 'スタッフNO': staffNo, '就業年月日': date,
       '支給始業時間': start, '支給終業時間': end, '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
-      '支給基本時間': kihon, '支給残業時間': zangyou, '支給深夜時間': shinya, '支給出勤区分': '0',
+      '支給基本時間': calc.kihon, '支給残業時間': calc.zangyou, '支給深夜時間': shinya, '支給出勤区分': '0',
       '請求始業時間': start, '請求終業時間': end, '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
-      '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
+      '請求基本時間': calc.kihon, '請求残業時間': calc.zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
       '案件管理NO': ankenNo });
   });
 
@@ -1078,7 +1093,8 @@ function convertCS() {
   }
 
   const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
-  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const outputResults = results.filter(r => r['支給始業時間'] && r['支給始業時間'] !== '');
+  const csv = [cols.join(','), ...outputResults.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
 
@@ -1514,61 +1530,93 @@ function buildWarnSummary(prefix) {
   statsEl.insertAdjacentElement('afterend', summary);
 }
 
-function renderTimeErrorRows(prefix) {
-  const tbody = document.getElementById(prefix + '-time-tbody');
-  if (!tbody) return;
+// 時間矛盾ウィザード
+const timeErrorPage = {};
+
+function groupTimeErrorsByStaff(prefix) {
   const list = pendingTimeErrors[prefix] || [];
-  tbody.innerHTML = list.map((e, i) => `
-    <tr id="${prefix}-time-row-${i}" style="${e.resolved ? 'opacity:0.4;' : ''}">
-      <td><span style="font-family:'Space Mono',monospace;font-size:11px">${e.staffNo}</span></td>
-      <td>${e.name||''}</td>
-      <td>${e.date}</td>
-      <td>
-        ${e.editing ?
-          `<input type="text" value="${e.start}" id="${prefix}-time-start-${i}"
-            style="width:70px;font-size:12px;padding:4px;border:1px solid var(--border);border-radius:4px;">` :
-          `<span style="color:${e.resolved ? 'var(--success)' : 'var(--danger)'}">${e.start}</span>`
-        }
-      </td>
-      <td>
-        ${e.editing ?
-          `<input type="text" value="${e.end}" id="${prefix}-time-end-${i}"
-            style="width:70px;font-size:12px;padding:4px;border:1px solid var(--border);border-radius:4px;">` :
-          `<span style="color:${e.resolved ? 'var(--success)' : 'var(--danger)'}">${e.end}</span>`
-        }
-      </td>
-      <td style="white-space:nowrap;">
-        ${e.resolved ? `<span style="color:var(--success);font-size:12px;">✓ 処理済</span>` : `
-          ${e.editing ?
-            `<button class="btn-add" onclick="saveTimeEdit('${prefix}',${i})" style="font-size:11px;padding:4px 10px;">保存</button>` :
-            `<button class="btn-add" onclick="editTimeRow('${prefix}',${i})" style="font-size:11px;padding:4px 10px;">✏ 修正</button>`
-          }
-          <button class="btn-add" onclick="skipTimeRow('${prefix}',${i})"
-            style="font-size:11px;padding:4px 10px;border-color:var(--success);color:var(--success);margin-left:4px;">✓ OK</button>
-        `}
-      </td>
-    </tr>
-  `).join('');
+  const groups = {};
+  list.forEach((e, i) => {
+    if (!groups[e.staffNo]) groups[e.staffNo] = { staffNo: e.staffNo, name: e.name, items: [] };
+    groups[e.staffNo].items.push({ ...e, idx: i });
+  });
+  return Object.values(groups);
 }
 
-function editTimeRow(prefix, idx) {
-  pendingTimeErrors[prefix][idx].editing = true;
-  renderTimeErrorRows(prefix);
+function renderTimeErrorRows(prefix) {
+  const container = document.getElementById(prefix + '-time-wizard');
+  if (!container) return;
+  const groups = groupTimeErrorsByStaff(prefix);
+  if (groups.length === 0) return;
+  if (timeErrorPage[prefix] === undefined) timeErrorPage[prefix] = 0;
+  const page = Math.min(timeErrorPage[prefix], groups.length - 1);
+  const group = groups[page];
+
+  container.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);">
+        <span style="color:var(--warning)">${page+1}/${groups.length}人目</span>：
+        ${group.name||''}
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text-muted);margin-left:6px;">${group.staffNo}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);">${group.items.length}件の時間矛盾</div>
+    </div>
+
+    <table class="mapping-table" style="margin-bottom:16px;">
+      <thead><tr>
+        <th>日付</th><th>始業</th><th>終業</th><th>対応</th>
+      </tr></thead>
+      <tbody>
+        ${group.items.map(e => `
+          <tr style="${e.resolved ? 'opacity:0.5;' : ''}">
+            <td>${e.date}</td>
+            <td>
+              <input type="text" value="${e.start}" id="${prefix}-ts-${e.idx}"
+                style="width:72px;font-size:12px;padding:4px 6px;border:1px solid ${e.resolved ? 'var(--success)' : 'var(--danger)'};border-radius:4px;text-align:center;">
+            </td>
+            <td>
+              <input type="text" value="${e.end}" id="${prefix}-te-${e.idx}"
+                style="width:72px;font-size:12px;padding:4px 6px;border:1px solid ${e.resolved ? 'var(--success)' : 'var(--danger)'};border-radius:4px;text-align:center;">
+            </td>
+            <td style="white-space:nowrap;">
+              ${e.resolved
+                ? `<span style="color:var(--success);font-size:12px;">✓ 処理済</span>`
+                : `<button class="btn-add" onclick="saveTimeEditWizard('${prefix}',${e.idx})"
+                    style="font-size:11px;padding:4px 10px;">💾 修正</button>
+                   <button class="btn-add" onclick="skipTimeRowWizard('${prefix}',${e.idx})"
+                    style="font-size:11px;padding:4px 10px;border-color:var(--success);color:var(--success);margin-left:4px;">✓ OK</button>`
+              }
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      ${page > 0 ? `<button class="btn-add" onclick="timeErrorPage['${prefix}']=${page-1};renderTimeErrorRows('${prefix}')">← 前のスタッフ</button>` : ''}
+      ${page < groups.length - 1
+        ? `<button class="btn-convert" style="flex:1;padding:12px;" onclick="timeErrorPage['${prefix}']=${page+1};renderTimeErrorRows('${prefix}')">
+            確定して次のスタッフへ →
+           </button>`
+        : `<button class="btn-convert" style="flex:1;padding:12px;background:linear-gradient(135deg,var(--success),#0d9a5e);" onclick="applyTimeCorrections('${prefix}')">
+            ✅ 全員完了 — 修正内容を反映して再出力
+           </button>`
+      }
+    </div>
+  `;
 }
 
-function saveTimeEdit(prefix, idx) {
-  const newStart = document.getElementById(prefix + '-time-start-' + idx).value.trim();
-  const newEnd   = document.getElementById(prefix + '-time-end-' + idx).value.trim();
+function saveTimeEditWizard(prefix, idx) {
+  const newStart = document.getElementById(prefix + '-ts-' + idx).value.trim();
+  const newEnd   = document.getElementById(prefix + '-te-' + idx).value.trim();
   pendingTimeErrors[prefix][idx].start = newStart;
   pendingTimeErrors[prefix][idx].end   = newEnd;
-  pendingTimeErrors[prefix][idx].editing = false;
   pendingTimeErrors[prefix][idx].resolved = true;
   renderTimeErrorRows(prefix);
 }
 
-function skipTimeRow(prefix, idx) {
+function skipTimeRowWizard(prefix, idx) {
   pendingTimeErrors[prefix][idx].resolved = true;
-  pendingTimeErrors[prefix][idx].editing  = false;
   renderTimeErrorRows(prefix);
 }
 
@@ -1743,13 +1791,14 @@ function convertStaffia() {
     const zangyouTime = minToTime(parseInt(row['時間外１']||'0') + parseInt(row['時間外２']||'0'));
     const shinyaTime = minToTime(parseInt(row['深夜１']||'0') + parseInt(row['深夜２']||'0'));
 
+    const calcSt = calcKihonZangyou(startTime, endTime, restTime);
     results.push({ 'スタッフNO': seNo, '就業年月日': date,
       '支給始業時間': startTime, '支給終業時間': endTime,
       '支給基本休憩時間': restTime, '支給深夜休憩時間': '0:00',
-      '支給基本時間': kihonTime, '支給残業時間': zangyouTime, '支給深夜時間': shinyaTime, '支給出勤区分': '0',
+      '支給基本時間': calcSt.kihon, '支給残業時間': calcSt.zangyou, '支給深夜時間': shinyaTime, '支給出勤区分': '0',
       '請求始業時間': startTime, '請求終業時間': endTime,
       '請求基本休憩時間': restTime, '請求深夜休憩時間': '0:00',
-      '請求基本時間': kihonTime, '請求残業時間': zangyouTime, '請求深夜時間': shinyaTime, '請求出勤区分': '0',
+      '請求基本時間': calcSt.kihon, '請求残業時間': calcSt.zangyou, '請求深夜時間': shinyaTime, '請求出勤区分': '0',
       '案件管理NO': ankenNo });
   });
 
@@ -1768,7 +1817,8 @@ function convertStaffia() {
   }
 
   const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
-  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const outputResults = results.filter(r => r['支給始業時間'] && r['支給始業時間'] !== '');
+  const csv = [cols.join(','), ...outputResults.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
 
@@ -1895,13 +1945,14 @@ function convertHRStation() {
       pendingTimeErrors['hrstation'].push({ staffNo, name: row['スタッフ氏名']||'', date, start, end });
     }
 
+    const calcHr = calcKihonZangyou(start, end, rest);
     results.push({ 'スタッフNO': staffNo, '就業年月日': date,
       '支給始業時間': start, '支給終業時間': end,
       '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
-      '支給基本時間': kihon, '支給残業時間': zangyou, '支給深夜時間': shinya || '00:00', '支給出勤区分': '0',
+      '支給基本時間': calcHr.kihon, '支給残業時間': calcHr.zangyou, '支給深夜時間': shinya || '00:00', '支給出勤区分': '0',
       '請求始業時間': start, '請求終業時間': end,
       '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
-      '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya || '00:00', '請求出勤区分': '0',
+      '請求基本時間': calcHr.kihon, '請求残業時間': calcHr.zangyou, '請求深夜時間': shinya || '00:00', '請求出勤区分': '0',
       '案件管理NO': ankenNo });
   });
 
@@ -1919,7 +1970,8 @@ function convertHRStation() {
   }
 
   const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
-  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const outputResults = results.filter(r => r['支給始業時間'] && r['支給始業時間'] !== '');
+  const csv = [cols.join(','), ...outputResults.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
 
@@ -2071,7 +2123,8 @@ function convertTMJ() {
   }
 
   const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
-  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const outputResults = results.filter(r => r['支給始業時間'] && r['支給始業時間'] !== '');
+  const csv = [cols.join(','), ...outputResults.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   pendingResultData['tmj'] = results;
@@ -2207,13 +2260,14 @@ function convertReplyority() {
       const timeErr = checkTimeOrder(startRaw, endRaw, seNo||rthCode, date, 'リプライオリティ');
       if (timeErr) { addLog('warn', timeErr); timeErrors++; }
 
+      const calcRp = calcKihonZangyou(startRaw, endRaw, rest);
       results.push({ 'スタッフNO': seNo, '就業年月日': date,
         '支給始業時間': startRaw, '支給終業時間': endRaw,
         '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
-        '支給基本時間': kihon, '支給残業時間': zangyou, '支給深夜時間': shinya, '支給出勤区分': '0',
+        '支給基本時間': calcRp.kihon, '支給残業時間': calcRp.zangyou, '支給深夜時間': shinya, '支給出勤区分': '0',
         '請求始業時間': startRaw, '請求終業時間': endRaw,
         '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
-        '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
+        '請求基本時間': calcRp.kihon, '請求残業時間': calcRp.zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
         '案件管理NO': ankenNo });
     }
   });
@@ -2231,7 +2285,8 @@ function convertReplyority() {
   }
 
   const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
-  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const outputResults = results.filter(r => r['支給始業時間'] && r['支給始業時間'] !== '');
+  const csv = [cols.join(','), ...outputResults.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   pendingResultData['replyority'] = results;
