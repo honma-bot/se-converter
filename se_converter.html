@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_32.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_33.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -505,7 +505,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -540,7 +540,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -575,7 +575,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -609,7 +609,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -644,7 +644,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_32.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_33.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1073,13 +1073,15 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
   const logEl = document.getElementById(prefix+'-log');
   logEl.innerHTML = log.map(l => `<div class="${l.type}">[${l.type.toUpperCase()}] ${l.msg}</div>`).join('');
 
-  // 未登録スタッフ登録UI
+  // 前回のUI要素をすべてクリア（再変換時の重複防止）
   const resultCard = document.getElementById(prefix+'-result-card');
-  let unmatchedUI = resultCard.querySelector('.unmatched-ui');
-  if (unmatchedUI) unmatchedUI.remove();
+  ['.unmatched-ui', '.multi-anken-ui', '.time-error-ui', '.warn-summary'].forEach(sel => {
+    const el = resultCard.querySelector(sel);
+    if (el) el.remove();
+  });
 
   // 未登録スタッフUI
-  if (unmatched > 0 && pendingUnmatched[prefix] && pendingUnmatched[prefix].length > 0) {
+  if (unmatched > 0 && prefix !== 'hrstation' && pendingUnmatched[prefix] && pendingUnmatched[prefix].length > 0) {
     const ui = document.createElement('div');
     ui.className = 'unmatched-ui';
     ui.style.cssText = 'margin-top:20px;';
@@ -1148,25 +1150,7 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
     renderTimeErrorRows(prefix);
   }
 
-  const dlBtn = document.getElementById(prefix+'-dl-btn');
-  if (url) {
-    const now = new Date();
-    const ym = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0');
-    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
-    const filename = `SE_勤怠インポート_${nameMap[prefix]||prefix}_${ym}.csv`;
-    dlBtn.onclick = (e) => {
-      e.preventDefault();
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    };
-    dlBtn.style.display = 'inline-flex';
-  } else {
-    dlBtn.style.display = 'none';
-  }
+  setDownloadBtn(prefix, url);
   card.scrollIntoView({behavior:'smooth'});
 }
 
@@ -1483,14 +1467,7 @@ function reExportWithSelection(prefix) {
   const csv = [cols.join(','), ...corrected.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
-  const dlBtn = document.getElementById(`${prefix}-dl-btn`);
-  if (dlBtn) {
-    dlBtn.href = url;
-    const now = new Date();
-    const ym = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0');
-    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
-    dlBtn.download = `SE_勤怠インポート_${nameMap[prefix]||prefix}_${ym}.csv`;
-  }
+  setDownloadBtn(prefix, url);
   showImportToast('✅ 選択内容で再出力しました。CSVをダウンロードしてください。');
 
   // UIを非表示
@@ -1500,6 +1477,31 @@ function reExportWithSelection(prefix) {
 
 // 変換結果データの一時保存
 const pendingResultData = {};
+
+// ダウンロードボタン設定（全タブ共通）
+function setDownloadBtn(prefix, url) {
+  const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
+  const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
+  const filename = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
+  const dlBtn = document.getElementById(prefix+'-dl-btn');
+  if (!dlBtn) return;
+  if (url) {
+    dlBtn._dlUrl = url;
+    dlBtn._dlFilename = filename;
+    dlBtn.onclick = function(e) {
+      e.preventDefault();
+      const a = document.createElement('a');
+      a.href = this._dlUrl;
+      a.download = this._dlFilename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+    dlBtn.style.display = 'inline-flex';
+  } else {
+    dlBtn.style.display = 'none';
+  }
+}
 
 function buildWarnSummary(prefix) {
   const resultCard = document.getElementById(prefix + '-result-card');
