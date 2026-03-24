@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_25.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_26.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -464,16 +464,13 @@ window.addEventListener('load', function() {
       <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;">
         <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:10px;">🔗 Googleスプレッドシート連携</div>
         <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
-          AdminがGAS WebアプリのURLを設定すると、全拠点で対応表を共有できます。<br>
-          設定方法は別途配布の手順書を参照してください。
+          GAS WebアプリのURLを設定してください。対応表はページを開くたびに自動で読み込まれます。
         </p>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <input type="text" id="gas-url" placeholder="https://script.google.com/macros/s/xxxx/exec" style="flex:1;min-width:260px;">
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
-          <button class="btn-add" onclick="fetchFromSheets()" id="btn-fetch" style="background:rgba(244,86,111,0.15);">📥 スプレッドシートから読込</button>
-          <button class="btn-add" onclick="pushToSheets()" id="btn-push" style="background:rgba(244,86,111,0.15);">📤 スプレッドシートへ保存</button>
         </div>
-        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--danger);">❌ 読込失敗: 通信エラー。Googleアカウントでログインしているか確認してください。</div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--danger);">❌ 読込失敗: Failed to fetch</div>
       </div>
 
       <!-- 対応表の件数表示のみ -->
@@ -507,7 +504,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_26.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -542,7 +539,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_26.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -577,7 +574,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_26.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -611,7 +608,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_26.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -646,7 +643,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_26.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2273,46 +2270,15 @@ function setGasStatus(msg, type) {
   el.textContent = msg;
 }
 
-function jsonp(url, params) {
-  return new Promise((resolve, reject) => {
-    const cbName = 'gasCallback_' + Date.now();
-    const fullUrl = url + '?' + Object.entries({...params, callback: cbName})
-      .map(([k,v]) => k + '=' + encodeURIComponent(v)).join('&');
-    const script = document.createElement('script');
-    script.src = fullUrl;
-    script.crossOrigin = 'anonymous';
-    window[cbName] = (data) => {
-      delete window[cbName];
-      if (script.parentNode) document.head.removeChild(script);
-      resolve(data);
-    };
-    script.onerror = (e) => {
-      delete window[cbName];
-      if (script.parentNode) document.head.removeChild(script);
-      // GASはリダイレクトするためonerrorが発火する場合がある
-      // 代替としてfetchを試みる
-      fetch(url + '?' + Object.entries(params).map(([k,v]) => k + '=' + encodeURIComponent(v)).join('&'))
-        .then(r => r.json())
-        .then(resolve)
-        .catch(() => reject(new Error('通信エラー。Googleアカウントでログインしているか確認してください。')));
-    };
-    setTimeout(() => {
-      if (window[cbName]) {
-        delete window[cbName];
-        if (script.parentNode) document.head.removeChild(script);
-        reject(new Error('タイムアウト（15秒）'));
-      }
-    }, 15000);
-    document.head.appendChild(script);
-  });
-}
-
-async function fetchFromSheets() {
+async function fetchFromSheets(silent) {
   const url = document.getElementById('gas-url').value.trim();
-  if (!url) { setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
-  setGasStatus('読み込み中...', 'info');
+  if (!url) { if (!silent) setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
+  if (!silent) setGasStatus('読み込み中...', 'info');
+  else setGasStatus('対応表を自動読み込み中...', 'info');
   try {
-    const data = await jsonp(url, { action: 'get' });
+    const res = await fetch(url + '?action=get', { credentials: 'include' });
+    if (!res.ok) throw new Error('通信エラー: ' + res.status);
+    const data = await res.json();
     if (!Array.isArray(data)) throw new Error('データ形式が不正です');
     let added = 0, skipped = 0;
     data.forEach(r => {
@@ -2322,7 +2288,7 @@ async function fetchFromSheets() {
       added++;
     });
     renderMapping();
-    setGasStatus(`✅ 読込完了 — 新規追加:${added}件 / スキップ:${skipped}件（登録済）`, 'ok');
+    setGasStatus(`✅ 読込完了 — ${mappingData.length}件`, 'ok');
   } catch(e) {
     setGasStatus('❌ 読込失敗: ' + e.message, 'err');
   }
@@ -2330,14 +2296,15 @@ async function fetchFromSheets() {
 
 async function pushToSheets() {
   const url = document.getElementById('gas-url').value.trim();
-  if (!url) { setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
-  if (mappingData.length === 0) { setGasStatus('⚠ 対応表が空です', 'warn'); return; }
-  if (!confirm(`対応表 ${mappingData.length}件をGoogleスプレッドシートに保存します。よろしいですか？`)) return;
-  setGasStatus('保存中...', 'info');
+  if (!url) return;
+  if (mappingData.length === 0) return;
   try {
-    const result = await jsonp(url, { action: 'set', data: JSON.stringify(mappingData) });
+    const encoded = encodeURIComponent(JSON.stringify(mappingData));
+    const res = await fetch(`${url}?action=set&data=${encoded}`, { credentials: 'include' });
+    if (!res.ok) throw new Error('通信エラー: ' + res.status);
+    const result = await res.json();
     if (result.error) throw new Error(result.error);
-    setGasStatus(`✅ 保存完了 — ${mappingData.length}件をスプレッドシートに書き込みました`, 'ok');
+    setGasStatus(`✅ 保存完了 — ${mappingData.length}件`, 'ok');
   } catch(e) {
     setGasStatus('❌ 保存失敗: ' + e.message, 'err');
   }
@@ -2486,8 +2453,7 @@ renderMapping();
 window.addEventListener('load', () => {
   const savedUrl = localStorage.getItem(GAS_URL_KEY);
   if (savedUrl) {
-    setGasStatus('対応表を自動読み込み中...', 'info');
-    setTimeout(() => fetchFromSheets(), 800); // 少し待ってから実行
+    setTimeout(() => fetchFromSheets(true), 800);
   }
 });
 </script>
