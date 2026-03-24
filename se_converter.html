@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_24.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_25.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -473,56 +473,11 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="fetchFromSheets()" id="btn-fetch" style="background:rgba(244,86,111,0.15);">📥 スプレッドシートから読込</button>
           <button class="btn-add" onclick="pushToSheets()" id="btn-push" style="background:rgba(244,86,111,0.15);">📤 スプレッドシートへ保存</button>
         </div>
-        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--danger);">❌ 読込失敗: 通信エラー。Googleアカウントでログインしているか確認してください。</div>
       </div>
 
-      <!-- 手動追加 -->
-      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
-        新規スタッフは下記フォームから追加できます。追加後は「スプレッドシートへ保存」で全拠点に反映されます。
-      </p>
-      <div class="row-input">
-        <label>種別</label>
-        <select id="new-type" style="padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface2);color:var(--text);font-size:12px;">
-          <option value="staffia">Staffia</option>
-          <option value="tmj">TMJ</option>
-          <option value="replyority">リプライオリティ</option>
-        </select>
-        <label>コード</label>
-        <input type="text" id="new-staffia-code" placeholder="例: s000001 / 8062384" style="max-width:150px;">
-        <label>スタッフ名</label>
-        <input type="text" id="new-name" placeholder="例: 山田　太郎" style="max-width:160px;">
-        <label>SEスタッフNO</label>
-        <input type="text" id="new-se-no" placeholder="例: 100001" style="max-width:120px;">
-        <label>SE案件管理NO</label>
-        <input type="text" id="new-anken-no" placeholder="例: 00000-000" style="max-width:140px;">
-        <button class="btn-add" onclick="addMapping()">＋ 追加</button>
-      </div>
-
-      <div id="mapping-table-wrap">
-        <div class="empty-state" id="mapping-empty" style="display: block;">まだ対応表が登録されていません</div>
-        <table class="mapping-table" id="mapping-table" style="display:none">
-          <thead>
-            <tr>
-              <th>種別</th>
-              <th>コード</th>
-              <th>スタッフ名</th>
-              <th>SEスタッフNO</th>
-              <th>SE案件管理NO</th>
-              <th>状態</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="mapping-tbody"></tbody>
-        </table>
-      </div>
-
-      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
-        <button class="btn-add" onclick="exportMapping()">⬇ CSVでエクスポート</button>
-        <div class="dropzone" style="flex:1;min-width:200px;padding:10px 16px;" id="dz-mapping-import">
-          <input type="file" accept=".csv,.xlsx,.xls" onchange="importMapping(event)">
-          <span style="font-size:12px;color:var(--text-muted);">📥 CSVから読み込む</span>
-        </div>
-      </div>
+      <!-- 対応表の件数表示のみ -->
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
     </div>
   </div>
 
@@ -552,7 +507,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -587,7 +542,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -622,7 +577,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -656,7 +611,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -691,7 +646,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_24.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_25.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -917,14 +872,7 @@ function checkDuplicates(rows, staffKey, dateKey, sourceName) {
   return [...new Set(dups)].map(d => `[${sourceName}] 重複データ: スタッフNO・日付 ${d}`);
 }
 
-// 時間矛盾チェック：終業 <= 始業（深夜跨ぎを除く）
-function checkTimeOrder(start, end, staffNo, date, sourceName) {
-  if (!start || !end) return null;
-  const s = timeToMin(start);
-  const e = timeToMin(end);
-  if (e > 0 && e < s) return `[${sourceName}] 時間矛盾: スタッフ${staffNo} ${date} 始業${start} > 終業${end}`;
-  return null;
-}
+
 
 // 案件NO重複チェック：同一スタッフ・同一日付に案件NOが複数マッチ
 function findAllAnken(haichiMap, staffNo, date) {
@@ -970,7 +918,6 @@ function convertCS() {
   addLog('info', 'CloudStaffing 変換開始...');
   pendingMultiAnken['cs'] = [];
   pendingUnmatched['cs'] = [];
-  pendingTimeErrors['cs'] = [];
 
   // --- フォーマットチェック ---
   const csRows = csvToObjects(files['cs-kintai'].data);
@@ -1006,7 +953,7 @@ function convertCS() {
   });
 
   const results = [];
-  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0, multiAnken = 0;
+  let matched = 0, unmatched = 0, absent = 0, multiAnken = 0;
 
   csRows.forEach(row => {
     const staffNo = (row['派遣元スタッフコード'] || '').trim();
@@ -1062,13 +1009,6 @@ function convertCS() {
     const zangyou = (row['超過就労時間'] || '').trim();
     const shinya = (row['深夜就労時間'] || '').trim();
 
-    // 時間矛盾チェック
-    const timeErr = checkTimeOrder(start, end, staffNo, date, 'CloudStaffing');
-    if (timeErr) {
-      addLog('warn', timeErr); timeErrors++;
-      if (!pendingTimeErrors['cs']) pendingTimeErrors['cs'] = [];
-      pendingTimeErrors['cs'].push({ staffNo, name: row['スタッフ名']||'', date, start, end });
-    }
 
     const calc = calcKihonZangyou(start, end, rest);
     results.push({ 'スタッフNO': staffNo, '就業年月日': date,
@@ -1085,9 +1025,8 @@ function convertCS() {
   if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
   if (unmatched > 0) addLog('warn', `案件NO未特定: ${unmatched}件（配置一覧を確認してください）`);
   if (multiAnken > 0) addLog('warn', `案件NO複数ヒット（手動選択必要）: ${multiAnken}件`);
-  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
   if (absent > 0) addLog('info', `欠勤/休日: ${absent}件（時間空白で出力）`);
-  if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0 && multiAnken === 0) {
+  if (unmatched === 0 && dupErrors.length === 0 && multiAnken === 0) {
     addLog('ok', 'エラーなし — インポートの準備ができています');
   }
 
@@ -1274,7 +1213,21 @@ function renderUnmatchedRows(prefix) {
 
   tbody.innerHTML = list.map((item, i) => {
     const candidates = searchHaichiByName(item.name);
-    const candidateHTML = candidates.length > 0
+    // 候補が1件だけの場合は自動マッチング
+    if (candidates.length === 1 && !item.matched) {
+      const c = candidates[0];
+      const haichiRows2 = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+      const matched2 = haichiRows2.find(r => String(r['スタッフNO']||'').trim() === c.staffNo);
+      pendingUnmatched[prefix][i].seNo = c.staffNo;
+      pendingUnmatched[prefix][i].ankenNo = c.ankenNo;
+      pendingUnmatched[prefix][i].matched = true;
+      pendingUnmatched[prefix][i].matchedName = c.name;
+      pendingUnmatched[prefix][i].matchedCompany = c.company;
+      pendingUnmatched[prefix][i].matchedOffice = c.office;
+      pendingUnmatched[prefix][i].autoMatched = true;
+    }
+
+    const candidateHTML = candidates.length > 1
       ? `<div style="margin-top:6px;">
           ${candidates.map(c => `
             <div onclick="selectHaichiMatch('${prefix}',${i},'${c.staffNo}','${c.ankenNo}')"
@@ -1524,7 +1477,6 @@ function reExportWithSelection(prefix) {
 
 // 変換結果データの一時保存
 const pendingResultData = {};
-const pendingTimeErrors = {};
 
 function buildWarnSummary(prefix) {
   const resultCard = document.getElementById(prefix + '-result-card');
@@ -1538,8 +1490,7 @@ function buildWarnSummary(prefix) {
     warnItems.push({ icon:'📋', label:'案件NO複数ヒット', count: (pendingMultiAnken[prefix]||[]).length, target: 'multi-anken-ui', color: '#F4566F' });
   if (resultCard.querySelector('.unmatched-ui'))
     warnItems.push({ icon:'⚠', label:'案件NO未特定', count: (pendingUnmatched[prefix]||[]).length, target: 'unmatched-ui', color: '#d97706' });
-  if (resultCard.querySelector('.time-error-ui'))
-    warnItems.push({ icon:'⏰', label:'時間矛盾', count: (pendingTimeErrors[prefix]||[]).length, target: 'time-error-ui', color: '#d97706' });
+
 
   if (warnItems.length === 0) return;
 
@@ -1754,7 +1705,7 @@ function convertStaffia() {
   mappingData.forEach(m => { mapLookup[m.staffiaCode] = m; });
 
   const results = [];
-  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0;
+  let matched = 0, unmatched = 0, absent = 0;
   const unmatchedCodes = new Set();
 
   rows.forEach(row => {
@@ -1794,13 +1745,6 @@ function convertStaffia() {
     const startTime = int4ToTime(row['勤務開始時間']);
     const endTime = int4ToTime(row['勤務終了時間']);
 
-    // 時間矛盾チェック
-    const timeErr = checkTimeOrder(startTime, endTime, seNo||staffiaCode, date, 'Staffia');
-    if (timeErr) {
-      addLog('warn', timeErr); timeErrors++;
-      if (!pendingTimeErrors['staffia']) pendingTimeErrors['staffia'] = [];
-      pendingTimeErrors['staffia'].push({ staffNo: seNo||staffiaCode, name: row['氏名']||'', date, start: startTime, end: endTime });
-    }
 
     // 休憩時間計算
     let restMin = 0;
@@ -1838,9 +1782,8 @@ function convertStaffia() {
   addLog('ok', `変換完了: ${results.length}件`);
   addLog('ok', `対応表マッチ: ${matched}件`);
   if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
-  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
   if (absent > 0) addLog('info', `欠勤/休日/休み: ${absent}件（時間空白で出力）`);
-  if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0) {
+  if (unmatched === 0 && dupErrors.length === 0) {
     addLog('ok', 'エラーなし — インポートの準備ができています');
   }
 
@@ -1862,7 +1805,6 @@ function convertHRStation() {
   addLog('info', 'HR-Station 変換開始...');
   pendingUnmatched['hrstation'] = [];
   pendingMultiAnken['hrstation'] = [];
-  pendingTimeErrors['hrstation'] = [];
 
   // --- フォーマットチェック ---
   const rows = csvToObjects(files['hrstation-kintai'].data);
@@ -1891,7 +1833,7 @@ function convertHRStation() {
   });
 
   const results = [];
-  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0, multiAnken = 0;
+  let matched = 0, unmatched = 0, absent = 0, multiAnken = 0;
 
   rows.forEach(row => {
     const rawCode = (row['スタッフコード'] || '').trim();
@@ -1965,13 +1907,6 @@ function convertHRStation() {
     // 深夜
     const shinya = normalizeTime(row['深夜勤務'] || '');
 
-    // 時間矛盾チェック
-    const timeErr = checkTimeOrder(start, end, staffNo, date, 'HR-Station');
-    if (timeErr) {
-      addLog('warn', timeErr); timeErrors++;
-      if (!pendingTimeErrors['hrstation']) pendingTimeErrors['hrstation'] = [];
-      pendingTimeErrors['hrstation'].push({ staffNo, name: row['スタッフ氏名']||'', date, start, end });
-    }
 
     const calcHr = calcKihonZangyou(start, end, rest);
     results.push({ 'スタッフNO': staffNo, '就業年月日': date,
@@ -1991,9 +1926,8 @@ function convertHRStation() {
   if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
   if (unmatched > 0) addLog('warn', `案件NO未特定: ${unmatched}件（配置一覧を確認してください）`);
   if (multiAnken > 0) addLog('warn', `案件NO複数ヒット（手動選択必要）: ${multiAnken}件`);
-  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件（始業・終業時間を確認）`);
   if (absent > 0) addLog('info', `休日・欠勤: ${absent}件（時間空白で出力）`);
-  if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0 && multiAnken === 0) {
+  if (unmatched === 0 && dupErrors.length === 0 && multiAnken === 0) {
     addLog('ok', 'エラーなし — インポートの準備ができています');
   }
 
@@ -2047,7 +1981,7 @@ function convertTMJ() {
   });
 
   const results = [];
-  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0, multiAnken = 0;
+  let matched = 0, unmatched = 0, absent = 0, multiAnken = 0;
   const unmatchedCodes = new Set();
 
   // 分→HH:MM変換
@@ -2117,13 +2051,6 @@ function convertTMJ() {
     const zangyou = minToHHMM(row['法定外残業時間']);
     const shinya  = minToHHMM(row['確定深夜勤務時間']);
 
-    // 時間矛盾チェック
-    const timeErr = checkTimeOrder(start, end, seNo||empNo, date, 'TMJ');
-    if (timeErr) {
-      addLog('warn', timeErr); timeErrors++;
-      if (!pendingTimeErrors['tmj']) pendingTimeErrors['tmj'] = [];
-      pendingTimeErrors['tmj'].push({ staffNo: seNo||empNo, name: row['氏名']||'', date, start, end });
-    }
 
     results.push({ 'スタッフNO': seNo, '就業年月日': date,
       '支給始業時間': start, '支給終業時間': end,
@@ -2144,9 +2071,8 @@ function convertTMJ() {
   addLog('ok', `対応表マッチ: ${matched}件`);
   if (dupErrors.length > 0) addLog('warn', `重複データ: ${dupErrors.length}件（要確認）`);
   if (multiAnken > 0) addLog('warn', `案件NO複数ヒット: ${multiAnken}件（先頭を使用）`);
-  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件`);
   if (absent > 0) addLog('info', `休日・欠勤: ${absent}件（時間空白で出力）`);
-  if (unmatched === 0 && dupErrors.length === 0 && timeErrors === 0) {
+  if (unmatched === 0 && dupErrors.length === 0) {
     addLog('ok', 'エラーなし — インポートの準備ができています');
   }
 
@@ -2167,7 +2093,6 @@ function convertReplyority() {
   addLog('info', 'リプライオリティ 変換開始...');
   pendingUnmatched['replyority'] = [];
   pendingMultiAnken['replyority'] = [];
-  pendingTimeErrors['replyority'] = [];
 
   // SheetJSで複数シートを読み込む
   const fileInfo = files['replyority-kintai'];
@@ -2202,7 +2127,7 @@ function convertReplyority() {
   });
 
   const results = [];
-  let matched = 0, unmatched = 0, absent = 0, timeErrors = 0;
+  let matched = 0, unmatched = 0, absent = 0;
   const unmatchedCodes = new Set();
 
   wb.SheetNames.forEach(sheetName => {
@@ -2291,8 +2216,7 @@ function convertReplyority() {
       const kihon = minToTime(Math.max(0, jitsuMin - zangyouMin));
 
       // 時間矛盾チェック
-      const timeErr = checkTimeOrder(startRaw, endRaw, seNo||rthCode, date, 'リプライオリティ');
-      if (timeErr) { addLog('warn', timeErr); timeErrors++; }
+        if (timeErr) { addLog('warn', timeErr); timeErrors++; }
 
       const calcRp = calcKihonZangyou(startRaw, endRaw, rest);
       results.push({ 'スタッフNO': seNo, '就業年月日': date,
@@ -2312,7 +2236,6 @@ function convertReplyority() {
   }
   addLog('ok', `変換完了: ${results.length}件（${wb.SheetNames.length}シート処理）`);
   addLog('ok', `対応表マッチ: ${matched}件`);
-  if (timeErrors > 0) addLog('warn', `時間矛盾: ${timeErrors}件`);
   if (absent > 0) addLog('info', `休日・欠勤: ${absent}件（時間空白で出力）`);
   if (unmatched === 0 && timeErrors === 0) {
     addLog('ok', 'エラーなし — インポートの準備ができています');
@@ -2357,23 +2280,29 @@ function jsonp(url, params) {
       .map(([k,v]) => k + '=' + encodeURIComponent(v)).join('&');
     const script = document.createElement('script');
     script.src = fullUrl;
+    script.crossOrigin = 'anonymous';
     window[cbName] = (data) => {
       delete window[cbName];
-      document.head.removeChild(script);
+      if (script.parentNode) document.head.removeChild(script);
       resolve(data);
     };
-    script.onerror = () => {
+    script.onerror = (e) => {
       delete window[cbName];
-      document.head.removeChild(script);
-      reject(new Error('通信エラー（スクリプト読み込み失敗）'));
+      if (script.parentNode) document.head.removeChild(script);
+      // GASはリダイレクトするためonerrorが発火する場合がある
+      // 代替としてfetchを試みる
+      fetch(url + '?' + Object.entries(params).map(([k,v]) => k + '=' + encodeURIComponent(v)).join('&'))
+        .then(r => r.json())
+        .then(resolve)
+        .catch(() => reject(new Error('通信エラー。Googleアカウントでログインしているか確認してください。')));
     };
     setTimeout(() => {
       if (window[cbName]) {
         delete window[cbName];
         if (script.parentNode) document.head.removeChild(script);
-        reject(new Error('タイムアウト（10秒）'));
+        reject(new Error('タイムアウト（15秒）'));
       }
-    }, 10000);
+    }, 15000);
     document.head.appendChild(script);
   });
 }
@@ -2416,29 +2345,20 @@ async function pushToSheets() {
 
 // ===================== Mapping管理 =====================
 function renderMapping() {
-  const tbody = document.getElementById('mapping-tbody');
-  const table = document.getElementById('mapping-table');
-  const empty = document.getElementById('mapping-empty');
-
+  const summary = document.getElementById('mapping-summary');
+  if (!summary) return;
   if (mappingData.length === 0) {
-    table.style.display = 'none';
-    empty.style.display = 'block';
-    return;
+    summary.innerHTML = '<span style="color:var(--text-dim);">対応表はまだ登録されていません</span>';
+  } else {
+    const staffia = mappingData.filter(m => (m.type||'staffia') === 'staffia').length;
+    const tmj = mappingData.filter(m => m.type === 'tmj').length;
+    const rp = mappingData.filter(m => m.type === 'replyority').length;
+    summary.innerHTML = `
+      <span style="color:var(--success);font-weight:700;">✅ 対応表 ${mappingData.length}件 登録済</span>
+      <span style="margin-left:12px;font-size:12px;">
+        Staffia: ${staffia}件 　TMJ: ${tmj}件 　リプライオリティ: ${rp}件
+      </span>`;
   }
-  table.style.display = 'table';
-  empty.style.display = 'none';
-
-  tbody.innerHTML = mappingData.map((m, i) => `
-    <tr>
-      <td><span class="badge ${m.type==='tmj'?'badge-new':'badge-ok'}">${m.type||'staffia'}</span></td>
-      <td><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent)">${m.staffiaCode}</span></td>
-      <td>${m.name}</td>
-      <td><span style="font-family:'Space Mono',monospace">${m.seNo}</span></td>
-      <td><span style="font-family:'Space Mono',monospace">${m.ankenNo}</span></td>
-      <td><span class="badge badge-ok">登録済</span></td>
-      <td><button class="btn-del" onclick="removeMapping(${i})">削除</button></td>
-    </tr>
-  `).join('');
 }
 
 function addMapping() {
@@ -2562,6 +2482,14 @@ function showImportToast(message) {
 // init
 loadGasUrl();
 renderMapping();
+// ページ読み込み時にGASのURLが保存されていれば自動で対応表を読み込む
+window.addEventListener('load', () => {
+  const savedUrl = localStorage.getItem(GAS_URL_KEY);
+  if (savedUrl) {
+    setGasStatus('対応表を自動読み込み中...', 'info');
+    setTimeout(() => fetchFromSheets(), 800); // 少し待ってから実行
+  }
+});
 </script>
 
 
