@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_45.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_46.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -511,7 +511,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_46.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -546,7 +546,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_46.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -581,7 +581,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_46.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -615,7 +615,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_46.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -650,7 +650,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_46.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -724,7 +724,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_46.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2803,14 +2803,30 @@ function convertFreeFormat() {
   const fileInfo = files['freeformat-kintai'];
   if (!fileInfo) { addLog('err', 'ファイルが読み込まれていません'); showResult('freeformat',0,0,0,0,log,null); return; }
 
-  // CSVに変換済みのデータを使用
-  const rows = csvToObjects(fileInfo.data);
-  addLog('info', `データ読込: ${rows.length}行`);
+  // CSVの全行を取得し、「社員番号」「氏名」等が含まれる行をヘッダー行として自動検出
+  const rawLines = parseCSV(fileInfo.data);
+  if (!rawLines || rawLines.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
 
-  // ヘッダー列名マッピング（4行目ヘッダーを想定）
-  // Excelのヘッダーに改行が含まれる場合があるため、正規化して照合
-  const rawHeaders = Object.keys(rows[0] || {});
-  const normalizeKey = s => String(s).replace(/[\r\n\t ]/g, '').toLowerCase();
+  const normalizeKey = s => String(s||'').replace(/[\r\n\t\s]/g, '').toLowerCase();
+  const headerKeywords = ['社員番号', '氏名', '勤務日付', '始業', '終業'];
+  let headerRowIdx = -1;
+  for (let i = 0; i < Math.min(10, rawLines.length); i++) {
+    const rowStr = rawLines[i].map(c => normalizeKey(c)).join('');
+    const matchCount = headerKeywords.filter(k => rowStr.includes(normalizeKey(k))).length;
+    if (matchCount >= 3) { headerRowIdx = i; break; }
+  }
+  if (headerRowIdx === -1) { addLog('err', 'ヘッダー行が見つかりません（社員番号・氏名・勤務日付等の列が必要です）'); showResult('freeformat',0,0,0,0,log,null); return; }
+
+  const headerCols = rawLines[headerRowIdx];
+  const dataLines  = rawLines.slice(headerRowIdx + 1).filter(r => r.some(c => String(c).trim()));
+  const rows = dataLines.map(r => {
+    const obj = {};
+    headerCols.forEach((h, i) => { obj[h] = r[i] || ''; });
+    return obj;
+  });
+  addLog('info', `データ読込: ${rows.length}行（ヘッダー: ${headerRowIdx + 1}行目）`);
+
+  const rawHeaders = headerCols;
   const findKey = (candidates) => rawHeaders.find(h => candidates.some(c => normalizeKey(h).includes(normalizeKey(c)))) || candidates[0];
 
   const staffCodeKey = findKey(['社員番号']);
