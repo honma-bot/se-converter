@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_42.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_43.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -430,17 +430,17 @@ window.addEventListener('load', function() {
   </header>
 
   <div class="tabs">
-    <button class="tab" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
+    <button class="tab active" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
     <button class="tab" onclick="switchTab(&#39;cloudstaffing&#39;)">CloudStaffing</button>
     <button class="tab" onclick="switchTab(&#39;staffia&#39;)">Staffia</button>
     <button class="tab" onclick="switchTab(&#39;hrstation&#39;)">HR-Station</button>
     <button class="tab" onclick="switchTab(&#39;tmj&#39;)">TMJ</button>
     <button class="tab" onclick="switchTab(&#39;replyority&#39;)">リプライオリティ</button>
-    <button class="tab active" onclick="switchTab(&#39;freeformat&#39;)">フリー様式</button>
+    <button class="tab" onclick="switchTab(&#39;freeformat&#39;)">フリー様式</button>
   </div>
 
   <!-- ===== 設定パネル ===== -->
-  <div class="panel" id="panel-settings">
+  <div class="panel active" id="panel-settings">
 
     <!-- 配置一覧 -->
     <div class="card">
@@ -477,15 +477,11 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 286件</div>
+        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
-      <span style="color:var(--success);font-weight:700;">✅ 対応表 286件 登録済</span>
-      <span style="margin-left:12px;font-size:12px;">
-        Staffia: 286件 　TMJ: 0件 　リプライオリティ: 0件 　フリー様式: 0件
-      </span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
     </div>
   </div>
 
@@ -515,7 +511,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_42.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_43.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -550,7 +546,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_42.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_43.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -585,7 +581,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_42.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_43.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -619,7 +615,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_42.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_43.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -654,7 +650,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_42.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_43.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -662,7 +658,7 @@ window.addEventListener('load', function() {
   </div>
 
   <!-- ===== フリー様式 パネル ===== -->
-  <div class="panel active" id="panel-freeformat">
+  <div class="panel" id="panel-freeformat">
 
     <!-- STEP 1: ファイルアップロード -->
     <div class="card">
@@ -687,8 +683,8 @@ window.addEventListener('load', function() {
       </p>
 
       <!-- 連動あり -->
-      <label style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;margin-bottom:8px;transition:all 0.2s;" id="ff-option-linked" onclick="setFfMode(&#39;linked&#39;)">
-        <input type="radio" name="ff-mode" value="linked" style="margin-top:3px;accent-color:var(--accent);">
+      <label style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;margin-bottom:8px;transition:all 0.2s;" id="ff-option-linked">
+        <input type="radio" name="ff-mode" value="linked" style="margin-top:3px;accent-color:var(--accent);" onchange="setFfMode(&#39;linked&#39;)">
         <div>
           <div style="font-weight:700;font-size:13px;margin-bottom:2px;">✅ ある（スタッフNO・案件管理NOがファイルに入っている）</div>
           <div style="font-size:11px;color:var(--text-muted);">アデコ等。対応表・配置一覧不要。ファイルの値をそのまま使用します。</div>
@@ -708,8 +704,8 @@ window.addEventListener('load', function() {
       </label>
 
       <!-- 連動なし -->
-      <label style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s;" id="ff-option-mapping" onclick="setFfMode(&#39;mapping&#39;)">
-        <input type="radio" name="ff-mode" value="mapping" style="margin-top:3px;accent-color:var(--accent);">
+      <label style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s;" id="ff-option-mapping">
+        <input type="radio" name="ff-mode" value="mapping" style="margin-top:3px;accent-color:var(--accent);" onchange="setFfMode(&#39;mapping&#39;)">
         <div>
           <div style="font-weight:700;font-size:13px;margin-bottom:2px;">⚙ ない（対応表で照合する）</div>
           <div style="font-size:11px;color:var(--text-muted);">新宿CE等。設定タブの対応表（freeformat種別）でスタッフNOを照合。案件NOは配置一覧から自動特定します。</div>
@@ -728,7 +724,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_42.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_43.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
