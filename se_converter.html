@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_38.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_41.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,17 +107,18 @@ window.addEventListener('load', function() {
   }
   .tab {
     flex: 1;
-    padding: 10px 16px;
+    padding: 8px 8px;
     border: none;
     background: transparent;
     color: var(--text-muted);
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     border-radius: 7px;
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
+    white-space: nowrap;
   }
   .tab:hover { color: var(--accent); background: var(--accent-light); }
   .tab.active {
@@ -435,6 +436,7 @@ window.addEventListener('load', function() {
     <button class="tab" onclick="switchTab(&#39;hrstation&#39;)">HR-Station</button>
     <button class="tab" onclick="switchTab(&#39;tmj&#39;)">TMJ</button>
     <button class="tab" onclick="switchTab(&#39;replyority&#39;)">リプライオリティ</button>
+    <button class="tab" onclick="switchTab(&#39;freeformat&#39;)">フリー様式</button>
   </div>
 
   <!-- ===== 設定パネル ===== -->
@@ -475,11 +477,15 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 286件</div>
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
+      <span style="color:var(--success);font-weight:700;">✅ 対応表 286件 登録済</span>
+      <span style="margin-left:12px;font-size:12px;">
+        Staffia: 286件 　TMJ: 0件 　リプライオリティ: 0件 　フリー様式: 0件
+      </span></div>
     </div>
   </div>
 
@@ -509,7 +515,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_38.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_41.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -544,7 +550,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_38.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_41.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -579,7 +585,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_38.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_41.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -613,7 +619,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_38.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_41.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -648,11 +654,86 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_38.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_41.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
     </div>
+
+  <!-- ===== フリー様式 パネル ===== -->
+  <div class="panel" id="panel-freeformat">
+
+    <!-- STEP 1: ファイルアップロード -->
+    <div class="card">
+      <div class="card-title">STEP 1 — ファイルをアップロード</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+        CSV・Excel どちらも対応しています。アデコ・新宿CE等のファイルをドロップしてください。
+      </p>
+      <div class="dropzone" id="dz-freeformat" ondragover="dzDrag(event,&#39;dz-freeformat&#39;)" ondragleave="dzLeave(&#39;dz-freeformat&#39;)" ondrop="dzDrop(event,&#39;dz-freeformat&#39;,&#39;freeformat-kintai&#39;)">
+        <input type="file" accept=".xlsx,.xls,.csv" onchange="loadFile(event,&#39;freeformat-kintai&#39;,&#39;dz-freeformat&#39;)">
+        <span class="dropzone-icon">📋</span>
+        <div class="dropzone-text">ファイルをドロップ または クリック</div>
+        <div class="dropzone-sub">CSV・Excel（.csv / .xlsx / .xls）</div>
+        <div class="file-name" id="fn-freeformat-kintai"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: SE連動設定 -->
+    <div class="card">
+      <div class="card-title">STEP 2 — SEとの連動設定</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;line-height:1.7;">
+        このファイルにStaff Expressと連動している列はありますか？
+      </p>
+
+      <!-- 連動あり -->
+      <label style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;margin-bottom:8px;transition:all 0.2s;" id="ff-option-linked" onclick="setFfMode(&#39;linked&#39;)">
+        <input type="radio" name="ff-mode" value="linked" style="margin-top:3px;accent-color:var(--accent);">
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:2px;">✅ ある（スタッフNO・案件管理NOがファイルに入っている）</div>
+          <div style="font-size:11px;color:var(--text-muted);">アデコ等。対応表・配置一覧不要。ファイルの値をそのまま使用します。</div>
+          <!-- 連動あり詳細設定 -->
+          <div id="ff-linked-detail" style="display:none;margin-top:12px;background:#fdf5f6;border-radius:6px;padding:12px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:10px;">ファイルの形式を選択してください：</div>
+            <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px;cursor:pointer;">
+              <input type="radio" name="ff-linked-type" value="adeco" checked="" style="accent-color:var(--accent);">
+              <span><strong>アデコ形式</strong> — ヘッダー行にA=案件管理NO・B=スタッフNO・C=氏名、日次行にA=日付・B=区分・C=始業・D=終業・G=休憩</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;">
+              <input type="radio" name="ff-linked-type" value="custom" style="accent-color:var(--accent);">
+              <span><strong>カスタム</strong> — 列番号を指定する（準備中）</span>
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <!-- 連動なし -->
+      <label style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s;" id="ff-option-mapping" onclick="setFfMode(&#39;mapping&#39;)">
+        <input type="radio" name="ff-mode" value="mapping" style="margin-top:3px;accent-color:var(--accent);">
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:2px;">⚙ ない（対応表で照合する）</div>
+          <div style="font-size:11px;color:var(--text-muted);">新宿CE等。設定タブの対応表（freeformat種別）でスタッフNOを照合。案件NOは配置一覧から自動特定します。</div>
+        </div>
+      </label>
+    </div>
+
+    <!-- STEP 3: 変換実行 -->
+    <div class="card">
+      <div class="card-title">STEP 3 — 変換実行</div>
+      <button class="btn-convert" id="btn-freeformat-convert" onclick="convertFreeFormat()" disabled="">変換してCSVをダウンロード</button>
+    </div>
+
+    <div class="card" id="freeformat-result-card" style="display:none">
+      <div class="card-title">変換結果</div>
+      <div class="stats" id="freeformat-stats"></div>
+      <div class="log" id="freeformat-log"></div>
+      <div style="margin-top:16px;">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_41.html#" download="SE_勤怠インポート_フリー様式.csv">
+          ⬇ CSVをダウンロード
+        </a>
+      </div>
+    </div>
+  </div>
+
   </div>
 </div>
 
@@ -665,7 +746,7 @@ let replyorityWB = null; // リプライオリティ用 全シートワークブ
 // ===================== Tab =====================
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach((t,i) => {
-    const tabs = ['settings','cloudstaffing','staffia','hrstation','tmj','replyority'];
+    const tabs = ['settings','cloudstaffing','staffia','hrstation','tmj','replyority','freeformat'];
     t.classList.toggle('active', tabs[i] === tab);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -773,6 +854,9 @@ function checkButtons() {
   if (tmjBtn) tmjBtn.disabled = !files['tmj-kintai'];
   const hrBtn = document.getElementById('btn-hrstation-convert');
   if (hrBtn) hrBtn.disabled = !files['hrstation-kintai'];
+  // フリー様式: Excelのみ
+  const ffBtn = document.getElementById('btn-freeformat-convert');
+  if (ffBtn) ffBtn.disabled = !files['freeformat-kintai'];
   // 配置一覧読込済みなら警告非表示
   const notice = document.getElementById('cs-haichi-notice');
   if (notice && files['se-haichi']) notice.style.display = 'none';
@@ -819,7 +903,7 @@ function csvToObjects(text) {
  * @param {string} workFlagVal  workFlagKeyがこの値なら出勤（nullなら非空で出勤）
  * @param {Function} addLog     ログ追記関数
  */
-function runValidation(results, sourceRows, staffNoKey, dateKey, workFlagKey, workFlagVal, addLog) {
+function runValidation(results, sourceRows, staffNoKey, dateKey, workFlagKey, workFlagVal, addLog, haichiMap) {
   let timeWarnCount = 0;
 
   // ① 時間チェック（出勤行のみ）
@@ -868,7 +952,26 @@ function runValidation(results, sourceRows, staffNoKey, dateKey, workFlagKey, wo
     addLog('warn', `⏱ 時間チェック: ${timeWarnCount}件の異常を検出`);
   }
 
-  // ② 件数チェック（元データとの出勤日数照合）
+  // ② 配置一覧未登録チェック（haichiMapがある場合のみ）
+  if (typeof haichiMap !== 'undefined' && haichiMap && Object.keys(haichiMap).length > 0) {
+    const notInHaichi = new Map(); // staffNo → name
+    results.forEach(r => {
+      const no   = String(r['スタッフNO'] || '').trim();
+      const name = String(r['_name'] || '').trim();
+      if (!no) return;
+      if (!haichiMap[no] && !notInHaichi.has(no)) notInHaichi.set(no, name);
+    });
+    if (notInHaichi.size > 0) {
+      notInHaichi.forEach((name, no) => {
+        const nameStr = name ? `（${name}）` : '';
+        addLog('warn', `📋 配置一覧未登録: スタッフ${no}${nameStr} — 配置一覧に存在しません。下の入力欄でSEスタッフNOを紐づけてください`);
+      });
+      // pendingHaichiMissingはshowResult後にセットするためaddLog後に返す
+      addLog('__haichiMissing__', JSON.stringify([...notInHaichi.entries()]));
+    }
+  }
+
+  // ③ 件数チェック（元データとの出勤日数照合）
   if (sourceRows && sourceRows.length > 0 && staffNoKey && dateKey) {
     // 元データ: スタッフ別出勤日数
     // ※ 空白・"0"・"0:00"・"00:00" は出勤なしとみなしてカウントしない
@@ -1140,7 +1243,7 @@ function convertCS() {
         '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
         '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
         '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['スタッフ名']||'').trim() });
       return;
     }
 
@@ -1158,11 +1261,11 @@ function convertCS() {
       '支給基本時間': calc.kihon, '支給残業時間': calc.zangyou, '支給深夜時間': shinya, '支給出勤区分': '0',
       '請求始業時間': start, '請求終業時間': end, '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
       '請求基本時間': calc.kihon, '請求残業時間': calc.zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
-      '案件管理NO': ankenNo });
+      '案件管理NO': ankenNo, '_name': String(row['スタッフ名']||'').trim() });
   });
 
   // バリデーション
-  runValidation(results, csRows, '派遣元スタッフコード', '日付', '始業時刻', null, addLog);
+  runValidation(results, csRows, '派遣元スタッフコード', '日付', '始業時刻', null, addLog, haichiMap);
 
   // サマリーログ
   addLog('ok', `変換完了: ${results.length}件`);
@@ -1199,12 +1302,24 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
   // 要確認サマリーバナーは各UIレンダリング後に構築（タイマーで遅延）
   setTimeout(() => buildWarnSummary(prefix), 100);
 
+  // __haichiMissing__ログを抽出してpendingHaichiMissingにセット
+  pendingHaichiMissing[prefix] = [];
+  const displayLog = log.filter(l => {
+    if (l.type === '__haichiMissing__') {
+      try {
+        const entries = JSON.parse(l.msg);
+        entries.forEach(([no, name]) => pendingHaichiMissing[prefix].push({ staffNo: no, name }));
+      } catch(e) {}
+      return false; // ログ表示からは除外
+    }
+    return true;
+  });
   const logEl = document.getElementById(prefix+'-log');
-  logEl.innerHTML = log.map(l => `<div class="${l.type}">[${l.type.toUpperCase()}] ${l.msg}</div>`).join('');
+  logEl.innerHTML = displayLog.map(l => `<div class="${l.type}">[${l.type.toUpperCase()}] ${l.msg}</div>`).join('');
 
   // 前回のUI要素をすべてクリア（再変換時の重複防止）
   const resultCard = document.getElementById(prefix+'-result-card');
-  ['.unmatched-ui', '.multi-anken-ui', '.time-error-ui', '.warn-summary'].forEach(sel => {
+  ['.unmatched-ui', '.multi-anken-ui', '.time-error-ui', '.warn-summary', '.haichi-missing-ui'].forEach(sel => {
     const el = resultCard.querySelector(sel);
     if (el) el.remove();
   });
@@ -1236,6 +1351,36 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
     `;
     resultCard.insertBefore(ui, resultCard.querySelector('.log').nextSibling);
     renderUnmatchedRows(prefix);
+  }
+
+  // 配置一覧未登録スタッフUI
+  if (pendingHaichiMissing[prefix] && pendingHaichiMissing[prefix].length > 0) {
+    const uiH = document.createElement('div');
+    uiH.className = 'haichi-missing-ui';
+    uiH.style.cssText = 'margin-top:20px;';
+    uiH.innerHTML = `
+      <div class="card-title" style="color:var(--danger);margin-bottom:12px;">
+        🔴 配置一覧未登録 ${pendingHaichiMissing[prefix].length}名 — 勤怠データにいますが配置一覧に存在しません
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+        旧姓・表記違い等でスタッフNOが一致しない場合、正しいSEスタッフNOを入力して紐づけてください。<br>
+        紐づけると配置一覧から案件NOが自動特定され、CSVに出力されます。
+      </p>
+      <table class="mapping-table" style="margin-bottom:12px;">
+        <thead><tr>
+          <th>スタッフNO（勤怠）</th><th>氏名</th><th>紐づけるSEスタッフNO</th><th>特定された案件NO</th>
+        </tr></thead>
+        <tbody id="${prefix}-haichi-missing-tbody"></tbody>
+      </table>
+      <button class="btn-convert" style="max-width:320px;padding:12px;" onclick="applyHaichiMissing('${prefix}')">
+        ✅ 紐づけて再変換・ダウンロード
+      </button>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px;">
+        ※ 入力しないスタッフはCSVに出力されません。
+      </p>
+    `;
+    resultCard.insertBefore(uiH, resultCard.querySelector('.log').nextSibling);
+    renderHaichiMissingRows(prefix);
   }
 
   // 複数案件NOスタッフUI
@@ -1345,6 +1490,127 @@ function searchHaichiByName(name) {
       // 高スコアがない場合は姓一致のみ（最大4件）
       return i < 4;
     });
+}
+
+
+// ===================== 配置一覧未登録 紐づけUI =====================
+function renderHaichiMissingRows(prefix) {
+  const tbody = document.getElementById(`${prefix}-haichi-missing-tbody`);
+  if (!tbody) return;
+  const list = pendingHaichiMissing[prefix] || [];
+
+  tbody.innerHTML = list.map((item, i) => `
+    <tr id="${prefix}-haichi-missing-row-${i}">
+      <td style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);vertical-align:middle;">${item.staffNo}</td>
+      <td style="font-weight:700;vertical-align:middle;">${item.name || '—'}</td>
+      <td style="vertical-align:middle;">
+        ${item.resolvedSeNo
+          ? `<div style="display:flex;align-items:center;gap:8px;padding:5px 10px;background:rgba(15,169,104,0.08);border:1px solid var(--success);border-radius:6px;">
+              <span style="color:var(--success);font-weight:700;font-family:'Space Mono',monospace;font-size:12px;">✓ ${item.resolvedSeNo}</span>
+              <button class="btn-del" onclick="clearHaichiMissing('${prefix}',${i})" style="margin-left:auto;font-size:10px;">取消</button>
+            </div>`
+          : `<div style="display:flex;gap:6px;align-items:center;">
+              <input type="text" placeholder="SEスタッフNO" id="${prefix}-hmissing-seno-${i}"
+                style="width:100px;font-size:12px;font-family:'Space Mono',monospace;"
+                oninput="previewHaichiAnken('${prefix}',${i},this.value)">
+              <span id="${prefix}-hmissing-preview-${i}" style="font-size:11px;color:var(--text-muted);"></span>
+            </div>`
+        }
+      </td>
+      <td style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text-muted);vertical-align:middle;">
+        ${item.resolvedAnkenNo || '<span style="color:var(--text-dim);">—</span>'}
+      </td>
+    </tr>
+  `).join('');
+}
+
+function previewHaichiAnken(prefix, idx, seNo) {
+  seNo = seNo.trim();
+  const previewEl = document.getElementById(`${prefix}-hmissing-preview-${idx}`);
+  if (!seNo || !previewEl) return;
+  // 配置一覧から案件NOを検索（現在の日付で最初にヒットしたもの）
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const matches = haichiRows.filter(r => String(r['スタッフNO']||'').trim() === seNo);
+  if (matches.length > 0) {
+    const name = String(matches[0]['スタッフ名']||'').trim();
+    const anken = String(matches[0]['案件管理NO']||'').trim();
+    previewEl.innerHTML = `<span style="color:var(--success);">✓ ${name}　案件: ${anken}</span>`;
+    pendingHaichiMissing[prefix][idx]._pendingSeNo = seNo;
+  } else {
+    previewEl.innerHTML = `<span style="color:var(--danger);">配置一覧に見つかりません</span>`;
+    pendingHaichiMissing[prefix][idx]._pendingSeNo = '';
+  }
+}
+
+function clearHaichiMissing(prefix, idx) {
+  pendingHaichiMissing[prefix][idx].resolvedSeNo  = '';
+  pendingHaichiMissing[prefix][idx].resolvedAnkenNo = '';
+  renderHaichiMissingRows(prefix);
+}
+
+function applyHaichiMissing(prefix) {
+  const list = pendingHaichiMissing[prefix] || [];
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+
+  // 入力済みのSEスタッフNOを確定
+  list.forEach((item, i) => {
+    const input = document.getElementById(`${prefix}-hmissing-seno-${i}`);
+    const seNo = (input ? input.value.trim() : '') || item._pendingSeNo || '';
+    if (!seNo) return;
+    // 配置一覧から案件NO取得
+    const matches = haichiRows.filter(r => String(r['スタッフNO']||'').trim() === seNo);
+    item.resolvedSeNo   = seNo;
+    item.resolvedAnkenNo = matches.length > 0 ? String(matches[0]['案件管理NO']||'').trim() : '';
+  });
+
+  // pendingResultDataを修正して再出力
+  const corrections = {};
+  list.forEach(item => {
+    if (item.resolvedSeNo) {
+      corrections[item.staffNo] = { seNo: item.resolvedSeNo, ankenNo: item.resolvedAnkenNo };
+    }
+  });
+
+  const allResults = pendingResultData[prefix] || [];
+  const exportRows = allResults
+    .map(r => {
+      const origNo = String(r['スタッフNO'] || '').trim();
+      // 未紐づけのままのスタッフを除外
+      if (!origNo) return null;
+      const corr = corrections[origNo];
+      if (corr) {
+        return { ...r, 'スタッフNO': corr.seNo, '案件管理NO': corr.ankenNo || r['案件管理NO'] };
+      }
+      // 配置一覧に元々いないスタッフで紐づけなしは除外
+      const stillMissing = list.find(x => x.staffNo === origNo && !x.resolvedSeNo);
+      if (stillMissing) return null;
+      return r;
+    })
+    .filter(r => r && r['支給始業時間'] && r['支給始業時間'] !== '');
+
+  if (exportRows.length === 0) {
+    showImportToast('⚠ 出力データが0件です。紐づけを確認してください。');
+    return;
+  }
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const csv = [cols.join(','), ...exportRows.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  setDownloadBtn(prefix, url);
+
+  // 自動ダウンロード
+  const a = document.createElement('a');
+  a.href = url;
+  const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
+  const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
+  a.download = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+
+  // UIを更新
+  renderHaichiMissingRows(prefix);
+  showImportToast(`✅ 紐づけ完了 — ${exportRows.length}件でCSVを出力しました`);
+  setTimeout(() => buildWarnSummary(prefix), 100);
 }
 
 function renderUnmatchedRows(prefix) {
@@ -1624,10 +1890,11 @@ function reExportWithSelection(prefix) {
 // 変換結果データの一時保存
 const pendingResultData = {};
 const pendingTimeErrors = {};
+const pendingHaichiMissing = {}; // 配置一覧未登録スタッフ
 
 // ダウンロードボタン設定（全タブ共通）
 function setDownloadBtn(prefix, url) {
-  const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
+  const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
   const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
   const filename = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
   const dlBtn = document.getElementById(prefix+'-dl-btn');
@@ -1885,7 +2152,7 @@ function bulkRegisterMapping(prefix) {
     // 自動ダウンロード
     const a = document.createElement('a');
     a.href = url;
-    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ' };
+    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
     const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
     a.download = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
@@ -1956,7 +2223,7 @@ function convertStaffia() {
         '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
         '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
         '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
       return;
     }
 
@@ -1964,12 +2231,17 @@ function convertStaffia() {
     const endTime = int4ToTime(row['勤務終了時間']);
 
 
-    // 休憩時間計算
+    // 休憩時間計算（全角・半角どちらの列名にも対応）
+    const zenkaku = ['１','２','３'];
     let restMin = 0;
-    for (let i = 1; i <= 3; i++) {
-      const rs = row[`休憩${i}・開始時間`] || '';
-      const re = row[`休憩${i}・終了時間`] || '';
-      if (rs && re && rs !== '0' && re !== '0') {
+    for (let i = 0; i < 3; i++) {
+      const halfKey  = `休憩${i+1}・開始時間`;
+      const zenKey   = `休憩${zenkaku[i]}・開始時間`;
+      const halfKeyE = `休憩${i+1}・終了時間`;
+      const zenKeyE  = `休憩${zenkaku[i]}・終了時間`;
+      const rs = row[halfKey] || row[zenKey] || '';
+      const re = row[halfKeyE] || row[zenKeyE] || '';
+      if (rs && re && String(rs) !== '0' && String(re) !== '0') {
         const rsMin = timeToMin(int4ToTime(rs));
         const reMin = timeToMin(int4ToTime(re));
         if (reMin > rsMin) restMin += reMin - rsMin;
@@ -1989,11 +2261,11 @@ function convertStaffia() {
       '請求始業時間': startTime, '請求終業時間': endTime,
       '請求基本休憩時間': restTime, '請求深夜休憩時間': '0:00',
       '請求基本時間': calcSt.kihon, '請求残業時間': calcSt.zangyou, '請求深夜時間': shinyaTime, '請求出勤区分': '0',
-      '案件管理NO': ankenNo });
+      '案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
   });
 
   // バリデーション（Staffia: 勤務開始時間列で出勤判定）
-  runValidation(results, rows, '氏名コード', '日付', '勤務開始時間', null, addLog);
+  runValidation(results, rows, '氏名コード', '日付', '勤務開始時間', null, addLog, haichiMap);
 
   // サマリーログ
   if (unmatchedCodes.size > 0) {
@@ -2104,7 +2376,7 @@ function convertHRStation() {
         '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
         '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
         '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['スタッフ氏名']||'').trim() });
       return;
     }
 
@@ -2137,11 +2409,11 @@ function convertHRStation() {
       '請求始業時間': start, '請求終業時間': end,
       '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
       '請求基本時間': calcHr.kihon, '請求残業時間': calcHr.zangyou, '請求深夜時間': shinya || '00:00', '請求出勤区分': '0',
-      '案件管理NO': ankenNo });
+      '案件管理NO': ankenNo, '_name': String(row['スタッフ氏名']||'').trim() });
   });
 
   // バリデーション（HR-Station: 区分列で出勤判定）
-  runValidation(results, rows, 'スタッフコード', '就業年月日', '区分', '1', addLog);
+  runValidation(results, rows, 'スタッフコード', '就業年月日', '区分', '1', addLog, haichiMap);
 
   // サマリーログ
   addLog('ok', `変換完了: ${results.length}件`);
@@ -2259,7 +2531,7 @@ function convertTMJ() {
         '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
         '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
         '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
       return;
     }
 
@@ -2283,11 +2555,11 @@ function convertTMJ() {
       '請求始業時間': start, '請求終業時間': end,
       '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
       '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
-      '案件管理NO': ankenNo });
+      '案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
   });
 
   // バリデーション（TMJ: 始業時刻列で出勤判定）
-  runValidation(results, rows, '従業員番号', '年月日', '始業時刻', null, addLog);
+  runValidation(results, rows, '従業員番号', '年月日', '始業時刻', null, addLog, haichiMap);
 
   // サマリーログ
   if (unmatchedCodes.size > 0) {
@@ -2420,7 +2692,7 @@ function convertReplyority() {
           '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
           '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
           '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-          '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo });
+          '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': staffName });
         continue;
       }
 
@@ -2451,12 +2723,12 @@ function convertReplyority() {
         '請求始業時間': startRaw, '請求終業時間': endRaw,
         '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
         '請求基本時間': calcRp.kihon, '請求残業時間': calcRp.zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
-        '案件管理NO': ankenNo });
+        '案件管理NO': ankenNo, '_name': staffName });
     }
   });
 
   // バリデーション（リプライオリティ: 時間チェックのみ、件数はシート数で確認）
-  runValidation(results, null, null, null, null, null, addLog);
+  runValidation(results, null, null, null, null, null, addLog, haichiMap);
 
   if (unmatchedCodes.size > 0) {
     addLog('warn', `対応表未登録: ${[...unmatchedCodes].join(', ')}`);
@@ -2477,6 +2749,273 @@ function convertReplyority() {
   pendingResultData['replyority'] = results;
   pendingMultiAnken['replyority'] = pendingMultiAnken['replyority'] || [];
   showResult('replyority', results.length, matched, unmatched, absent, log, url);
+}
+
+
+// ===================== フリー様式 モード管理 =====================
+function setFfMode(mode) {
+  // ラジオ選択状態の視覚更新
+  const linked  = document.getElementById('ff-option-linked');
+  const mapping = document.getElementById('ff-option-mapping');
+  const detail  = document.getElementById('ff-linked-detail');
+  if (mode === 'linked') {
+    linked.style.borderColor  = 'var(--accent)';
+    linked.style.background   = 'var(--accent-light)';
+    mapping.style.borderColor = 'var(--border)';
+    mapping.style.background  = 'white';
+    if (detail) detail.style.display = 'block';
+    document.querySelector('input[name="ff-mode"][value="linked"]').checked = true;
+  } else {
+    mapping.style.borderColor = 'var(--accent)';
+    mapping.style.background  = 'var(--accent-light)';
+    linked.style.borderColor  = 'var(--border)';
+    linked.style.background   = 'white';
+    if (detail) detail.style.display = 'none';
+    document.querySelector('input[name="ff-mode"][value="mapping"]').checked = true;
+  }
+}
+
+// ===================== フリー様式（新宿CE等）変換 =====================
+function convertFreeFormat() {
+  // モード判定（連動あり or 対応表）
+  const modeEl = document.querySelector('input[name="ff-mode"]:checked');
+  const mode = modeEl ? modeEl.value : 'mapping';
+  if (mode === 'linked') {
+    const typeEl = document.querySelector('input[name="ff-linked-type"]:checked');
+    const linkedType = typeEl ? typeEl.value : 'adeco';
+    convertFreeFormatLinked(linkedType);
+    return;
+  }
+
+  const log = [];
+  const addLog = (type, msg) => log.push({type, msg});
+  addLog('info', 'フリー様式 変換開始（対応表モード）...');
+  pendingUnmatched['freeformat'] = [];
+  pendingMultiAnken['freeformat'] = [];
+
+  const fileInfo = files['freeformat-kintai'];
+  if (!fileInfo) { addLog('err', 'ファイルが読み込まれていません'); showResult('freeformat',0,0,0,0,log,null); return; }
+
+  // CSVに変換済みのデータを使用
+  const rows = csvToObjects(fileInfo.data);
+  addLog('info', `データ読込: ${rows.length}行`);
+
+  // ヘッダー列名マッピング（4行目ヘッダーを想定）
+  // Excelのヘッダーに改行が含まれる場合があるため、正規化して照合
+  const rawHeaders = Object.keys(rows[0] || {});
+  const normalizeKey = s => String(s).replace(/[\r\n\t ]/g, '').toLowerCase();
+  const findKey = (candidates) => rawHeaders.find(h => candidates.some(c => normalizeKey(h).includes(normalizeKey(c)))) || candidates[0];
+
+  const staffCodeKey = findKey(['社員番号']);
+  const nameKey      = findKey(['氏名']);
+  const dateKey      = findKey(['勤務日付']);
+  const reasonKey    = findKey(['休暇事由']);
+  const startKey     = findKey(['始業時刻', '始業時間']);
+  const endKey       = findKey(['終業時刻', '終業時間']);
+  const restKey      = findKey(['休憩時間']);
+  addLog('info', `列マッピング — 始業:${startKey} 終業:${endKey} 休憩:${restKey}`);
+
+  // 対応表（freeformat種別）
+  const mapLookup = {};
+  mappingData.filter(m => m.type === 'freeformat').forEach(m => {
+    mapLookup[m.staffiaCode] = m;
+  });
+
+  // 配置一覧
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const haichiMap = {};
+  haichiRows.forEach(row => {
+    const staffNo = (row['スタッフNO'] || '').trim();
+    const ankenNo = (row['案件管理NO'] || '').trim();
+    const start   = normalizeDate(row['就業開始日'] || '');
+    const end     = normalizeDate(row['就業終了日'] || '');
+    if (!staffNo || !ankenNo) return;
+    if (!haichiMap[staffNo]) haichiMap[staffNo] = [];
+    haichiMap[staffNo].push({ ankenNo, start, end });
+  });
+
+  const results = [];
+  let matched = 0, unmatched = 0, absent = 0;
+  const unmatchedCodes = new Set();
+
+  rows.forEach(row => {
+    const staffCode = String(row[staffCodeKey] || '').trim();
+    const rawDate   = String(row[dateKey] || '').trim();
+    const reason    = String(row[reasonKey] || '').trim();
+    const name      = String(row[nameKey] || '').trim();
+
+    if (!staffCode || !rawDate) return;
+
+    // 日付正規化
+    const date = normalizeDate(rawDate);
+    if (!date) return;
+
+    // 出勤判定: 始業時刻が00:00:00以外 かつ reason が空でない勤務シフト表記
+    const startRaw = String(row[startKey] || '').trim();
+    const endRaw   = String(row[endKey]   || '').trim();
+    const restRaw  = String(row[restKey]  || '').trim();
+
+    // 時刻を HH:MM 形式に正規化（HH:MM:SS → HH:MM）
+    const normTime = t => {
+      if (!t) return '';
+      const m = String(t).match(/^(\d{1,2}):(\d{2})/);
+      return m ? String(parseInt(m[1])).padStart(2,'0') + ':' + m[2] : '';
+    };
+    const start = normTime(startRaw);
+    const end   = normTime(endRaw);
+    const rest  = normTime(restRaw);
+
+    // 始業が00:00 = 非就業・休日・欠勤
+    if (!start || start === '00:00') {
+      absent++;
+      return;
+    }
+
+    // 対応表照合
+    const mapping = mapLookup[staffCode];
+    if (!mapping) {
+      unmatchedCodes.add(`${staffCode}（${name}）`);
+      if (!pendingUnmatched['freeformat'].find(x => x.code === staffCode)) {
+        pendingUnmatched['freeformat'].push({ type:'freeformat', code: staffCode, name, seNo:'', ankenNo:'' });
+      }
+      unmatched++;
+    } else {
+      matched++;
+    }
+    const seNo = mapping ? mapping.seNo : '';
+
+    // 案件NO特定
+    let ankenNo = mapping ? mapping.ankenNo : '';
+    if (seNo && haichiRows.length > 0) {
+      const ankenMatches = findAllAnken(haichiMap, seNo, date);
+      if (ankenMatches.length >= 1) ankenNo = ankenMatches[0].ankenNo;
+      if (ankenMatches.length > 1) {
+        const resolved = resolveMultiAnken(ankenMatches, date);
+        ankenNo = resolved.ankenNo;
+        if (!resolved.autoResolved) {
+          if (!pendingMultiAnken['freeformat']) pendingMultiAnken['freeformat'] = [];
+          pendingMultiAnken['freeformat'].push({
+            staffNo: seNo, name, date,
+            candidates: ankenMatches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+            selected: ankenMatches[0].ankenNo
+          });
+        }
+      }
+    }
+
+    const calc = calcKihonZangyou(start, end, rest);
+    results.push({
+      'スタッフNO': seNo,
+      '就業年月日': date,
+      '支給始業時間': start, '支給終業時間': end,
+      '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
+      '支給基本時間': calc.kihon, '支給残業時間': calc.zangyou, '支給深夜時間': '00:00', '支給出勤区分': '0',
+      '請求始業時間': start, '請求終業時間': end,
+      '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
+      '請求基本時間': calc.kihon, '請求残業時間': calc.zangyou, '請求深夜時間': '00:00', '請求出勤区分': '0',
+      '案件管理NO': ankenNo, '_name': name
+    });
+  });
+
+  if (unmatchedCodes.size > 0) {
+    addLog('warn', `対応表未登録: ${[...unmatchedCodes].join(', ')}`);
+    addLog('warn', '未登録スタッフのスタッフNO・案件NOは空白になります。設定タブの対応表（freeformat種別）に追加してください。');
+  }
+
+  // バリデーション
+  runValidation(results, null, null, null, null, null, addLog, haichiMap);
+
+  addLog('ok', `変換完了: ${results.length}件`);
+  addLog('ok', `対応表マッチ: ${matched}件`);
+  if (absent > 0) addLog('info', `非就業・休日・欠勤: ${absent}件（除外済み）`);
+  if (unmatched === 0) addLog('ok', 'エラーなし — インポートの準備ができています');
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const outputResults = results.filter(r => r['支給始業時間'] && r['支給始業時間'] !== '');
+  const csv = [cols.join(','), ...outputResults.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  pendingResultData['freeformat'] = results;
+  showResult('freeformat', results.length, matched, unmatched, absent, log, url);
+}
+
+
+// ===================== フリー様式 連動ありモード（アデコ等）=====================
+function convertFreeFormatLinked(linkedType) {
+  const log = [];
+  const addLog = (type, msg) => log.push({type, msg});
+  addLog('info', `フリー様式 変換開始（連動ありモード: ${linkedType}）...`);
+  pendingUnmatched['freeformat'] = [];
+  pendingMultiAnken['freeformat'] = [];
+
+  const fileInfo = files['freeformat-kintai'];
+  if (!fileInfo) { addLog('err', 'ファイルが読み込まれていません'); showResult('freeformat',0,0,0,0,log,null); return; }
+
+  if (linkedType === 'adeco') {
+    convertFreeFormatAdeco(fileInfo, log, addLog);
+  }
+}
+
+function convertFreeFormatAdeco(fileInfo, log, addLog) {
+  const rows = parseCSV(fileInfo.data);
+  if (!rows || rows.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
+  addLog('info', `データ読込: ${rows.length}行`);
+
+  const results = [];
+  let matched = 0, absent = 0;
+  let currentStaffNo = '', currentAnkenNo = '';
+
+  rows.forEach(row => {
+    if (!row || row.length < 3) return;
+    const col0 = String(row[0] || '').trim();
+    const col1 = String(row[1] || '').trim();
+    const col2 = String(row[2] || '').trim();
+
+    // 日次行判定: A列が日付形式
+    const dateMatch = col0.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/);
+    if (dateMatch) {
+      const date = `${dateMatch[1]}/${String(dateMatch[2]).padStart(2,'0')}/${String(dateMatch[3]).padStart(2,'0')}`;
+      const kubun = String(row[1] || '').trim();
+      // 区分が0のみ出勤
+      if (kubun !== '0') { absent++; return; }
+      const start = String(row[2] || '').trim();
+      const end   = String(row[3] || '').trim();
+      const rest  = String(row[6] || '').trim();
+      if (!start || !end) { absent++; return; }
+      const calc = calcKihonZangyou(start, end, rest);
+      results.push({
+        'スタッフNO': currentStaffNo, '就業年月日': date,
+        '支給始業時間': start, '支給終業時間': end,
+        '支給基本休憩時間': rest, '支給深夜休憩時間': '0:00',
+        '支給基本時間': calc.kihon, '支給残業時間': calc.zangyou, '支給深夜時間': '00:00', '支給出勤区分': '0',
+        '請求始業時間': start, '請求終業時間': end,
+        '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
+        '請求基本時間': calc.kihon, '請求残業時間': calc.zangyou, '請求深夜時間': '00:00', '請求出勤区分': '0',
+        '案件管理NO': currentAnkenNo, '_name': currentName
+      });
+      matched++;
+      return;
+    }
+
+    // ヘッダー行判定: B列が数字 かつ C列が氏名っぽい かつ A列が日付でない
+    if (col1 && /^\d+$/.test(col1) && col2 && col2.length > 1) {
+      currentAnkenNo = col0;
+      currentStaffNo = col1;
+    }
+  });
+
+  runValidation(results, null, null, null, null, null, addLog, haichiMap);
+  addLog('ok', `変換完了: ${results.length}件`);
+  if (absent > 0) addLog('info', `休日・祝日・欠勤: ${absent}件（除外済み）`);
+  if (results.length === 0) { addLog('warn', 'データが0件です。ファイル形式を確認してください'); showResult('freeformat',0,0,0,absent,log,null); return; }
+  addLog('ok', 'エラーなし — インポートの準備ができています');
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const csv = [cols.join(','), ...results.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  pendingResultData['freeformat'] = results;
+  showResult('freeformat', results.length, matched, 0, absent, log, url);
 }
 
 // ===================== Google Sheets連携 =====================
@@ -2619,10 +3158,11 @@ function renderMapping() {
     const staffia = mappingData.filter(m => (m.type||'staffia') === 'staffia').length;
     const tmj = mappingData.filter(m => m.type === 'tmj').length;
     const rp = mappingData.filter(m => m.type === 'replyority').length;
+    const ff = mappingData.filter(m => m.type === 'freeformat').length;
     summary.innerHTML = `
       <span style="color:var(--success);font-weight:700;">✅ 対応表 ${mappingData.length}件 登録済</span>
       <span style="margin-left:12px;font-size:12px;">
-        Staffia: ${staffia}件 　TMJ: ${tmj}件 　リプライオリティ: ${rp}件
+        Staffia: ${staffia}件 　TMJ: ${tmj}件 　リプライオリティ: ${rp}件 　フリー様式: ${ff}件
       </span>`;
   }
 }
