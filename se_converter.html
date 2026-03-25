@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_44.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_45.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -430,17 +430,17 @@ window.addEventListener('load', function() {
   </header>
 
   <div class="tabs">
-    <button class="tab" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
+    <button class="tab active" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
     <button class="tab" onclick="switchTab(&#39;cloudstaffing&#39;)">CloudStaffing</button>
     <button class="tab" onclick="switchTab(&#39;staffia&#39;)">Staffia</button>
     <button class="tab" onclick="switchTab(&#39;hrstation&#39;)">HR-Station</button>
     <button class="tab" onclick="switchTab(&#39;tmj&#39;)">TMJ</button>
     <button class="tab" onclick="switchTab(&#39;replyority&#39;)">リプライオリティ</button>
-    <button class="tab active" onclick="switchTab(&#39;freeformat&#39;)">フリー様式</button>
+    <button class="tab" onclick="switchTab(&#39;freeformat&#39;)">フリー様式</button>
   </div>
 
   <!-- ===== 設定パネル ===== -->
-  <div class="panel" id="panel-settings">
+  <div class="panel active" id="panel-settings">
 
     <!-- 配置一覧 -->
     <div class="card">
@@ -477,15 +477,11 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 286件</div>
+        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
-      <span style="color:var(--success);font-weight:700;">✅ 対応表 286件 登録済</span>
-      <span style="margin-left:12px;font-size:12px;">
-        Staffia: 286件 　TMJ: 0件 　リプライオリティ: 0件 　フリー様式: 0件
-      </span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
     </div>
   </div>
 
@@ -515,7 +511,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_44.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -550,7 +546,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_44.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -585,7 +581,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_44.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -619,7 +615,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_44.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -654,7 +650,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_44.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -662,7 +658,7 @@ window.addEventListener('load', function() {
   </div>
 
   <!-- ===== フリー様式 パネル ===== -->
-  <div class="panel active" id="panel-freeformat">
+  <div class="panel" id="panel-freeformat">
 
     <!-- STEP 1: ファイルアップロード -->
     <div class="card">
@@ -728,7 +724,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_44.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_45.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2972,9 +2968,22 @@ function convertFreeFormatAdeco(fileInfo, log, addLog) {
   if (!rows || rows.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
   addLog('info', `データ読込: ${rows.length}行`);
 
+  // 配置一覧（haichiMapはこの関数内で構築）
+  const haichiRowsA = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const haichiMapA = {};
+  haichiRowsA.forEach(row => {
+    const sno = normalizeStaffNo(row['スタッフNO']);
+    const ano = (row['案件管理NO'] || '').trim();
+    const s   = normalizeDate(row['就業開始日'] || '');
+    const e   = normalizeDate(row['就業終了日'] || '');
+    if (!sno || !ano) return;
+    if (!haichiMapA[sno]) haichiMapA[sno] = [];
+    haichiMapA[sno].push({ ankenNo: ano, start: s, end: e });
+  });
+
   const results = [];
   let matched = 0, absent = 0;
-  let currentStaffNo = '', currentAnkenNo = '';
+  let currentStaffNo = '', currentAnkenNo = '', currentName = '';
 
   rows.forEach(row => {
     if (!row || row.length < 3) return;
@@ -2983,11 +2992,10 @@ function convertFreeFormatAdeco(fileInfo, log, addLog) {
     const col2 = String(row[2] || '').trim();
 
     // 日次行判定: A列が日付形式
-    const dateMatch = col0.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/);
+    const dateMatch = col0.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
     if (dateMatch) {
       const date = `${dateMatch[1]}/${String(dateMatch[2]).padStart(2,'0')}/${String(dateMatch[3]).padStart(2,'0')}`;
       const kubun = String(row[1] || '').trim();
-      // 区分が0のみ出勤
       if (kubun !== '0') { absent++; return; }
       const start = String(row[2] || '').trim();
       const end   = String(row[3] || '').trim();
@@ -3012,10 +3020,11 @@ function convertFreeFormatAdeco(fileInfo, log, addLog) {
     if (col1 && /^\d+$/.test(col1) && col2 && col2.length > 1) {
       currentAnkenNo = col0;
       currentStaffNo = col1;
+      currentName    = col2;
     }
   });
 
-  runValidation(results, null, null, null, null, null, addLog, haichiMap);
+  runValidation(results, null, null, null, null, null, addLog, haichiMapA);
   addLog('ok', `変換完了: ${results.length}件`);
   if (absent > 0) addLog('info', `休日・祝日・欠勤: ${absent}件（除外済み）`);
   if (results.length === 0) { addLog('warn', 'データが0件です。ファイル形式を確認してください'); showResult('freeformat',0,0,0,absent,log,null); return; }
