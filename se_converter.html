@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_35.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_36.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -509,7 +509,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_36.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -544,7 +544,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_36.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -579,7 +579,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_36.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -613,7 +613,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_36.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -648,7 +648,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_35.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_36.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -804,6 +804,118 @@ function csvToObjects(text) {
     headers.forEach((h, i) => { obj[h] = row[i] || ''; });
     return obj;
   });
+}
+
+
+// ===================== 共通バリデーション =====================
+
+/**
+ * 時間チェック＋件数チェックをまとめて実行してログに追記する
+ * @param {Array}  results      変換済み全行（欠勤行含む）
+ * @param {Array}  sourceRows   元データ行（出勤日カウント用）
+ * @param {string} staffNoKey   元データのスタッフNO列名
+ * @param {string} dateKey      元データの日付列名
+ * @param {string} workFlagKey  出勤行の判定に使う列名（nullなら始業時刻で判定）
+ * @param {string} workFlagVal  workFlagKeyがこの値なら出勤（nullなら非空で出勤）
+ * @param {Function} addLog     ログ追記関数
+ */
+function runValidation(results, sourceRows, staffNoKey, dateKey, workFlagKey, workFlagVal, addLog) {
+  let timeWarnCount = 0;
+
+  // ① 時間チェック（出勤行のみ）
+  results.forEach(r => {
+    const s = r['支給始業時間'], e = r['支給終業時間'], rest = r['支給基本休憩時間'];
+    if (!s || !e) return; // 欠勤行はスキップ
+
+    const sMin = timeToMin(s), eMin = timeToMin(e), rMin = timeToMin(rest || '0:00');
+
+    // 実働時間（深夜跨ぎ考慮）
+    let jitsu = eMin - sMin - rMin;
+    if (jitsu < 0) jitsu += 24 * 60; // 深夜跨ぎは正常
+
+    // 実働マイナス（休憩 > 在社）
+    const zaishaMin = (() => { let z = eMin - sMin; if (z < 0) z += 24*60; return z; })();
+    if (rMin > zaishaMin) {
+      addLog('warn', `⏱ 時間異常: スタッフ${r['スタッフNO']} ${r['就業年月日']} — 休憩(${rest})が在社時間を超えています`);
+      timeWarnCount++;
+      return;
+    }
+
+    // 実働0以下
+    if (jitsu <= 0) {
+      addLog('warn', `⏱ 時間異常: スタッフ${r['スタッフNO']} ${r['就業年月日']} — 実働時間が0以下です（始業${s} 終業${e} 休憩${rest}）`);
+      timeWarnCount++;
+      return;
+    }
+
+    // 実働24時間超（深夜跨ぎでも超えるのは異常）
+    if (jitsu > 24 * 60) {
+      addLog('warn', `⏱ 時間異常: スタッフ${r['スタッフNO']} ${r['就業年月日']} — 実働時間が24時間を超えています`);
+      timeWarnCount++;
+      return;
+    }
+
+    // 片方だけ空白
+    if ((s && !e) || (!s && e)) {
+      addLog('warn', `⏱ 時間異常: スタッフ${r['スタッフNO']} ${r['就業年月日']} — 始業・終業どちらか一方が空白です`);
+      timeWarnCount++;
+    }
+  });
+
+  if (timeWarnCount === 0) {
+    addLog('ok', '⏱ 時間チェック: 異常なし');
+  } else {
+    addLog('warn', `⏱ 時間チェック: ${timeWarnCount}件の異常を検出`);
+  }
+
+  // ② 件数チェック（元データとの出勤日数照合）
+  if (sourceRows && sourceRows.length > 0 && staffNoKey && dateKey) {
+    // 元データ: スタッフ別出勤日数
+    // ※ 空白・"0"・"0:00"・"00:00" は出勤なしとみなしてカウントしない
+    const isBlankOrZero = v => {
+      const s = String(v || '').trim();
+      return s === '' || s === '0' || s === '0:00' || s === '00:00';
+    };
+    const srcCount = {};
+    sourceRows.forEach(r => {
+      const no = String(r[staffNoKey] || '').trim();
+      if (!no) return;
+      let isWork = false;
+      if (workFlagKey) {
+        const val = String(r[workFlagKey] || '').trim();
+        // workFlagVal指定あり: 完全一致。なし: 空白・0でなければ出勤
+        isWork = workFlagVal ? val === workFlagVal : !isBlankOrZero(val);
+      } else {
+        // 始業時刻系の列を探して空白・0でなければ出勤
+        const s = r['始業時刻'] || r['勤務開始時間'] || r['勤務開始時刻実績'] || r['始業'] || '';
+        isWork = !isBlankOrZero(s);
+      }
+      if (isWork) srcCount[no] = (srcCount[no] || 0) + 1;
+    });
+
+    // 変換後: スタッフ別出力行数（始業時間ありの行のみ）
+    const outCount = {};
+    results.forEach(r => {
+      if (!r['支給始業時間'] || r['支給始業時間'] === '') return;
+      const no = String(r['スタッフNO'] || '').trim();
+      if (no) outCount[no] = (outCount[no] || 0) + 1;
+    });
+
+    let countWarn = 0;
+    Object.keys(srcCount).forEach(no => {
+      const src = srcCount[no], out = outCount[no] || 0;
+      if (src !== out) {
+        addLog('warn', `📋 件数ズレ: スタッフ${no} — 元データ${src}日 → 出力${out}日（${src - out}日不足）`);
+        countWarn++;
+      }
+    });
+
+    if (countWarn === 0) {
+      addLog('ok', `📋 件数チェック: 全スタッフ日数一致`);
+    } else {
+      addLog('warn', `📋 件数チェック: ${countWarn}名でズレを検出 — 元データと変換後を確認してください`);
+    }
+  }
 }
 
 // ===================== Time utils =====================
@@ -1048,6 +1160,9 @@ function convertCS() {
       '請求基本時間': calc.kihon, '請求残業時間': calc.zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
       '案件管理NO': ankenNo });
   });
+
+  // バリデーション
+  runValidation(results, rows, 'スタッフNO', '就業年月日', null, null, addLog);
 
   // サマリーログ
   addLog('ok', `変換完了: ${results.length}件`);
@@ -1876,6 +1991,9 @@ function convertStaffia() {
       '案件管理NO': ankenNo });
   });
 
+  // バリデーション（Staffia: 勤務開始時間列で出勤判定）
+  runValidation(results, rows, '氏名コード', '日付', '勤務開始時間', null, addLog);
+
   // サマリーログ
   if (unmatchedCodes.size > 0) {
     addLog('warn', `対応表未登録: ${[...unmatchedCodes].join(', ')}`);
@@ -2021,6 +2139,9 @@ function convertHRStation() {
       '案件管理NO': ankenNo });
   });
 
+  // バリデーション（HR-Station: 区分列で出勤判定）
+  runValidation(results, rows, 'スタッフコード', '就業年月日', '区分', '1', addLog);
+
   // サマリーログ
   addLog('ok', `変換完了: ${results.length}件`);
   addLog('ok', `スタッフNO特定: ${results.length - absent}件（下6桁抽出）`);
@@ -2163,6 +2284,9 @@ function convertTMJ() {
       '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
       '案件管理NO': ankenNo });
   });
+
+  // バリデーション（TMJ: 始業時刻列で出勤判定）
+  runValidation(results, rows, '従業員番号', '年月日', '始業時刻', null, addLog);
 
   // サマリーログ
   if (unmatchedCodes.size > 0) {
@@ -2329,6 +2453,9 @@ function convertReplyority() {
         '案件管理NO': ankenNo });
     }
   });
+
+  // バリデーション（リプライオリティ: 時間チェックのみ、件数はシート数で確認）
+  runValidation(results, null, null, null, null, null, addLog);
 
   if (unmatchedCodes.size > 0) {
     addLog('warn', `対応表未登録: ${[...unmatchedCodes].join(', ')}`);
