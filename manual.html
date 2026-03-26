@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0044)file:///C:/Users/honma/Downloads/manual.html -->
-<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Staff Express 勤怠変換ツール — 操作マニュアル</title>
 <style>
@@ -85,7 +85,7 @@
 </style>
 </head>
 <body>
-<div style="background:#1a1a1a;padding:10px 28px;display:flex;align-items:center;justify-content:space-between;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;">
+<div style="background:#1a1a1a;padding:10px 28px;display:flex;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:11px;">
   <span style="color:rgba(255,255,255,0.5);letter-spacing:2px;">JUST FINE — MANUAL</span>
   <a href="https://honma-bot.github.io/se-converter/se_converter.html" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:700;">▶ ツールを開く</a>
 </div>
@@ -104,19 +104,19 @@
   <div class="toc">
     <div class="toc-title">目次</div>
     <ol>
-      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s1">ツール概要と対応システム</a></li>
-      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s2">機能一覧</a></li>
-      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s3">初期設定（初回のみ）</a>
-        <ol class="toc-sub"><li><a href="file:///C:/Users/honma/Downloads/manual.html#s3-1">配置一覧の読み込み</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s3-2">GAS URL設定</a></li></ol></li>
-      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4">月次作業の手順</a>
+      <li><a href="#s1">ツール概要と対応システム</a></li>
+      <li><a href="#s2">機能一覧</a></li>
+      <li><a href="#s3">初期設定（初回のみ）</a>
+        <ol class="toc-sub"><li><a href="#s3-1">配置一覧の読み込み</a></li><li><a href="#s3-2">GAS URL設定</a></li></ol></li>
+      <li><a href="#s4">月次作業の手順</a>
         <ol class="toc-sub">
-          <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-1">CloudStaffing</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-2">Staffia</a></li>
-          <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-3">HR-Station</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-4">TMJ</a></li>
-          <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-5">リプライオリティ</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-6">フリー様式（NEW）</a></li>
+          <li><a href="#s4-1">CloudStaffing</a></li><li><a href="#s4-2">Staffia</a></li>
+          <li><a href="#s4-3">HR-Station</a></li><li><a href="#s4-4">TMJ</a></li>
+          <li><a href="#s4-5">リプライオリティ</a></li><li><a href="#s4-6">フリー様式（NEW）</a></li>
         </ol></li>
-      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s5">変換結果の見かた・エラー対応</a></li>
-      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s6">対応表の管理</a></li>
-      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s7">よくある質問</a></li>
+      <li><a href="#s5">変換結果の見かた・エラー対応</a></li>
+      <li><a href="#s6">対応表の管理</a></li>
+      <li><a href="#s7">よくある質問</a></li>
     </ol>
   </div>
 
@@ -206,7 +206,7 @@
     <div id="s3-2">
       <h3>3-2. GAS URL設定</h3>
       <div class="gas-box">
-        <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:5px;font-family:&#39;Space Mono&#39;,monospace;">GAS URL（設定済み）</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:5px;font-family:'Space Mono',monospace;">GAS URL（設定済み）</div>
         <div class="code">https://script.google.com/macros/s/AKfycbwOu5j5-YJWKGSSTxTaHd8WPiQjAZTdlhT0sQx_W0loyU4JQs0PROnEFYdoIpT6iqqa/exec</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:7px;">新しいPCでアクセスする場合は上記URLを入力して「URLを保存」→「接続テスト」を実行してください。</div>
       </div>
@@ -238,7 +238,7 @@
         <div class="step-connector"></div>
         <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">「変換してCSVをダウンロード」を押す</div></div></div>
         <div class="step-connector"></div>
-        <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">ログを確認 → 「CSVをダウンロード」</div><div class="step-desc"><code style="font-family:&#39;Space Mono&#39;,monospace;font-size:11px;background:#f5f5f5;padding:2px 4px;border-radius:3px;">[WARN]</code> がある場合は内容を確認してください（5章参照）。</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">ログを確認 → 「CSVをダウンロード」</div><div class="step-desc"><code style="font-family:'Space Mono',monospace;font-size:11px;background:#f5f5f5;padding:2px 4px;border-radius:3px;">[WARN]</code> がある場合は内容を確認してください（5章参照）。</div></div></div>
       </div>
     </div>
 
@@ -299,7 +299,7 @@
               <div><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;">終業時刻</div><select class="screen-select"><option>退勤時刻(時刻のみ)</option></select></div>
             </div>
             <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:7px;">請求欄（お客さんへの請求）</div>
-            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;"><input type="checkbox" checked=""> 支給欄と同じ列を使用する</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;"><input type="checkbox" checked> 支給欄と同じ列を使用する</label>
           </div>
         </div>
       </div>
@@ -385,7 +385,7 @@
               <th style="padding:5px 9px;text-align:left;border-bottom:1px solid var(--border);">案件NO</th>
             </tr></thead>
             <tbody><tr>
-              <td style="padding:7px 9px;font-family:&#39;Space Mono&#39;,monospace;color:var(--accent);">010023</td>
+              <td style="padding:7px 9px;font-family:'Space Mono',monospace;color:var(--accent);">010023</td>
               <td style="padding:7px 9px;font-weight:700;">田中 花子</td>
               <td style="padding:7px 9px;">
                 <div style="display:flex;gap:5px;align-items:center;">
@@ -393,7 +393,7 @@
                   <span style="font-size:10px;color:var(--success);">✓ 田中 一花　案件: 12345-001</span>
                 </div>
               </td>
-              <td style="padding:7px 9px;font-family:&#39;Space Mono&#39;,monospace;font-size:10px;color:var(--text-muted);">12345-001</td>
+              <td style="padding:7px 9px;font-family:'Space Mono',monospace;font-size:10px;color:var(--text-muted);">12345-001</td>
             </tr></tbody>
           </table>
           <div style="margin-top:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border-radius:6px;padding:9px;text-align:center;font-weight:700;font-size:11px;">✅ 紐づけて再変換・ダウンロード</div>
@@ -460,13 +460,12 @@
     <div class="card"><strong>Q. 案件NO複数ヒット処理後にまた出てくる</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">「全員完了 — 再出力する」ボタンを押してください。このボタンで処理が確定し、再変換しない限り再表示されません。</p></div>
 
     <div style="margin-top:32px;padding:20px;background:linear-gradient(135deg,#1a1a1a,#2d0a12);border-radius:12px;color:white;text-align:center;">
-      <div style="font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;margin-bottom:5px;">JUST FINE</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;margin-bottom:5px;">JUST FINE</div>
       <div style="font-size:13px;color:rgba(255,255,255,0.7);">ご不明な点は管理者（本間）までご連絡ください。</div>
-      <div style="margin-top:9px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">https://honma-bot.github.io/se-converter/se_converter.html</div>
+      <div style="margin-top:9px;font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);">https://honma-bot.github.io/se-converter/se_converter.html</div>
     </div>
   </div>
 
 </div>
-
-
-</body></html>
+</body>
+</html>
