@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_60.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_61.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -442,7 +442,7 @@ window.addEventListener('load', function() {
 
   <!-- ===== マニュアル パネル ===== -->
   <div class="panel active" id="panel-manual" style="padding:0;overflow:hidden;">
-    <iframe id="manual-iframe" style="width:100%;height:calc(100vh - 120px);border:none;display:block;" src="./se_converter_files/efc776f0-bc37-470e-bdb9-230f79b1cbdb.html" data-loaded="1"></iframe>
+    <iframe id="manual-iframe" style="width:100%;height:calc(100vh - 120px);border:none;display:block;" data-loaded="1" src="./se_converter_files/saved_resource.html"></iframe>
   </div>
 
   <!-- ===== 設定パネル  <!-- ===== 設定パネル ===== -->
@@ -521,7 +521,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_60.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_61.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -556,7 +556,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_60.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_61.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -591,7 +591,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_60.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_61.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -625,7 +625,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_60.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_61.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -660,7 +660,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_60.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_61.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -833,7 +833,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_60.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_61.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -863,8 +863,7 @@ function switchTab(tab) {
   if (tab === 'manual') {
     const iframe = document.getElementById('manual-iframe');
     if (iframe && !iframe.dataset.loaded) {
-      const blob = new Blob([manualHTML], {type: 'text/html;charset=utf-8'});
-      iframe.src = URL.createObjectURL(blob);
+      iframe.srcdoc = manualHTML;
       iframe.dataset.loaded = '1';
     }
   }
