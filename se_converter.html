@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_51.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_54.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -511,7 +511,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_54.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -546,7 +546,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_54.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -581,7 +581,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_54.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -615,7 +615,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_54.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -650,7 +650,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_54.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -706,9 +706,51 @@ window.addEventListener('load', function() {
       <!-- 連動なし -->
       <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; cursor: pointer; transition: 0.2s; background: white;" id="ff-option-mapping">
         <input type="radio" name="ff-mode" value="mapping" style="margin-top:3px;accent-color:var(--accent);" onchange="setFfMode(&#39;mapping&#39;)">
-        <div>
+        <div style="flex:1;">
           <div style="font-weight:700;font-size:13px;margin-bottom:2px;">⚙ ない（対応表で照合する）</div>
-          <div style="font-size:11px;color:var(--text-muted);">新宿CE等。設定タブの対応表（freeformat種別）でスタッフNOを照合。案件NOは配置一覧から自動特定します。</div>
+          <div style="font-size:11px;color:var(--text-muted);">設定タブの対応表（freeformat種別）でスタッフNOを照合。案件NOは配置一覧から自動特定します。</div>
+          <!-- 列マッピングUI（ファイル読込後に表示） -->
+          <div id="ff-col-mapping" style="display:none;margin-top:14px;background:white;border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:12px;">📋 列マッピング — どの列が何のデータか指定してください</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">対応表照合コード列 <span style="color:var(--accent);">*必須</span><span style="color:var(--text-dim);font-weight:400;">（社員番号・従業員コード等）</span></label>
+                <select id="ff-map-staffcode" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">氏名</label>
+                <select id="ff-map-name" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">日付 <span style="color:var(--accent);">*必須</span></label>
+                <select id="ff-map-date" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">始業時刻 <span style="color:var(--accent);">*必須</span></label>
+                <select id="ff-map-start" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">終業時刻 <span style="color:var(--accent);">*必須</span></label>
+                <select id="ff-map-end" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">休憩時間</label>
+                <select id="ff-map-rest" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">出勤判定列 <span style="color:var(--text-dim);">（出勤日の識別に使用）</span></label>
+                <select id="ff-map-kubun" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">出勤判定値 <span style="color:var(--text-dim);">（空欄なら始業時刻で判定）</span></label>
+                <input type="text" id="ff-map-kubun-val" placeholder="例: 出勤、1、〇" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;">
+              </div>
+            </div>
+            <div style="margin-top:10px;font-size:11px;color:var(--text-dim);">
+              ※ 「対応表照合コード列」= 設定タブの対応表（freeformat種別）の左列（Staffia氏名コード欄）に登録したコードと一致する列を選んでください<br>
+              ※ この設定はブラウザに保存されます
+            </div>
+          </div>
         </div>
       </label>
     </div>
@@ -724,7 +766,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_54.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -819,6 +861,14 @@ function processFile(file, fileKey, dzId) {
       csvText = e.target.result;
     }
     files[fileKey] = { name: file.name, data: csvText };
+
+    // フリー様式ファイル読込後に列マッピングUIを更新
+    if (fileKey === 'freeformat-kintai') {
+      const modeEl = document.querySelector('input[name="ff-mode"]:checked');
+      if (modeEl && modeEl.value === 'mapping') {
+        setTimeout(() => buildFfColMapping(), 100);
+      }
+    }
 
     // 配置一覧はlocalStorageに自動保存
     if (fileKey === 'se-haichi') {
@@ -2778,16 +2828,17 @@ function convertReplyority() {
 
 // ===================== フリー様式 モード管理 =====================
 function setFfMode(mode) {
-  // ラジオ選択状態の視覚更新
   const linked  = document.getElementById('ff-option-linked');
   const mapping = document.getElementById('ff-option-mapping');
   const detail  = document.getElementById('ff-linked-detail');
+  const colMap  = document.getElementById('ff-col-mapping');
   if (mode === 'linked') {
     linked.style.borderColor  = 'var(--accent)';
     linked.style.background   = 'var(--accent-light)';
     mapping.style.borderColor = 'var(--border)';
     mapping.style.background  = 'white';
     if (detail) detail.style.display = 'block';
+    if (colMap) colMap.style.display = 'none';
     document.querySelector('input[name="ff-mode"][value="linked"]').checked = true;
   } else {
     mapping.style.borderColor = 'var(--accent)';
@@ -2796,7 +2847,96 @@ function setFfMode(mode) {
     linked.style.background   = 'white';
     if (detail) detail.style.display = 'none';
     document.querySelector('input[name="ff-mode"][value="mapping"]').checked = true;
+    // ファイルが読み込まれていれば列マッピングを表示
+    if (files['freeformat-kintai']) buildFfColMapping();
   }
+}
+
+// 列マッピングUIを構築
+function buildFfColMapping() {
+  const colMap = document.getElementById('ff-col-mapping');
+  if (!colMap) return;
+
+  let headers = [];
+  // Excelの場合はfreeformatWBから、CSVの場合はfileInfo.dataから列名取得
+  if (freeformatWB) {
+    const ws = freeformatWB.Sheets[freeformatWB.SheetNames[0]];
+    const allRows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '', raw: false });
+    const normalizeKey = s => String(s||'').replace(/[\r\n\t\s]/g, '').toLowerCase();
+    const headerKeywords = ['社員番号', '氏名', '勤務日付', '始業', '終業', '番号', 'コード', 'スタッフ'];
+    for (let i = 0; i < Math.min(10, allRows.length); i++) {
+      const rowStr = allRows[i].map(c => normalizeKey(String(c))).join('');
+      const matchCount = headerKeywords.filter(k => rowStr.includes(normalizeKey(k))).length;
+      if (matchCount >= 2) { headers = allRows[i].map(h => String(h)); break; }
+    }
+    if (headers.length === 0 && allRows.length > 0) headers = allRows[0].map(h => String(h));
+  } else if (files['freeformat-kintai']) {
+    const rawLines = parseCSV(files['freeformat-kintai'].data);
+    if (rawLines && rawLines.length > 0) headers = rawLines[0];
+  }
+
+  if (headers.length === 0) return;
+
+  const noneOpt = '<option value="">— 未選択 —</option>';
+  const opts = headers.map((h, i) => `<option value="${h}">${h || '(列'+(i+1)+')'}</option>`).join('');
+
+  // 自動推測
+  const normalizeKey = s => String(s||'').replace(/[\r\n\t\s]/g, '').toLowerCase();
+  const autoSelect = (el, keywords) => {
+    const match = headers.find(h => keywords.some(k => normalizeKey(h).includes(k)));
+    if (match && el) el.value = match;
+  };
+
+  ['ff-map-staffcode','ff-map-name','ff-map-date','ff-map-start','ff-map-end','ff-map-rest','ff-map-kubun'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = noneOpt + opts;
+  });
+
+  // 保存済み設定を復元
+  const saved = JSON.parse(localStorage.getItem('ff_col_mapping') || '{}');
+  if (saved.staffcode) document.getElementById('ff-map-staffcode').value = saved.staffcode;
+  if (saved.name)      document.getElementById('ff-map-name').value      = saved.name;
+  if (saved.date)      document.getElementById('ff-map-date').value      = saved.date;
+  if (saved.start)     document.getElementById('ff-map-start').value     = saved.start;
+  if (saved.end)       document.getElementById('ff-map-end').value       = saved.end;
+  if (saved.rest)      document.getElementById('ff-map-rest').value      = saved.rest;
+  if (saved.kubun)     document.getElementById('ff-map-kubun').value     = saved.kubun;
+  if (saved.kubunVal)  document.getElementById('ff-map-kubun-val').value = saved.kubunVal;
+
+  // 未設定なら自動推測で埋める
+  const sc = document.getElementById('ff-map-staffcode');
+  if (!sc.value) autoSelect(sc, ['社員番号','従業員番号','従業員コード','スタッフコード','スタッフno','コード','社員コード','番号']);
+  const nm = document.getElementById('ff-map-name');
+  if (!nm.value) autoSelect(nm, ['氏名','名前','スタッフ名']);
+  const dt = document.getElementById('ff-map-date');
+  if (!dt.value) autoSelect(dt, ['勤務日付','日付','年月日','就業年月日']);
+  const st = document.getElementById('ff-map-start');
+  if (!st.value) autoSelect(st, ['始業','出勤時刻','開始時刻','開始時間']);
+  const en = document.getElementById('ff-map-end');
+  if (!en.value) autoSelect(en, ['終業','退勤時刻','終了時刻','終了時間']);
+  const rs = document.getElementById('ff-map-rest');
+  if (!rs.value) autoSelect(rs, ['休憩']);
+  const kb = document.getElementById('ff-map-kubun');
+  if (!kb.value) autoSelect(kb, ['区分','状況','事由','出勤区分']);
+
+  colMap.style.display = 'block';
+}
+
+// 列マッピング設定を保存
+function saveFfColMapping() {
+  const get = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+  const mapping = {
+    staffcode: get('ff-map-staffcode'),
+    name:      get('ff-map-name'),
+    date:      get('ff-map-date'),
+    start:     get('ff-map-start'),
+    end:       get('ff-map-end'),
+    rest:      get('ff-map-rest'),
+    kubun:     get('ff-map-kubun'),
+    kubunVal:  get('ff-map-kubun-val'),
+  };
+  localStorage.setItem('ff_col_mapping', JSON.stringify(mapping));
+  return mapping;
 }
 
 // ===================== フリー様式（新宿CE等）変換 =====================
@@ -2829,13 +2969,20 @@ function convertFreeFormat() {
   if (freeformatWB) {
     const ws = freeformatWB.Sheets[freeformatWB.SheetNames[0]];
     const allRows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '', raw: false });
-    const headerKeywords = ['社員番号', '氏名', '勤務日付', '始業', '終業'];
-    for (let i = 0; i < Math.min(10, allRows.length); i++) {
-      const rowStr = allRows[i].map(c => normalizeKey(String(c))).join('');
-      const matchCount = headerKeywords.filter(k => rowStr.includes(normalizeKey(k))).length;
-      if (matchCount >= 3) { headerRowIdx = i; break; }
+    const savedMap = JSON.parse(localStorage.getItem('ff_col_mapping') || '{}');
+    const mappedVals = [savedMap.staffcode, savedMap.name, savedMap.date, savedMap.start, savedMap.end].filter(Boolean);
+    for (let i = 0; i < Math.min(15, allRows.length); i++) {
+      const rowVals = allRows[i].map(c => String(c||''));
+      // 保存済みマッピングの列名が2つ以上含まれる行
+      if (mappedVals.length >= 2 && mappedVals.filter(k => rowVals.includes(k)).length >= 2) {
+        headerRowIdx = i; break;
+      }
+      // キーワードフォールバック（2つ以上）
+      const rowStr = rowVals.map(c => normalizeKey(c)).join('');
+      const keywords = ['社員番号','従業員番号','氏名','勤務日付','始業','終業','出勤','退勤','日付','番号'];
+      if (keywords.filter(k => rowStr.includes(normalizeKey(k))).length >= 2) { headerRowIdx = i; break; }
     }
-    if (headerRowIdx === -1) { addLog('err', 'ヘッダー行が見つかりません'); showResult('freeformat',0,0,0,0,log,null); return; }
+    if (headerRowIdx === -1) { headerRowIdx = 0; addLog('warn', 'ヘッダー行が自動検出できませんでした。1行目をヘッダーとして使用します'); }
     const headerCols = allRows[headerRowIdx];
     rows = allRows.slice(headerRowIdx + 1)
       .filter(r => r.some(c => String(c).trim()))
@@ -2848,13 +2995,17 @@ function convertFreeFormat() {
     // CSVの場合は従来通り
     const rawLines = parseCSV(fileInfo.data);
     if (!rawLines || rawLines.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
-    const headerKeywords = ['社員番号', '氏名', '勤務日付', '始業', '終業'];
-    for (let i = 0; i < Math.min(10, rawLines.length); i++) {
+    const savedMap2 = JSON.parse(localStorage.getItem('ff_col_mapping') || '{}');
+    const mappedVals2 = [savedMap2.staffcode, savedMap2.name, savedMap2.date, savedMap2.start, savedMap2.end].filter(Boolean);
+    for (let i = 0; i < Math.min(15, rawLines.length); i++) {
+      if (mappedVals2.length >= 2 && mappedVals2.filter(k => rawLines[i].includes(k)).length >= 2) {
+        headerRowIdx = i; break;
+      }
       const rowStr = rawLines[i].map(c => normalizeKey(c)).join('');
-      const matchCount = headerKeywords.filter(k => rowStr.includes(normalizeKey(k))).length;
-      if (matchCount >= 3) { headerRowIdx = i; break; }
+      const keywords = ['社員番号','従業員番号','氏名','勤務日付','始業','終業','出勤','退勤','日付','番号'];
+      if (keywords.filter(k => rowStr.includes(normalizeKey(k))).length >= 2) { headerRowIdx = i; break; }
     }
-    if (headerRowIdx === -1) { addLog('err', 'ヘッダー行が見つかりません'); showResult('freeformat',0,0,0,0,log,null); return; }
+    if (headerRowIdx === -1) { headerRowIdx = 0; addLog('warn', 'ヘッダー行が自動検出できませんでした。1行目をヘッダーとして使用します'); }
     const headerCols = rawLines[headerRowIdx];
     rows = rawLines.slice(headerRowIdx + 1).filter(r => r.some(c => String(c).trim()))
       .map(r => { const obj = {}; headerCols.forEach((h,i) => { obj[h] = r[i]||''; }); return obj; });
@@ -2866,14 +3017,17 @@ function convertFreeFormat() {
   const rawHeaders = Object.keys(rows[0] || {});
   const findKey = (candidates) => rawHeaders.find(h => candidates.some(c => normalizeKey(h).includes(normalizeKey(c)))) || candidates[0];
 
-  const staffCodeKey = findKey(['社員番号']);
-  const nameKey      = findKey(['氏名']);
-  const dateKey      = findKey(['勤務日付']);
-  const reasonKey    = findKey(['休暇事由']);
-  const startKey     = findKey(['始業時刻', '始業時間']);
-  const endKey       = findKey(['終業時刻', '終業時間']);
-  const restKey      = findKey(['休憩時間']);
-  addLog('info', `列マッピング — 始業:${startKey} 終業:${endKey} 休憩:${restKey}`);
+  // 列マッピングUI設定を優先、なければ自動推測
+  const colMapSetting = saveFfColMapping(); // 現在のUI設定を保存して取得
+  const staffCodeKey = colMapSetting.staffcode || findKey(['社員番号','スタッフコード','スタッフno','コード','番号']);
+  const nameKey      = colMapSetting.name      || findKey(['氏名','名前','スタッフ名']);
+  const dateKey      = colMapSetting.date      || findKey(['勤務日付','日付','年月日','就業年月日']);
+  const reasonKey    = colMapSetting.kubun     || findKey(['休暇事由','区分','出勤状況','出勤区分','状況']);
+  const kubunVal     = colMapSetting.kubunVal  || ''; // 出勤判定値
+  const startKey     = colMapSetting.start     || findKey(['始業時刻', '始業時間', '出勤時刻', '開始時刻']);
+  const endKey       = colMapSetting.end       || findKey(['終業時刻', '終業時間', '退勤時刻', '終了時刻']);
+  const restKey      = colMapSetting.rest      || findKey(['休憩時間', '休憩']);
+  addLog('info', `列マッピング — スタッフ:${staffCodeKey} 日付:${dateKey} 始業:${startKey} 終業:${endKey} 休憩:${restKey}`);
 
 
   // 対応表（freeformat種別）
@@ -2911,10 +3065,11 @@ function convertFreeFormat() {
     const date = normalizeDate(rawDate);
     if (!date) return;
 
-    // 出勤判定: 始業時刻が00:00:00以外 かつ reason が空でない勤務シフト表記
+    // 出勤判定
     const startRaw = String(row[startKey] || '').trim();
     const endRaw   = String(row[endKey]   || '').trim();
     const restRaw  = String(row[restKey]  || '').trim();
+    const kubunRaw = reasonKey ? String(row[reasonKey] || '').trim() : '';
 
     // 時刻を HH:MM 形式に正規化（複数フォーマット対応）
     const normTime = t => {
@@ -2943,8 +3098,11 @@ function convertFreeFormat() {
     const end   = normTime(endRaw);
     const rest  = normTime(restRaw);
 
-    // 始業が00:00 = 非就業・休日・欠勤
-    if (!start || start === '00:00') {
+    // 出勤判定: kubunVal指定あり→その値と一致で出勤、なし→始業時刻で判定
+    const isWork = kubunVal
+      ? kubunRaw === kubunVal
+      : (start && start !== '00:00');
+    if (!isWork) {
       absent++;
       return;
     }
