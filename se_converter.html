@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_47.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_48.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -477,11 +477,15 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 328件</div>
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
+      <span style="color:var(--success);font-weight:700;">✅ 対応表 328件 登録済</span>
+      <span style="margin-left:12px;font-size:12px;">
+        Staffia: 328件 　TMJ: 0件 　リプライオリティ: 0件 　フリー様式: 0件
+      </span></div>
     </div>
   </div>
 
@@ -511,7 +515,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_47.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_48.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -546,7 +550,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_47.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_48.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -581,7 +585,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_47.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_48.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -615,7 +619,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_47.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_48.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -650,7 +654,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_47.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_48.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -724,7 +728,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_47.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_48.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1296,6 +1300,7 @@ function convertCS() {
 }
 
 function showResult(prefix, total, matched, unmatched, absent, log, url) {
+  try {
   const card = document.getElementById(prefix+'-result-card');
   card.style.display = 'block';
 
@@ -1417,7 +1422,7 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
   // 時間矛盾UIを追加
   const existingTimeUI = resultCard.querySelector('.time-error-ui');
   if (existingTimeUI) existingTimeUI.remove();
-  if (pendingTimeErrors[prefix] && pendingTimeErrors[prefix].length > 0) {
+  if (pendingTimeErrors && pendingTimeErrors[prefix] && pendingTimeErrors[prefix].length > 0) {
     const ui3 = document.createElement('div');
     ui3.className = 'time-error-ui';
     ui3.style.cssText = 'margin-top:20px;';
@@ -1438,6 +1443,17 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
 
   setDownloadBtn(prefix, url);
   card.scrollIntoView({behavior:'smooth'});
+  } catch(err) {
+    console.error('showResult error:', err);
+    // エラーがあってもダウンロードボタンだけは設定する
+    if (url) {
+      const dlBtn = document.getElementById(prefix+'-dl-btn');
+      if (dlBtn) {
+        dlBtn.onclick = () => { const a=document.createElement('a'); a.href=url; a.download='SE_勤怠インポート_'+prefix+'.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a); };
+        dlBtn.style.display = 'inline-flex';
+      }
+    }
+  }
 }
 
 // 未登録スタッフの一時保存
