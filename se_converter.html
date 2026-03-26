@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_56.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_57.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -511,7 +511,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_57.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -546,7 +546,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_57.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -581,7 +581,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_57.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -615,7 +615,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_57.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -650,7 +650,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_57.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -681,7 +681,11 @@ window.addEventListener('load', function() {
 
       <!-- プリセット -->
       <div style="background:#fdf5f6;border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:16px;">
-        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:10px;">📂 プリセット（設定の保存・読込）</div>
+        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;">📂 フォーマット設定の保存・読込</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;line-height:1.6;">
+          以前に登録済みの場合は下から選択してください → 設定が自動復元されます。<br>
+          初めてのフォーマットの場合は設定後に「💾 現在の設定を保存」を押してください。
+        </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
           <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="loadFfPreset(this.value)">
             <option value="">— プリセットを選択 —</option>
@@ -694,7 +698,8 @@ window.addEventListener('load', function() {
 
       <!-- スタッフコード -->
       <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
-        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;">スタッフコード列 <span style="color:var(--accent);">*必須</span></div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">スタッフコード列 <span style="color:var(--accent);">*必須</span></div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">勤怠データ内のスタッフコードが入っている列を選択してください（社員番号・従業員コード等）</div>
         <select id="ff-map-staffcode" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;margin-bottom:10px;"></select>
 
         <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">SEスタッフNOの取得方法</div>
@@ -818,7 +823,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_57.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
