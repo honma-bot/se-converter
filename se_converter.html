@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_55.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_56.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -477,15 +477,11 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 339件</div>
+        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
-      <span style="color:var(--success);font-weight:700;">✅ 対応表 339件 登録済</span>
-      <span style="margin-left:12px;font-size:12px;">
-        Staffia: 339件 　TMJ: 0件 　リプライオリティ: 0件 　フリー様式: 0件
-      </span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
     </div>
   </div>
 
@@ -515,7 +511,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_55.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -550,7 +546,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_55.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -585,7 +581,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_55.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -619,7 +615,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_55.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -654,7 +650,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_55.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -822,7 +818,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_55.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_56.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2255,18 +2251,45 @@ function bulkRegisterMapping(prefix) {
   const unmatchedLookup = {};
   (pendingUnmatched[prefix]||[]).forEach(x => { if (x.seNo) unmatchedLookup[x.code] = x; });
 
+  // 元コード→{seNo, ankenNo}のルックアップ（スタッフNOが空の行を補完するため）
+  const codeToInfo = {};
+  (pendingUnmatched[prefix]||[]).forEach(x => {
+    if (x.code) codeToInfo[x.code] = x;
+  });
+
+  // pendingResultDataの_staffiaCode（元コード）を使って補完
+  // _staffiaCo​deが記録されていない場合はスタッフNOが空の行を対象にする
   const exportRows = allResults
     .map(r => {
-      // unmatchedLookupで案件NOを補完
-      const staffCode = Object.keys(unmatchedLookup).find(k => unmatchedLookup[k].seNo === r['スタッフNO']);
-      if (staffCode && unmatchedLookup[staffCode] && !unmatchedLookup[staffCode].skipped) {
-        return { ...r, '案件管理NO': r['案件管理NO'] || unmatchedLookup[staffCode].ankenNo || '' };
+      const origCode = r['_origCode'] || ''; // 変換時に元コードを記録している場合
+      // スタッフNOが空 → unmatchedLookupから補完
+      if (!r['スタッフNO'] || r['スタッフNO'] === '') {
+        // origCodeで引けるか試みる
+        const info = origCode ? codeToInfo[origCode] : null;
+        if (info && !info.skipped && info.seNo) {
+          return { ...r, 'スタッフNO': info.seNo, '案件管理NO': r['案件管理NO'] || info.ankenNo || '' };
+        }
+        // origCodeがない場合は氏名で照合を試みる（_name列を使用）
+        const byName = Object.values(codeToInfo).find(x => !x.skipped && x.seNo && x.name && r['_name'] && x.name === r['_name']);
+        if (byName) {
+          return { ...r, 'スタッフNO': byName.seNo, '案件管理NO': r['案件管理NO'] || byName.ankenNo || '' };
+        }
+        return r;
+      }
+      // スタッフNOはあるが案件NOが空 → unmatchedLookupで案件NOのみ補完
+      if (!r['案件管理NO'] || r['案件管理NO'] === '') {
+        const info = origCode ? codeToInfo[origCode] : null;
+        if (info && !info.skipped && info.ankenNo) {
+          return { ...r, '案件管理NO': info.ankenNo };
+        }
       }
       return r;
     })
     .filter(r => {
-      if (!r['支給始業時間'] || r['支給始業時間'] === '') return false; // ブランク除外
-      if (skippedCodes.has(r['スタッフNO'])) return false;             // 変換不要除外
+      if (!r['支給始業時間'] || r['支給始業時間'] === '') return false;
+      // 変換不要: skippedコードセット or スタッフNOが依然として空
+      if (!r['スタッフNO'] || r['スタッフNO'] === '') return false;
+      if (skippedCodes.has(r['スタッフNO'])) return false;
       return true;
     });
 
@@ -2350,7 +2373,7 @@ function convertStaffia() {
         '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
         '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
         '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim(), '_origCode': staffiaCode });
       return;
     }
 
@@ -2388,7 +2411,7 @@ function convertStaffia() {
       '請求始業時間': startTime, '請求終業時間': endTime,
       '請求基本休憩時間': restTime, '請求深夜休憩時間': '0:00',
       '請求基本時間': calcSt.kihon, '請求残業時間': calcSt.zangyou, '請求深夜時間': shinyaTime, '請求出勤区分': '0',
-      '案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
+      '案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim(), '_origCode': staffiaCode });
   });
 
   // バリデーション（Staffia: 勤務開始時間列で出勤判定）
@@ -2658,7 +2681,7 @@ function convertTMJ() {
         '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
         '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
         '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
+        '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim(), '_origCode': empNo });
       return;
     }
 
@@ -2682,7 +2705,7 @@ function convertTMJ() {
       '請求始業時間': start, '請求終業時間': end,
       '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
       '請求基本時間': kihon, '請求残業時間': zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
-      '案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim() });
+      '案件管理NO': ankenNo, '_name': String(row['氏名']||'').trim(), '_origCode': empNo });
   });
 
   // バリデーション（TMJ: 始業時刻列で出勤判定）
@@ -2819,7 +2842,7 @@ function convertReplyority() {
           '支給始業時間':'','支給終業時間':'','支給基本休憩時間':'','支給深夜休憩時間':'',
           '支給基本時間':'','支給残業時間':'','支給深夜時間':'','支給出勤区分':'',
           '請求始業時間':'','請求終業時間':'','請求基本休憩時間':'','請求深夜休憩時間':'',
-          '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': staffName });
+          '請求基本時間':'','請求残業時間':'','請求深夜時間':'','請求出勤区分':'','案件管理NO': ankenNo, '_name': staffName, '_origCode': rthCode });
         continue;
       }
 
@@ -2850,7 +2873,7 @@ function convertReplyority() {
         '請求始業時間': startRaw, '請求終業時間': endRaw,
         '請求基本休憩時間': rest, '請求深夜休憩時間': '0:00',
         '請求基本時間': calcRp.kihon, '請求残業時間': calcRp.zangyou, '請求深夜時間': shinya, '請求出勤区分': '0',
-        '案件管理NO': ankenNo, '_name': staffName });
+        '案件管理NO': ankenNo, '_name': staffName, '_origCode': rthCode });
     }
   });
 
