@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///C:/Users/honma/Downloads/manual.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Express 勤怠変換ツール — 操作マニュアル</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
+  :root { --accent:#F4566F;--accent2:#d03050;--accent-light:#fde8ec;--success:#0fa968;--warning:#d97706;--info:#2563eb;--danger:#dc2626;--bg:#f7f8fa;--border:#f0d0d5;--text:#1a1a1a;--text-muted:#7a5a60;--text-dim:#b8909a; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-weight:400;line-height:1.8;font-size:14px;}
+  .cover{background:linear-gradient(135deg,#1a1a1a 0%,#2d0a12 50%,#1a1a1a 100%);color:white;padding:72px 56px;position:relative;overflow:hidden;min-height:280px;display:flex;align-items:center;}
+  .cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(244,86,111,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(244,86,111,0.08) 1px,transparent 1px);background-size:40px 40px;}
+  .cover::after{content:'SE';position:absolute;right:56px;top:50%;transform:translateY(-50%);font-family:'Space Mono',monospace;font-size:160px;font-weight:700;color:rgba(244,86,111,0.07);line-height:1;user-select:none;}
+  .cover-inner{position:relative;z-index:1;}
+  .cover-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--accent);margin-bottom:14px;}
+  .cover h1{font-size:34px;font-weight:900;letter-spacing:-1px;line-height:1.2;margin-bottom:10px;}
+  .cover h1 span{color:var(--accent);}
+  .cover-desc{font-size:13px;color:rgba(255,255,255,0.6);max-width:500px;line-height:1.7;}
+  .cover-meta{margin-top:28px;font-size:11px;color:rgba(255,255,255,0.4);font-family:'Space Mono',monospace;}
+  .cover-meta span{color:rgba(255,255,255,0.7);}
+  .badge-new{display:inline-block;background:var(--accent);color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+  .container{max-width:900px;margin:0 auto;padding:44px 28px;}
+  .toc{background:white;border:1px solid var(--border);border-radius:12px;padding:22px 26px;margin-bottom:44px;border-left:4px solid var(--accent);}
+  .toc-title{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;font-family:'Space Mono',monospace;}
+  .toc ol{padding-left:16px;} .toc li{margin-bottom:4px;} .toc a{color:var(--text-muted);text-decoration:none;font-size:13px;} .toc a:hover{color:var(--accent);}
+  .toc .toc-sub{padding-left:12px;margin-top:2px;} .toc .toc-sub li{margin-bottom:2px;font-size:12px;}
+  .section{margin-bottom:48px;}
+  .section-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+  .section-num{font-family:'Space Mono',monospace;font-size:11px;color:white;background:var(--accent);padding:3px 9px;border-radius:4px;font-weight:700;}
+  .section h2{font-size:20px;font-weight:700;color:var(--text);}
+  h3{font-size:14px;font-weight:700;color:var(--text);margin:22px 0 10px;padding-left:9px;border-left:3px solid var(--accent);}
+  p{margin-bottom:10px;}
+  .card{background:white;border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:0 1px 4px rgba(244,86,111,0.06);}
+  .mockup{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0;box-shadow:0 4px 18px rgba(0,0,0,0.07);}
+  .mockup-bar{background:linear-gradient(135deg,#1a1a1a,#2d0a12);padding:8px 13px;display:flex;align-items:center;gap:6px;}
+  .mockup-dot{width:9px;height:9px;border-radius:50%;} .mockup-dot.r{background:#ff5f57;} .mockup-dot.y{background:#febc2e;} .mockup-dot.g{background:#28c840;}
+  .mockup-url{background:rgba(255,255,255,0.1);border-radius:4px;padding:2px 9px;font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.5);margin-left:5px;flex:1;}
+  .mockup-body{padding:16px 18px;background:#f7f8fa;}
+  .screen-card{background:white;border:1px solid var(--border);border-radius:8px;padding:13px;margin-bottom:9px;}
+  .screen-card-title{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:5px;}
+  .screen-card-title::before{content:'';display:inline-block;width:2px;height:11px;background:var(--accent);border-radius:1px;}
+  .screen-log{background:#fdf5f6;border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.8;margin-top:7px;}
+  .log-ok{color:var(--success);} .log-warn{color:var(--warning);} .log-info{color:var(--accent);} .log-err{color:var(--danger);}
+  .screen-stats{display:flex;gap:7px;margin-bottom:9px;}
+  .screen-stat{flex:1;background:#fdf5f6;border:1px solid var(--border);border-radius:6px;padding:7px;text-align:center;}
+  .screen-stat-num{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:var(--accent);}
+  .screen-stat-num.green{color:var(--success);} .screen-stat-num.gray{color:#999;}
+  .screen-stat-label{font-size:9px;color:var(--text-dim);text-transform:uppercase;}
+  .screen-btn{display:block;width:100%;padding:11px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;text-align:center;font-weight:700;font-size:12px;margin-top:6px;}
+  .screen-dl-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:1px solid var(--success);border-radius:6px;background:rgba(15,169,104,0.1);color:var(--success);font-weight:700;font-size:12px;margin-top:7px;}
+  .screen-select{width:100%;font-size:11px;padding:5px 7px;border:1px solid var(--border);border-radius:5px;background:white;margin-bottom:5px;}
+  .screen-radio{display:flex;align-items:center;gap:7px;padding:6px 9px;border:1.5px solid var(--border);border-radius:6px;font-size:11px;margin-bottom:4px;}
+  .screen-radio.active{border-color:var(--accent);background:var(--accent-light);}
+  .steps{margin:14px 0;}
+  .step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+  .step-num{width:28px;height:28px;min-width:28px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;margin-top:2px;}
+  .step-content{flex:1;} .step-title{font-weight:700;font-size:13px;margin-bottom:3px;} .step-desc{font-size:12px;color:var(--text-muted);line-height:1.7;}
+  .step-connector{width:2px;height:14px;background:var(--border);margin:0 0 0 13px;}
+  .feature-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+  .feature-table th{background:#fdf5f6;color:var(--text-muted);font-weight:700;padding:8px 12px;text-align:left;border-bottom:2px solid var(--border);font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+  .feature-table td{padding:8px 12px;border-bottom:1px solid rgba(240,208,213,0.6);vertical-align:top;}
+  .feature-table tr:last-child td{border-bottom:none;}
+  .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;font-family:'Space Mono',monospace;}
+  .badge-red{background:rgba(244,86,111,0.15);color:var(--accent);} .badge-green{background:rgba(15,169,104,0.15);color:var(--success);}
+  .badge-yellow{background:rgba(217,119,6,0.15);color:var(--warning);} .badge-blue{background:rgba(37,99,235,0.15);color:var(--info);}
+  .badge-gray{background:rgba(100,100,100,0.12);color:#555;}
+  .callout{border-radius:8px;padding:11px 15px;margin:12px 0;font-size:13px;line-height:1.7;display:flex;gap:9px;align-items:flex-start;}
+  .callout-icon{font-size:14px;margin-top:1px;flex-shrink:0;}
+  .callout.warn{background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.2);color:#92400e;}
+  .callout.info{background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.15);color:#1e3a8a;}
+  .callout.tip{background:rgba(15,169,104,0.07);border:1px solid rgba(15,169,104,0.2);color:#064e3b;}
+  .flow{display:flex;align-items:center;gap:0;margin:14px 0;flex-wrap:wrap;row-gap:8px;}
+  .flow-box{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;text-align:center;min-width:90px;}
+  .flow-box.accent{background:var(--accent);color:white;border-color:var(--accent);}
+  .flow-box.success{background:rgba(15,169,104,0.1);border-color:var(--success);color:#064e3b;}
+  .flow-arrow{font-size:15px;color:var(--text-dim);padding:0 4px;}
+  .flow-sub{font-size:10px;font-weight:400;color:rgba(255,255,255,0.75);margin-top:2px;}
+  .flow-sub.dark{color:var(--text-dim);}
+  .divider{border:none;border-top:1px dashed var(--border);margin:32px 0;}
+  .gas-box{background:linear-gradient(135deg,#1a1a2e,#16213e);color:white;border-radius:10px;padding:16px 20px;margin:12px 0;font-size:13px;line-height:1.8;}
+  .gas-box .code{font-family:'Space Mono',monospace;font-size:10px;background:rgba(255,255,255,0.1);padding:6px 10px;border-radius:5px;margin:6px 0;word-break:break-all;color:#93c5fd;}
+  @media print{.cover{min-height:auto;padding:36px;} .cover::after{display:none;} body{font-size:12px;} .container{padding:18px;}}
+  @media(max-width:640px){.cover{padding:32px 18px;} .cover h1{font-size:24px;} .cover::after{display:none;} .container{padding:18px 12px;}}
+</style>
+</head>
+<body>
+<div style="background:#1a1a1a;padding:10px 28px;display:flex;align-items:center;justify-content:space-between;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;">
+  <span style="color:rgba(255,255,255,0.5);letter-spacing:2px;">JUST FINE — MANUAL</span>
+  <a href="https://honma-bot.github.io/se-converter/se_converter.html" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:700;">▶ ツールを開く</a>
+</div>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-label">JUST FINE — 内部ドキュメント　Ver.2.0</div>
+    <h1>Staff Express<br><span>勤怠変換ツール</span><br>操作マニュアル</h1>
+    <p class="cover-desc">各派遣管理システムの勤怠データをStaff Expressインポート形式に変換するツールの操作方法と機能一覧です。</p>
+    <div class="cover-meta">ツールURL <span>https://honma-bot.github.io/se-converter/se_converter.html</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <div class="toc-title">目次</div>
+    <ol>
+      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s1">ツール概要と対応システム</a></li>
+      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s2">機能一覧</a></li>
+      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s3">初期設定（初回のみ）</a>
+        <ol class="toc-sub"><li><a href="file:///C:/Users/honma/Downloads/manual.html#s3-1">配置一覧の読み込み</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s3-2">GAS URL設定</a></li></ol></li>
+      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4">月次作業の手順</a>
+        <ol class="toc-sub">
+          <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-1">CloudStaffing</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-2">Staffia</a></li>
+          <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-3">HR-Station</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-4">TMJ</a></li>
+          <li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-5">リプライオリティ</a></li><li><a href="file:///C:/Users/honma/Downloads/manual.html#s4-6">フリー様式（NEW）</a></li>
+        </ol></li>
+      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s5">変換結果の見かた・エラー対応</a></li>
+      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s6">対応表の管理</a></li>
+      <li><a href="file:///C:/Users/honma/Downloads/manual.html#s7">よくある質問</a></li>
+    </ol>
+  </div>
+
+  <!-- S1 -->
+  <div class="section" id="s1">
+    <div class="section-header"><span class="section-num">01</span><h2>ツール概要と対応システム</h2></div>
+    <p>各クライアントの派遣管理システムから出力された勤怠データを、Staff Expressにインポートできる形式に自動変換するブラウザツールです。インストール不要でURLにアクセスするだけで使えます。</p>
+    <div class="flow" style="margin:18px 0 22px;">
+      <div class="flow-box accent">各システムの勤怠データ<div class="flow-sub">CSV / Excel</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent" style="background:var(--accent2);">変換ツール<div class="flow-sub">ブラウザで動作</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box success">SEインポート用CSV<div class="flow-sub dark">そのまま取込可能</div></div>
+    </div>
+    <table class="feature-table">
+      <thead><tr><th>タブ名</th><th>対応システム</th><th>入力形式</th><th>スタッフNO特定方法</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-red">CloudStaffing</span></td><td>CloudStaffing</td><td>CSV / Excel</td><td>配置一覧と照合</td></tr>
+        <tr><td><span class="badge badge-red">Staffia</span></td><td>Staffia</td><td>CSV / Excel</td><td>対応表（氏名コード）</td></tr>
+        <tr><td><span class="badge badge-red">HR-Station</span></td><td>HR-Station</td><td>CSV / Excel</td><td>スタッフコード下6桁（対応表不要）</td></tr>
+        <tr><td><span class="badge badge-red">TMJ</span></td><td>TMJ</td><td>CSV / Excel</td><td>対応表（従業員番号）</td></tr>
+        <tr><td><span class="badge badge-red">リプライオリティ</span></td><td>リプライオリティ</td><td>Excel（1人1シート）</td><td>対応表（RTHコード）</td></tr>
+        <tr><td><span class="badge badge-red">フリー様式</span> <span class="badge-new">NEW</span></td><td>アデコ・その他任意様式</td><td>CSV / Excel</td><td>列マッピング設定で柔軟対応</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- S2 -->
+  <div class="section" id="s2">
+    <div class="section-header"><span class="section-num">02</span><h2>機能一覧</h2></div>
+    <table class="feature-table">
+      <thead><tr><th>機能</th><th>説明</th><th>自動/手動</th></tr></thead>
+      <tbody>
+        <tr><td><strong>勤怠データ変換</strong></td><td>各システムのCSV/ExcelをSEインポート形式に変換。始業・終業・基本時間・残業・深夜を自動計算</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>配置一覧キャッシュ</strong></td><td>月初読み込んだ配置一覧をブラウザ保存。次回起動時に自動復元</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>対応表管理</strong></td><td>各システムのスタッフコード↔SEスタッフNOをGoogleスプレッドシートで管理・自動読込</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>案件NO自動特定</strong></td><td>配置一覧の就業期間から案件NOを自動判定</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>案件NO複数ヒット対応</strong></td><td>1名に複数案件がある場合、ウィザードUIで1名ずつ選択</td><td><span class="badge badge-yellow">手動選択</span></td></tr>
+        <tr><td><strong>未登録スタッフ対応</strong></td><td>対応表未登録スタッフを配置一覧候補からマッチング。「変換不要」ボタンでCSV除外も可能</td><td><span class="badge badge-yellow">手動確認後</span></td></tr>
+        <tr><td><strong>⏱ 時間チェック</strong></td><td>実働マイナス・0以下・24時間超・片方空白などを自動検知してログに警告</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>📋 件数チェック</strong></td><td>元データとの出勤日数照合。日数ズレをログに警告</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>🔴 配置一覧未登録アラート</strong> <span class="badge-new">NEW</span></td><td>勤怠データにいるが配置一覧にいないスタッフを検出。旧姓等の紐づけUIを表示</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>スタッフNO 0埋め対応</strong> <span class="badge-new">NEW</span></td><td>5桁と6桁（010023と10023）を同一スタッフとして自動認識</td><td><span class="badge badge-green">自動</span></td></tr>
+        <tr><td><strong>フリー様式変換</strong> <span class="badge-new">NEW</span></td><td>任意フォーマットのCSV/Excelを列マッピング設定で変換。支給欄・請求欄を個別設定可能</td><td><span class="badge badge-yellow">初回設定</span></td></tr>
+        <tr><td><strong>プリセット機能</strong> <span class="badge-new">NEW</span></td><td>フリー様式の列マッピング設定を名前付きで複数保存。次回ファイル読込時に自動復元</td><td><span class="badge badge-green">自動</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- S3 -->
+  <div class="section" id="s3">
+    <div class="section-header"><span class="section-num">03</span><h2>初期設定（初回のみ）</h2></div>
+
+    <div id="s3-1">
+      <h3>3-1. 配置一覧の読み込み</h3>
+      <div class="mockup">
+        <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-url">設定タブ — Staff Express 配置一覧</div></div>
+        <div class="mockup-body">
+          <div class="screen-card">
+            <div class="screen-card-title">Staff Express 配置一覧（全システム共通）</div>
+            <div style="background:rgba(15,169,104,0.08);border:1px solid rgba(15,169,104,0.3);border-radius:6px;padding:7px 11px;margin-bottom:9px;font-size:11px;color:#064e3b;display:flex;justify-content:space-between;align-items:center;">
+              <span>✅ 前回保存の配置一覧を自動読込しました（2025/06/01）</span>
+              <span style="border:1px solid #ccc;border-radius:4px;padding:2px 7px;font-size:10px;color:#666;">🗑 キャッシュ削除</span>
+            </div>
+            <div style="border:2px dashed rgba(15,169,104,0.4);border-radius:8px;padding:16px;text-align:center;background:rgba(15,169,104,0.03);">
+              <div style="font-size:16px;color:var(--success);margin-bottom:3px;">✅</div>
+              <div style="font-size:12px;font-weight:700;color:var(--success);">✓ 配置一覧_202506.csv</div>
+              <div style="font-size:10px;color:var(--text-dim);margin-top:3px;">読み込むと自動保存され、次回起動時も自動で復元されます</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Staff Expressから配置一覧CSVを出力</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">設定タブのドロップゾーンにCSVをドロップ</div><div class="step-desc">クリックでファイル選択も可。CSV・Excelどちらも対応。</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">緑色に変わったら完了 — 次回から自動復元</div></div></div>
+      </div>
+      <div class="callout tip"><span class="callout-icon">💡</span><div><strong>翌月更新：</strong>新しい配置一覧をドロップするだけで上書き保存されます。</div></div>
+    </div>
+
+    <div id="s3-2">
+      <h3>3-2. GAS URL設定</h3>
+      <div class="gas-box">
+        <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:5px;font-family:&#39;Space Mono&#39;,monospace;">GAS URL（設定済み）</div>
+        <div class="code">https://script.google.com/macros/s/AKfycbwOu5j5-YJWKGSSTxTaHd8WPiQjAZTdlhT0sQx_W0loyU4JQs0PROnEFYdoIpT6iqqa/exec</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:7px;">新しいPCでアクセスする場合は上記URLを入力して「URLを保存」→「接続テスト」を実行してください。</div>
+      </div>
+      <div class="callout warn"><span class="callout-icon">⚠️</span><div>GAS URLは社外に共有しないでください。スタッフ個人情報を含む対応表へのアクセスキーになります。</div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- S4 -->
+  <div class="section" id="s4">
+    <div class="section-header"><span class="section-num">04</span><h2>月次作業の手順</h2></div>
+    <div class="flow" style="margin:14px 0 26px;">
+      <div class="flow-box" style="background:#fdf5f6;border-color:var(--border);">月初<br><span style="font-size:10px;color:var(--text-dim);">配置一覧更新</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent">勤怠CSV取得</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent" style="background:var(--accent2);">変換実行</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="background:rgba(217,119,6,0.08);border-color:rgba(217,119,6,0.3);">エラー確認<br><span style="font-size:10px;color:var(--warning);">必要に応じ対応</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box success">CSVダウンロード<br>→SE取込</div>
+    </div>
+
+    <div id="s4-1"><h3>4-1. CloudStaffing</h3>
+      <p style="font-size:13px;color:var(--text-muted);">配置一覧との照合でスタッフNO・案件NOを自動特定します。</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">「CloudStaffing」タブ → 勤怠CSVをドロップ</div><div class="step-desc">設定タブで配置一覧が読み込まれていることを確認してください。</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">「変換してCSVをダウンロード」を押す</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">ログを確認 → 「CSVをダウンロード」</div><div class="step-desc"><code style="font-family:&#39;Space Mono&#39;,monospace;font-size:11px;background:#f5f5f5;padding:2px 4px;border-radius:3px;">[WARN]</code> がある場合は内容を確認してください（5章参照）。</div></div></div>
+      </div>
+    </div>
+
+    <div id="s4-2" style="margin-top:22px;"><h3>4-2. Staffia</h3>
+      <div class="callout info"><span class="callout-icon">ℹ️</span><div>Staffiaの「氏名コード」とSEの「スタッフNO」は異なります。初回のみ対応表登録が必要で、以降は自動照合されます。</div></div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">「Staffia」タブ → 勤怠CSVをドロップ → 変換実行</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">未登録スタッフがいれば対応表に登録</div><div class="step-desc">「⚠ 未登録スタッフ」セクションが表示されます。配置一覧から候補を選択 → 「登録してCSVをダウンロード」で完了。</div></div></div>
+      </div>
+    </div>
+
+    <div id="s4-3" style="margin-top:22px;"><h3>4-3. HR-Station</h3>
+      <p style="font-size:13px;color:var(--text-muted);">対応表不要。スタッフコードの下6桁がSEのスタッフNOと一致するため、配置一覧のみで変換できます。</p>
+    </div>
+
+    <div id="s4-4" style="margin-top:22px;"><h3>4-4. TMJ</h3>
+      <div class="callout warn"><span class="callout-icon">⚠️</span><div>TMJの「従業員番号」はSEスタッフNOと別体系です。設定タブの対応表に<strong>TMJ種別</strong>で登録が必要です。</div></div>
+    </div>
+
+    <div id="s4-5" style="margin-top:22px;"><h3>4-5. リプライオリティ</h3>
+      <div class="callout warn"><span class="callout-icon">⚠️</span><div>全スタッフ分が1ファイルに複数シートで分かれているExcel形式です。ファイルをそのままドロップしてください。</div></div>
+    </div>
+
+    <!-- フリー様式 -->
+    <div id="s4-6" style="margin-top:26px;">
+      <h3>4-6. フリー様式（アデコ・その他） <span class="badge-new">NEW</span></h3>
+      <p style="font-size:13px;color:var(--text-muted);">任意フォーマットのCSV/ExcelをSTEP 2の列マッピングで設定して変換します。プリセット機能で設定を保存でき、次回は自動復元されます。</p>
+
+      <div class="mockup">
+        <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-url">フリー様式タブ — STEP 2 列マッピング設定</div></div>
+        <div class="mockup-body">
+          <div class="screen-card">
+            <div style="background:#fdf5f6;border:1px solid var(--border);border-radius:6px;padding:9px 11px;margin-bottom:11px;">
+              <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:3px;">📂 フォーマット設定の保存・読込</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;line-height:1.5;">以前に登録済みの場合は下から選択 → 設定が自動復元されます。初めてのフォーマットは設定後に「💾 現在の設定を保存」を押してください。</div>
+              <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                <select style="flex:1;min-width:120px;font-size:11px;padding:4px 6px;border:1px solid var(--border);border-radius:5px;background:white;"><option>アデコ</option><option>新宿CE</option></select>
+                <span style="font-size:10px;background:rgba(244,86,111,0.1);border:1px solid var(--accent);border-radius:4px;padding:3px 7px;color:var(--accent);font-weight:700;white-space:nowrap;">💾 現在の設定を保存</span>
+                <span style="font-size:10px;border:1px solid #ccc;border-radius:4px;padding:3px 7px;color:#999;white-space:nowrap;">🗑 削除</span>
+              </div>
+              <div style="font-size:10px;color:var(--success);margin-top:5px;">✅ 前回のプリセット「アデコ」を自動読込しました</div>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;">スタッフコード列 <span style="color:var(--accent);">*必須</span></div>
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:7px;">勤怠データ内のスタッフコードが入っている列を選択してください（社員番号・従業員コード等）</div>
+            <select class="screen-select"><option>社員番号</option></select>
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;">SEスタッフNOの取得方法</div>
+            <div class="screen-radio active">○ そのまま使用（SEスタッフNOと直結）</div>
+            <div class="screen-radio">○ 対応表で照合（freeformat種別）</div>
+            <div class="screen-radio">○ 先頭 [6] 桁を使用</div>
+            <div class="screen-radio">○ 末尾 [6] 桁を使用</div>
+            <div class="screen-radio">○ [1] 文字目から [6] 文字分</div>
+          </div>
+          <div class="screen-card">
+            <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:7px;">支給欄（スタッフへの支払い）<span style="color:var(--accent);margin-left:3px;">*</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
+              <div><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;">始業時刻</div><select class="screen-select"><option>出勤時刻(時刻のみ)</option></select></div>
+              <div><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;">終業時刻</div><select class="screen-select"><option>退勤時刻(時刻のみ)</option></select></div>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:7px;">請求欄（お客さんへの請求）</div>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;"><input type="checkbox" checked=""> 支給欄と同じ列を使用する</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">「フリー様式」タブ → ファイルをドロップ</div><div class="step-desc">ファイルを読み込むと自動で列一覧を取得し、STEP 2 の列マッピング設定が表示されます。保存済みプリセットがあれば自動復元されます。</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">列マッピングを設定</div><div class="step-desc">各ドロップダウンでどの列が何のデータかを指定します。<br><strong>スタッフNOの取得方法</strong>を5択から選んでください：</div>
+          <table class="feature-table" style="margin-top:6px;font-size:12px;">
+            <thead><tr><th>選択肢</th><th>例</th></tr></thead>
+            <tbody>
+              <tr><td>そのまま使用</td><td>129982 → 129982（アデコ等、SEと直結）</td></tr>
+              <tr><td>対応表で照合</td><td>P0066982 → 対応表で 175691（新宿CE等）</td></tr>
+              <tr><td>先頭N桁</td><td>129982XX の先頭6桁 → 129982</td></tr>
+              <tr><td>末尾N桁</td><td>JF0129982 の末尾6桁 → 129982</td></tr>
+              <tr><td>N文字目からM文字</td><td>AB-129982-01 の4文字目から6文字 → 129982</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">支給欄・請求欄を設定</div><div class="step-desc">支給欄（スタッフへの支払い）と請求欄（お客さんへの請求）で異なる列を使う場合は「支給欄と同じ列を使用する」のチェックを外して個別指定します。</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">「💾 現在の設定を保存」でプリセット登録</div><div class="step-desc">名前を入力（例：アデコ、〇〇社）して保存。次回からはファイルをドロップするだけで自動復元されます。複数フォーマットは名前を変えて複数保存できます。</div></div></div>
+        <div class="step-connector"></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">「変換してCSVをダウンロード」</div></div></div>
+      </div>
+
+      <div class="callout tip"><span class="callout-icon">💡</span><div><strong>複数フォーマットの使い分け：</strong>「アデコ」「新宿CE」など、フォーマットごとにプリセットを保存できます。ドロップダウンから選ぶだけで切り替えられます。</div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- S5 -->
+  <div class="section" id="s5">
+    <div class="section-header"><span class="section-num">05</span><h2>変換結果の見かた・エラー対応</h2></div>
+
+    <h3>ステータスバー</h3>
+    <div class="mockup">
+      <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-url">変換結果 — ステータスバー</div></div>
+      <div class="mockup-body">
+        <div class="screen-stats">
+          <div class="screen-stat"><div class="screen-stat-num">620</div><div class="screen-stat-label">変換件数</div></div>
+          <div class="screen-stat"><div class="screen-stat-num green">615</div><div class="screen-stat-label">照合済み</div></div>
+          <div class="screen-stat"><div class="screen-stat-num" style="color:var(--warning);">3</div><div class="screen-stat-label">未登録</div></div>
+          <div class="screen-stat"><div class="screen-stat-num gray">180</div><div class="screen-stat-label">欠勤/休日</div></div>
+        </div>
+        <div class="screen-log">
+          <div class="log-ok">[OK]  ⏱ 時間チェック: 異常なし</div>
+          <div class="log-ok">[OK]  📋 件数チェック: 全スタッフ日数一致</div>
+          <div class="log-ok">[OK]  変換完了: 620件</div>
+          <div class="log-warn">[WARN] ⏱ 時間異常: スタッフ123456 2025/05/10 — 実働時間が0以下です</div>
+          <div class="log-warn">[WARN] 📋 件数ズレ: スタッフ234567 — 元データ20日 → 出力19日（1日不足）</div>
+          <div class="log-warn">[WARN] 🔴 配置一覧未登録: スタッフ123456（田中 花子） — 配置一覧に存在しません</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="feature-table" style="margin-top:8px;">
+      <thead><tr><th>ログ種別</th><th>意味</th><th>対応</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-green">OK</span></td><td>正常</td><td>対応不要</td></tr>
+        <tr><td><span class="badge badge-blue">INFO</span></td><td>参考情報（案件NO自動振分等）</td><td>確認推奨</td></tr>
+        <tr><td><span class="badge badge-yellow">WARN</span></td><td>注意が必要な項目</td><td>内容を確認・対応</td></tr>
+        <tr><td><span class="badge badge-red">ERR</span></td><td>変換失敗</td><td>ファイル・設定を確認</td></tr>
+      </tbody>
+    </table>
+
+    <h3>配置一覧未登録アラート <span class="badge-new">NEW</span></h3>
+    <p style="font-size:13px;color:var(--text-muted);">勤怠データにいるが配置一覧にいないスタッフを検出した場合、変換結果に紐づけUIが表示されます。旧姓・表記違いでスタッフNOが一致しない場合に使います。</p>
+
+    <div class="mockup">
+      <div class="mockup-bar"><div class="mockup-dot r"></div><div class="mockup-dot y"></div><div class="mockup-dot g"></div><div class="mockup-url">配置一覧未登録 — 紐づけUI</div></div>
+      <div class="mockup-body">
+        <div class="screen-card">
+          <div style="font-size:11px;font-weight:700;color:var(--danger);margin-bottom:9px;">🔴 配置一覧未登録 1名 — 勤怠データにいますが配置一覧に存在しません</div>
+          <p style="font-size:11px;color:var(--text-muted);margin-bottom:9px;line-height:1.6;">旧姓・表記違い等の場合、正しいSEスタッフNOを入力して紐づけてください。</p>
+          <table style="width:100%;border-collapse:collapse;font-size:11px;">
+            <thead><tr style="background:#fdf5f6;">
+              <th style="padding:5px 9px;text-align:left;border-bottom:1px solid var(--border);">スタッフNO（勤怠）</th>
+              <th style="padding:5px 9px;text-align:left;border-bottom:1px solid var(--border);">氏名</th>
+              <th style="padding:5px 9px;text-align:left;border-bottom:1px solid var(--border);">紐づけるSEスタッフNO</th>
+              <th style="padding:5px 9px;text-align:left;border-bottom:1px solid var(--border);">案件NO</th>
+            </tr></thead>
+            <tbody><tr>
+              <td style="padding:7px 9px;font-family:&#39;Space Mono&#39;,monospace;color:var(--accent);">010023</td>
+              <td style="padding:7px 9px;font-weight:700;">田中 花子</td>
+              <td style="padding:7px 9px;">
+                <div style="display:flex;gap:5px;align-items:center;">
+                  <input type="text" value="010023" style="width:75px;font-size:11px;padding:3px 5px;border:1px solid var(--success);border-radius:4px;">
+                  <span style="font-size:10px;color:var(--success);">✓ 田中 一花　案件: 12345-001</span>
+                </div>
+              </td>
+              <td style="padding:7px 9px;font-family:&#39;Space Mono&#39;,monospace;font-size:10px;color:var(--text-muted);">12345-001</td>
+            </tr></tbody>
+          </table>
+          <div style="margin-top:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border-radius:6px;padding:9px;text-align:center;font-weight:700;font-size:11px;">✅ 紐づけて再変換・ダウンロード</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">「紐づけるSEスタッフNO」欄に正しいスタッフNOを入力</div><div class="step-desc">入力すると配置一覧から候補が自動プレビューされます。</div></div></div>
+      <div class="step-connector"></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">「✅ 紐づけて再変換・ダウンロード」を押す</div><div class="step-desc">正しいスタッフNO・案件NOでCSVが出力されます。入力しなかったスタッフはCSVに出力されません。</div></div></div>
+    </div>
+
+    <h3>よく出るWARNと対応</h3>
+    <div class="card"><strong>案件NO複数ヒット</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">→ ウィザードUIが表示されます。1名ずつ正しい案件NOを選択し「全員完了 — 再出力する」でCSV再生成。</p></div>
+    <div class="card"><strong>⏱ 時間異常</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">→ 元システムのデータを確認してください。夜勤など深夜跨ぎはツールが自動で考慮します。</p></div>
+    <div class="card"><strong>📋 件数ズレ</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">→ 対応表未登録スタッフが「変換不要」扱いになっていないか、元データに重複がないか確認してください。</p></div>
+    <div class="card"><strong>🔴 配置一覧未登録</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">→ 旧姓・表記違い等の可能性。紐づけUIで正しいSEスタッフNOを手動入力して紐づけてください。</p></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- S6 -->
+  <div class="section" id="s6">
+    <div class="section-header"><span class="section-num">06</span><h2>対応表の管理</h2></div>
+    <p>対応表はGoogleスプレッドシートに保存され、ページを開くたびに自動読込されます。一度登録したスタッフは次月以降も自動照合されます。</p>
+
+    <h3>登録フロー</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">変換実行 → 「⚠ 未登録スタッフ」セクションが表示</div></div></div>
+      <div class="step-connector"></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">配置一覧から候補を選択 or 手動でスタッフNO入力</div></div></div>
+      <div class="step-connector"></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">「登録してCSVをダウンロード」→ 対応表保存＆CSVダウンロード同時実行</div></div></div>
+    </div>
+
+    <div class="callout tip"><span class="callout-icon">💡</span><div><strong>変換不要なスタッフ：</strong>「⏭ 変換不要」ボタンを押すと対応表に登録せず、CSVにも出力されません。</div></div>
+
+    <h3>種別一覧</h3>
+    <table class="feature-table">
+      <thead><tr><th>種別</th><th>対象システム</th><th>照合キー</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-gray">staffia</span></td><td>Staffia</td><td>氏名コード</td></tr>
+        <tr><td><span class="badge badge-gray">tmj</span></td><td>TMJ</td><td>従業員番号</td></tr>
+        <tr><td><span class="badge badge-gray">replyority</span></td><td>リプライオリティ</td><td>RTHコード</td></tr>
+        <tr><td><span class="badge badge-gray">freeformat</span></td><td>フリー様式（対応表モード）</td><td>列マッピングで指定したコード列</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- S7 -->
+  <div class="section" id="s7">
+    <div class="section-header"><span class="section-num">07</span><h2>よくある質問</h2></div>
+
+    <div class="card"><strong>Q. ページを開いたら配置一覧が読み込まれていない</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">設定タブで「✅ 前回保存の配置一覧を自動読込しました」が表示されていれば問題ありません。表示がない場合は再度CSVをドロップしてください。</p></div>
+    <div class="card"><strong>Q. 「変換してCSVをダウンロード」ボタンが押せない</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">勤怠ファイルが未アップロード、またはCloudStaffingの場合は配置一覧が未読込の可能性があります。</p></div>
+    <div class="card"><strong>Q. スタッフNOが5桁と6桁で一致しない（例: 10023 と 010023）</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">自動で0埋め正規化されるので問題ありません。</p></div>
+    <div class="card"><strong>Q. フリー様式で毎回列マッピングを設定しなければいけない？</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">いいえ。「💾 現在の設定を保存」でプリセット登録すれば、次回からファイルをドロップするだけで自動復元されます。複数フォーマットは名前を変えて複数保存できます。</p></div>
+    <div class="card"><strong>Q. 支給欄と請求欄で違う列を使いたい</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">フリー様式タブのSTEP 2で「支給欄と同じ列を使用する」のチェックを外すと、請求欄の始業・終業を別列に指定できます。</p></div>
+    <div class="card"><strong>Q. 旧姓や表記違いでスタッフが配置一覧と一致しない</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">変換結果に「🔴 配置一覧未登録」セクションが表示されます。正しいSEスタッフNOを入力して紐づけてください。</p></div>
+    <div class="card"><strong>Q. 深夜跨ぎ（例: 23:00〜翌1:00）が異常検出される？</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">深夜跨ぎはツールが自動で考慮します。実働が0以下や24時間超になる場合は元データを確認してください。</p></div>
+    <div class="card"><strong>Q. 案件NO複数ヒット処理後にまた出てくる</strong><p style="font-size:13px;margin-top:5px;color:var(--text-muted);">「全員完了 — 再出力する」ボタンを押してください。このボタンで処理が確定し、再変換しない限り再表示されません。</p></div>
+
+    <div style="margin-top:32px;padding:20px;background:linear-gradient(135deg,#1a1a1a,#2d0a12);border-radius:12px;color:white;text-align:center;">
+      <div style="font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;margin-bottom:5px;">JUST FINE</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.7);">ご不明な点は管理者（本間）までご連絡ください。</div>
+      <div style="margin-top:9px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">https://honma-bot.github.io/se-converter/se_converter.html</div>
+    </div>
+  </div>
+
+</div>
+
+
+</body></html>
