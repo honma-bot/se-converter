@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_49.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_51.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -449,16 +449,16 @@ window.addEventListener('load', function() {
         Staff Expressから出力した配置一覧CSVを月初に1回だけ読み込んでください。<br>
         読み込んだデータはすべての変換タブで共通利用されます。
       </p>
-      <div id="haichi-saved-notice" style="display:none;font-size:12px;color:var(--success);background:rgba(15,169,104,0.08);border:1px solid rgba(15,169,104,0.3);border-radius:8px;padding:10px 14px;margin-bottom:12px;align-items:center;justify-content:space-between;gap:10px;">
-        <span id="haichi-saved-notice-text"></span>
+      <div id="haichi-saved-notice" style="display: flex; font-size: 12px; color: var(--success); background: rgba(15, 169, 104, 0.08); border: 1px solid rgba(15, 169, 104, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; align-items: center; justify-content: space-between; gap: 10px;">
+        <span id="haichi-saved-notice-text">✅ 前回保存の配置一覧を自動読込しました（2026/3/26）</span>
         <button class="btn-del" onclick="clearHaichiCache()" style="white-space:nowrap;font-size:11px;">🗑 キャッシュ削除</button>
       </div>
-      <div class="dropzone" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
+      <div class="dropzone loaded" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
         <input type="file" accept=".csv,.xlsx" onchange="loadFile(event,&#39;se-haichi&#39;,&#39;dz-haichi&#39;)">
         <span class="dropzone-icon">📂</span>
         <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
         <div class="dropzone-sub">読み込むと自動保存され、次回起動時も自動で復元されます</div>
-        <div class="file-name" id="fn-se-haichi"></div>
+        <div class="file-name" id="fn-se-haichi">✓ 配置一覧.xlsx　（2026/3/26 保存）</div>
       </div>
     </div>
 
@@ -511,7 +511,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_49.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -546,7 +546,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_49.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -581,7 +581,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_49.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -615,7 +615,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_49.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -650,7 +650,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_49.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -724,7 +724,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_49.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_51.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -739,6 +739,7 @@ window.addEventListener('load', function() {
 const files = {};
 let mappingData = []; // {staffiaCode, name, seNo, ankenNo}
 let replyorityWB = null; // リプライオリティ用 全シートワークブック
+let freeformatWB = null;  // フリー様式用 ワークブック（時刻を正確に取得するため）
 
 // ===================== Tab =====================
 function switchTab(tab) {
@@ -786,6 +787,10 @@ function processFile(file, fileKey, dzId) {
         // リプライオリティ用に全シートのワークブックを保存
         if (fileKey === 'replyority-kintai') {
           replyorityWB = XLSX.read(e.target.result, { type: 'array', cellDates: false });
+        }
+        // フリー様式用にワークブックを保存（時刻をDate型で保持）
+        if (fileKey === 'freeformat-kintai') {
+          freeformatWB = XLSX.read(e.target.result, { type: 'array', cellDates: true });
           files['replyority-kintai-raw'] = e.target.result.slice(0);
         }
 
@@ -2815,30 +2820,50 @@ function convertFreeFormat() {
   const fileInfo = files['freeformat-kintai'];
   if (!fileInfo) { addLog('err', 'ファイルが読み込まれていません'); showResult('freeformat',0,0,0,0,log,null); return; }
 
-  // CSVの全行を取得し、「社員番号」「氏名」等が含まれる行をヘッダー行として自動検出
-  const rawLines = parseCSV(fileInfo.data);
-  if (!rawLines || rawLines.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
-
   const normalizeKey = s => String(s||'').replace(/[\r\n\t\s]/g, '').toLowerCase();
-  const headerKeywords = ['社員番号', '氏名', '勤務日付', '始業', '終業'];
+
+  // Excelファイルの場合はfreeformatWBから直接取得（時刻を正確に扱うため）
+  let rows = [];
   let headerRowIdx = -1;
-  for (let i = 0; i < Math.min(10, rawLines.length); i++) {
-    const rowStr = rawLines[i].map(c => normalizeKey(c)).join('');
-    const matchCount = headerKeywords.filter(k => rowStr.includes(normalizeKey(k))).length;
-    if (matchCount >= 3) { headerRowIdx = i; break; }
+
+  if (freeformatWB) {
+    const ws = freeformatWB.Sheets[freeformatWB.SheetNames[0]];
+    const allRows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '', raw: false });
+    const headerKeywords = ['社員番号', '氏名', '勤務日付', '始業', '終業'];
+    for (let i = 0; i < Math.min(10, allRows.length); i++) {
+      const rowStr = allRows[i].map(c => normalizeKey(String(c))).join('');
+      const matchCount = headerKeywords.filter(k => rowStr.includes(normalizeKey(k))).length;
+      if (matchCount >= 3) { headerRowIdx = i; break; }
+    }
+    if (headerRowIdx === -1) { addLog('err', 'ヘッダー行が見つかりません'); showResult('freeformat',0,0,0,0,log,null); return; }
+    const headerCols = allRows[headerRowIdx];
+    rows = allRows.slice(headerRowIdx + 1)
+      .filter(r => r.some(c => String(c).trim()))
+      .map(r => {
+        const obj = {};
+        headerCols.forEach((h, i) => { obj[String(h)] = r[i] !== undefined ? r[i] : ''; });
+        return obj;
+      });
+  } else {
+    // CSVの場合は従来通り
+    const rawLines = parseCSV(fileInfo.data);
+    if (!rawLines || rawLines.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
+    const headerKeywords = ['社員番号', '氏名', '勤務日付', '始業', '終業'];
+    for (let i = 0; i < Math.min(10, rawLines.length); i++) {
+      const rowStr = rawLines[i].map(c => normalizeKey(c)).join('');
+      const matchCount = headerKeywords.filter(k => rowStr.includes(normalizeKey(k))).length;
+      if (matchCount >= 3) { headerRowIdx = i; break; }
+    }
+    if (headerRowIdx === -1) { addLog('err', 'ヘッダー行が見つかりません'); showResult('freeformat',0,0,0,0,log,null); return; }
+    const headerCols = rawLines[headerRowIdx];
+    rows = rawLines.slice(headerRowIdx + 1).filter(r => r.some(c => String(c).trim()))
+      .map(r => { const obj = {}; headerCols.forEach((h,i) => { obj[h] = r[i]||''; }); return obj; });
   }
-  if (headerRowIdx === -1) { addLog('err', 'ヘッダー行が見つかりません（社員番号・氏名・勤務日付等の列が必要です）'); showResult('freeformat',0,0,0,0,log,null); return; }
 
-  const headerCols = rawLines[headerRowIdx];
-  const dataLines  = rawLines.slice(headerRowIdx + 1).filter(r => r.some(c => String(c).trim()));
-  const rows = dataLines.map(r => {
-    const obj = {};
-    headerCols.forEach((h, i) => { obj[h] = r[i] || ''; });
-    return obj;
-  });
   addLog('info', `データ読込: ${rows.length}行（ヘッダー: ${headerRowIdx + 1}行目）`);
+  if (rows.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
 
-  const rawHeaders = headerCols;
+  const rawHeaders = Object.keys(rows[0] || {});
   const findKey = (candidates) => rawHeaders.find(h => candidates.some(c => normalizeKey(h).includes(normalizeKey(c)))) || candidates[0];
 
   const staffCodeKey = findKey(['社員番号']);
@@ -2849,11 +2874,7 @@ function convertFreeFormat() {
   const endKey       = findKey(['終業時刻', '終業時間']);
   const restKey      = findKey(['休憩時間']);
   addLog('info', `列マッピング — 始業:${startKey} 終業:${endKey} 休憩:${restKey}`);
-  // デバッグ: 最初の出勤行の生値を確認
-  const firstWorkRow = rows.find(r => String(r[startKey]||'').trim() !== '' && String(r[startKey]||'').trim() !== '00:00:00');
-  if (firstWorkRow) {
-    addLog('info', `デバッグ 始業生値: ${JSON.stringify(firstWorkRow[startKey])} 終業生値: ${JSON.stringify(firstWorkRow[endKey])} 休憩生値: ${JSON.stringify(firstWorkRow[restKey])}`);
-  }
+
 
   // 対応表（freeformat種別）
   const mapLookup = {};
