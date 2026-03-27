@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_28.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_66.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Staff Express 勤怠変換ツール</title>
-<script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script>
+<script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script>
 <script>
 // SheetJS読み込み確認
 window.addEventListener('load', function() {
@@ -12,6 +12,12 @@ window.addEventListener('load', function() {
     // フォールバック: 別CDNから読み込み
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+  const pdfjs = document.createElement('script');
+  pdfjs.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  document.head.appendChild(pdfjs);
+  pdfjs.onload = () => {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  };
     document.head.appendChild(s);
   }
 });
@@ -420,7 +426,7 @@ window.addEventListener('load', function() {
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
-</head>
+<script src="./se_converter_files/pdf.min.js.ダウンロード"></script><script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script></head>
 <body>
 <div class="container">
   <header>
@@ -449,7 +455,7 @@ window.addEventListener('load', function() {
         マニュアルは別ページで開きます。<br>
         同じリポジトリに <code style="background:#f5f5f5;padding:2px 6px;border-radius:4px;">manual.html</code> をアップロードしてください。
       </p>
-      <a href="manual.html" target="_blank" class="btn-convert" style="display:inline-block;width:auto;padding:12px 32px;text-decoration:none;">
+      <a href="file:///C:/Users/honma/Downloads/manual.html" target="_blank" class="btn-convert" style="display:inline-block;width:auto;padding:12px 32px;text-decoration:none;">
         📖 マニュアルを開く（別タブ）
       </a>
     </div>
@@ -465,16 +471,16 @@ window.addEventListener('load', function() {
         Staff Expressから出力した配置一覧CSVを月初に1回だけ読み込んでください。<br>
         読み込んだデータはすべての変換タブで共通利用されます。
       </p>
-      <div id="haichi-saved-notice" style="display:none;font-size:12px;color:var(--success);background:rgba(15,169,104,0.08);border:1px solid rgba(15,169,104,0.3);border-radius:8px;padding:10px 14px;margin-bottom:12px;align-items:center;justify-content:space-between;gap:10px;">
-        <span id="haichi-saved-notice-text"></span>
+      <div id="haichi-saved-notice" style="display: flex; font-size: 12px; color: var(--success); background: rgba(15, 169, 104, 0.08); border: 1px solid rgba(15, 169, 104, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; align-items: center; justify-content: space-between; gap: 10px;">
+        <span id="haichi-saved-notice-text">✅ 前回保存の配置一覧を自動読込しました（2026/3/26）</span>
         <button class="btn-del" onclick="clearHaichiCache()" style="white-space:nowrap;font-size:11px;">🗑 キャッシュ削除</button>
       </div>
-      <div class="dropzone" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
+      <div class="dropzone loaded" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
         <input type="file" accept=".csv,.xlsx" onchange="loadFile(event,&#39;se-haichi&#39;,&#39;dz-haichi&#39;)">
         <span class="dropzone-icon">📂</span>
         <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
         <div class="dropzone-sub">読み込むと自動保存され、次回起動時も自動で復元されます</div>
-        <div class="file-name" id="fn-se-haichi"></div>
+        <div class="file-name" id="fn-se-haichi">✓ 配置一覧.xlsx　（2026/3/26 保存）</div>
       </div>
     </div>
 
@@ -527,7 +533,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -562,7 +568,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -597,7 +603,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -631,7 +637,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -666,7 +672,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -686,7 +692,7 @@ window.addEventListener('load', function() {
         <input type="file" accept=".xlsx,.xls,.csv" onchange="loadFile(event,&#39;freeformat-kintai&#39;,&#39;dz-freeformat&#39;)">
         <span class="dropzone-icon">📋</span>
         <div class="dropzone-text">ファイルをドロップ または クリック</div>
-        <div class="dropzone-sub">CSV・Excel（.csv / .xlsx / .xls）</div>
+        <div class="dropzone-sub">CSV・Excel・PDF（.csv / .xlsx / .xls / .pdf）</div>
         <div class="file-name" id="fn-freeformat-kintai"></div>
       </div>
     </div>
@@ -721,31 +727,31 @@ window.addEventListener('load', function() {
         <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">SEスタッフNOの取得方法</div>
         <div style="display:flex;flex-direction:column;gap:6px;" id="ff-semode-group">
 
-          <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;" id="ff-semode-opt-direct">
-            <input type="radio" name="ff-semode" value="direct" checked onchange="updateSeModeUI()" style="accent-color:var(--accent);">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--accent); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; background: var(--accent-light);" id="ff-semode-opt-direct">
+            <input type="radio" name="ff-semode" value="direct" checked="" onchange="updateSeModeUI()" style="accent-color:var(--accent);">
             <span style="font-size:12px;">そのまま使用（SEスタッフNOと直結）</span>
           </label>
 
-          <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;" id="ff-semode-opt-mapping">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; background: white;" id="ff-semode-opt-mapping">
             <input type="radio" name="ff-semode" value="mapping" onchange="updateSeModeUI()" style="accent-color:var(--accent);">
             <span style="font-size:12px;">対応表で照合（freeformat種別）</span>
           </label>
 
-          <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;" id="ff-semode-opt-head">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; background: white;" id="ff-semode-opt-head">
             <input type="radio" name="ff-semode" value="head" onchange="updateSeModeUI()" style="accent-color:var(--accent);">
             <span style="font-size:12px;display:flex;align-items:center;gap:6px;">
               先頭 <input type="number" id="ff-semode-head-n" value="6" min="1" max="20" style="width:50px;font-size:12px;padding:2px 4px;"> 桁を使用
             </span>
           </label>
 
-          <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;" id="ff-semode-opt-tail">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; background: white;" id="ff-semode-opt-tail">
             <input type="radio" name="ff-semode" value="tail" onchange="updateSeModeUI()" style="accent-color:var(--accent);">
             <span style="font-size:12px;display:flex;align-items:center;gap:6px;">
               末尾 <input type="number" id="ff-semode-tail-n" value="6" min="1" max="20" style="width:50px;font-size:12px;padding:2px 4px;"> 桁を使用
             </span>
           </label>
 
-          <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;" id="ff-semode-opt-mid">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; background: white;" id="ff-semode-opt-mid">
             <input type="radio" name="ff-semode" value="mid" onchange="updateSeModeUI()" style="accent-color:var(--accent);">
             <span style="font-size:12px;display:flex;align-items:center;gap:6px;">
               <input type="number" id="ff-semode-mid-from" value="1" min="1" max="99" style="width:50px;font-size:12px;padding:2px 4px;"> 文字目から
@@ -796,7 +802,7 @@ window.addEventListener('load', function() {
       <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;">請求欄（お客さんへの請求）</div>
         <label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;cursor:pointer;">
-          <input type="checkbox" id="ff-billing-same" checked onchange="updateBillingUI()" style="accent-color:var(--accent);">
+          <input type="checkbox" id="ff-billing-same" checked="" onchange="updateBillingUI()" style="accent-color:var(--accent);">
           <span style="font-size:12px;color:var(--text-muted);">支給欄と同じ列を使用する</span>
         </label>
         <div id="ff-billing-detail" style="display:none;grid-template-columns:1fr 1fr;gap:10px;">
@@ -807,6 +813,32 @@ window.addEventListener('load', function() {
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">終業時刻</label>
             <select id="ff-map-bill-end" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 時刻形式 -->
+      <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">時刻の形式</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">始業・終業・休憩の値がどんな形式で入っているか選択してください</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">始業・終業の形式</label>
+            <select id="ff-map-timefmt" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;">
+              <option value="hhmm_colon">HH:MM 形式（例: 9:00）← 標準</option>
+              <option value="hhmm_int">HHMM 4桁整数（例: 0900）← Staffia</option>
+              <option value="minutes">分単位の整数（例: 480）← TMJ</option>
+              <option value="hhmmss">HH:MM:SS 形式（例: 09:00:00）</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">休憩時間の形式</label>
+            <select id="ff-map-restfmt" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;">
+              <option value="hhmm_colon">HH:MM 形式（例: 1:00）← 標準</option>
+              <option value="hhmm_int">HHMM 4桁整数（例: 0100）← Staffia</option>
+              <option value="minutes">分単位の整数（例: 60）← TMJ</option>
+              <option value="hhmmss">HH:MM:SS 形式（例: 01:00:00）</option>
+            </select>
           </div>
         </div>
       </div>
@@ -839,7 +871,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -847,7 +879,7 @@ window.addEventListener('load', function() {
   </div>
 
     </div>
-</div>
+
 
 <script>
 // ===================== State =====================
@@ -887,6 +919,14 @@ function loadFile(e, fileKey, dzId) {
 function processFile(file, fileKey, dzId) {
   const ext = file.name.split('.').pop().toLowerCase();
   const isExcel = (ext === 'xlsx' || ext === 'xls');
+  const isPDF   = (ext === 'pdf');
+
+  // PDFはPDF.js非同期処理
+  if (isPDF && fileKey === 'freeformat-kintai') {
+    processPdfFile(file, fileKey, dzId);
+    return;
+  }
+
   const reader = new FileReader();
 
   reader.onload = (e) => {
@@ -2971,6 +3011,8 @@ function loadFfPreset(name) {
   set('ff-map-rest',      cfg.rest);
   set('ff-map-kubun',     cfg.kubun);
   set('ff-map-kubun-val', cfg.kubunVal);
+  set('ff-map-timefmt',   cfg.timefmt);
+  set('ff-map-restfmt',   cfg.restfmt);
   set('ff-map-bill-start',cfg.billStart);
   set('ff-map-bill-end',  cfg.billEnd);
   set('ff-semode-head-n', cfg.semodeHeadN);
@@ -3030,6 +3072,88 @@ function updateBillingUI() {
 }
 
 // ファイル読込後に列マッピングUIを構築
+
+// ===================== PDF処理（フリー様式用）=====================
+async function processPdfFile(file, fileKey, dzId) {
+  const fnEl = document.getElementById('fn-' + fileKey);
+  if (fnEl) fnEl.textContent = '⏳ PDFを読み込み中...';
+
+  if (typeof pdfjsLib === 'undefined') {
+    alert('PDF.jsの読み込み中です。少し待ってから再度お試しください。');
+    return;
+  }
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    addLog('info', `PDF読込: ${pdf.numPages}ページ`);
+
+    // 全ページのテキストアイテムを取得して行列に変換
+    const allPageRows = [];
+    for (let p = 1; p <= pdf.numPages; p++) {
+      const page = await pdf.getPage(p);
+      const content = await page.getTextContent();
+
+      // Y座標でグルーピング（同じ行 = Y座標が近いアイテム）
+      const items = content.items.map(item => ({
+        text: item.str,
+        x: Math.round(item.transform[4]),
+        y: Math.round(item.transform[5])
+      })).filter(i => i.text.trim());
+
+      // Y座標でソート（降順）して行グループ化
+      const yGroups = {};
+      items.forEach(item => {
+        // Y座標を5px単位で丸めて同一行と判定
+        const yKey = Math.round(item.y / 5) * 5;
+        if (!yGroups[yKey]) yGroups[yKey] = [];
+        yGroups[yKey].push(item);
+      });
+
+      // 各グループをX順にソートして行にする
+      const pageRows = Object.keys(yGroups)
+        .sort((a, b) => b - a) // Y降順（上から下）
+        .map(y => yGroups[y].sort((a, b) => a.x - b.x).map(i => i.text));
+
+      allPageRows.push(...pageRows);
+    }
+
+    if (allPageRows.length === 0) {
+      alert('PDFからテキストを抽出できませんでした。スキャンPDFは対応していません。');
+      return;
+    }
+
+    // CSV形式に変換
+    const csvText = allPageRows.map(row =>
+      row.map(cell => cell.includes(',') || cell.includes('"')
+        ? '"' + cell.replace(/"/g, '""') + '"'
+        : cell
+      ).join(',')
+    ).join('\r\n');
+
+    // freeformatWBをクリア（PDF読込時はExcel WBは不要）
+    freeformatWB = null;
+
+    files[fileKey] = { name: file.name, data: csvText };
+
+    if (fnEl) fnEl.textContent = '✓ ' + file.name;
+    const dz = document.getElementById(dzId);
+    if (dz) dz.classList.add('loaded');
+
+    // ボタン有効化
+    const btn = document.getElementById('btn-freeformat-convert');
+    if (btn) btn.disabled = false;
+
+    // 列マッピングUIを構築
+    setTimeout(() => buildFfColMapping(), 200);
+
+  } catch(e) {
+    console.error('PDF処理エラー:', e);
+    alert('PDF読込エラー: ' + e.message);
+    if (fnEl) fnEl.textContent = '❌ 読込失敗';
+  }
+}
+
 function buildFfColMapping() {
   const card = document.getElementById('ff-mapping-card');
   if (!card) return;
@@ -3073,6 +3197,8 @@ function buildFfColMapping() {
   restore('ff-map-rest',      saved.rest);
   restore('ff-map-kubun',     saved.kubun);
   restore('ff-map-kubun-val', saved.kubunVal);
+  restore('ff-map-timefmt',   saved.timefmt);
+  restore('ff-map-restfmt',   saved.restfmt);
   restore('ff-map-bill-start',saved.billStart);
   restore('ff-map-bill-end',  saved.billEnd);
   if (saved.semode) {
@@ -3137,6 +3263,8 @@ function saveFfColMapping() {
     rest:         gv('ff-map-rest'),
     kubun:        gv('ff-map-kubun'),
     kubunVal:     gv('ff-map-kubun-val'),
+    timefmt:      gv('ff-map-timefmt'),
+    restfmt:      gv('ff-map-restfmt'),
     billingSame:  gb('ff-billing-same'),
     billStart:    gv('ff-map-bill-start'),
     billEnd:      gv('ff-map-bill-end'),
@@ -3230,23 +3358,56 @@ function convertFreeFormat() {
     haichiMap[sno].push({ ankenNo: ano, start: s, end: e });
   });
 
-  // 時刻正規化
-  const normTime = t => {
-    if (!t) return '';
+  // 時刻形式ごとの正規化関数を生成
+  const makeNormTime = (fmt) => (t) => {
+    if (t === null || t === undefined || t === '') return '';
     const s = String(t).trim();
-    let m = s.match(/(\d{1,2}):(\d{2})(?::\d{2})?\s*([AP]M)?/i);
-    if (m) {
-      let h = parseInt(m[1]); const min = m[2];
-      if (m[3]) { if (m[3].toUpperCase()==='PM' && h<12) h+=12; if (m[3].toUpperCase()==='AM' && h===12) h=0; }
-      return String(h).padStart(2,'0')+':'+min;
+    if (!s || s === '0') return '';
+
+    switch(fmt) {
+      case 'hhmm_int': {
+        // 4桁整数: 0900 → 09:00 / 830 → 08:30
+        const num = s.replace(/[^0-9]/g, '');
+        if (!num) return '';
+        const padded = num.padStart(4, '0');
+        const h = parseInt(padded.slice(0, -2));
+        const m = padded.slice(-2);
+        if (isNaN(h) || h > 23) return '';
+        return String(h).padStart(2,'0') + ':' + m;
+      }
+      case 'minutes': {
+        // 分単位整数: 480 → 08:00
+        const mins = parseInt(s);
+        if (isNaN(mins) || mins < 0) return '';
+        return String(Math.floor(mins/60)).padStart(2,'0') + ':' + String(mins%60).padStart(2,'0');
+      }
+      default: {
+        // hhmm_colon / hhmmss / 標準 / AM-PM / Excel小数
+        let m = s.match(/(\d{1,2}):(\d{2})(?::\d{2})?\s*([AP]M)?/i);
+        if (m) {
+          let h = parseInt(m[1]); const min = m[2];
+          if (m[3]) { if (m[3].toUpperCase()==='PM' && h<12) h+=12; if (m[3].toUpperCase()==='AM' && h===12) h=0; }
+          return String(h).padStart(2,'0')+':'+min;
+        }
+        const n = parseFloat(s);
+        if (!isNaN(n) && n>0 && n<1) {
+          const tm = Math.round(n*24*60);
+          return String(Math.floor(tm/60)).padStart(2,'0')+':'+String(tm%60).padStart(2,'0');
+        }
+        // 4桁整数フォールバック
+        if (/^\d{3,4}$/.test(s)) {
+          const padded = s.padStart(4,'0');
+          const h = parseInt(padded.slice(0,-2));
+          const min = padded.slice(-2);
+          if (!isNaN(h) && h<=23) return String(h).padStart(2,'0')+':'+min;
+        }
+        return '';
+      }
     }
-    const n = parseFloat(s);
-    if (!isNaN(n) && n>0 && n<1) {
-      const tm = Math.round(n*24*60);
-      return String(Math.floor(tm/60)).padStart(2,'0')+':'+String(tm%60).padStart(2,'0');
-    }
-    return '';
   };
+
+  const normTime     = makeNormTime(cfg.timefmt || 'hhmm_colon');
+  const normTimeRest = makeNormTime(cfg.restfmt || 'hhmm_colon');
 
   const results = [];
   let matched = 0, unmatched = 0, absent = 0;
@@ -3262,10 +3423,10 @@ function convertFreeFormat() {
     const date = normalizeDate(rawDate);
     if (!date) return;
 
-    // 時刻
+    // 時刻（始業・終業はnormTime、休憩はnormTimeRest）
     const startRaw     = normTime(row[cfg.start]);
     const endRaw       = normTime(row[cfg.end]);
-    const restRaw      = normTime(row[cfg.rest]) || '0:00';
+    const restRaw      = normTimeRest(row[cfg.rest]) || '0:00';
     const billStartRaw = cfg.billingSame ? startRaw : normTime(row[cfg.billStart]) || startRaw;
     const billEndRaw   = cfg.billingSame ? endRaw   : normTime(row[cfg.billEnd])   || endRaw;
 
