@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_66.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_68.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -533,7 +533,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_68.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -568,7 +568,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_68.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -603,7 +603,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_68.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -637,7 +637,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_68.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -672,7 +672,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_68.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -703,17 +703,29 @@ window.addEventListener('load', function() {
 
       <!-- プリセット -->
       <div style="background:#fdf5f6;border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:16px;">
-        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;">📂 フォーマット設定の保存・読込</div>
+        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;">📂 フォーマット設定</div>
         <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;line-height:1.6;">
-          以前に登録済みの場合は下から選択してください → 設定が自動復元されます。<br>
-          初めてのフォーマットの場合は設定後に「💾 現在の設定を保存」を押してください。
+          登録済みのフォーマットがある場合は選択してください。初めての場合は「＋ 新規作成」を選んでください。
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="loadFfPreset(this.value)">
-            <option value="">— プリセットを選択 —</option>
+          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="onFfPresetChange(this.value)">
+            <option value="">— フォーマットを選択 —</option>
+            <option value="__new__">＋ 新規作成</option>
           </select>
-          <button class="btn-add" onclick="saveFfPresetDialog()" style="white-space:nowrap;">💾 現在の設定を保存</button>
-          <button class="btn-del" onclick="deleteFfPreset()" style="white-space:nowrap;">🗑 削除</button>
+          <button class="btn-del" id="ff-preset-del-btn" onclick="deleteFfPreset()" style="white-space:nowrap;display:none;">🗑 削除</button>
+        </div>
+        <!-- 新規作成: 名前入力欄 -->
+        <div id="ff-preset-new-row" style="display:none;margin-top:10px;background:rgba(244,86,111,0.05);border:1px dashed var(--accent);border-radius:6px;padding:10px 12px;">
+          <div style="font-size:11px;color:var(--text);font-weight:700;margin-bottom:6px;">新しいフォーマット名を入力してください</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="text" id="ff-preset-new-name" placeholder="例: アデコ、新宿CE、〇〇社..." style="flex:1;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;">
+            <button class="btn-add" onclick="saveFfPresetNew()" style="white-space:nowrap;">💾 この名前で保存</button>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">名前を入力後、下の列設定を行ってから「💾 この名前で保存」を押してください</div>
+        </div>
+        <!-- 既存プリセット: 上書き保存ボタン -->
+        <div id="ff-preset-update-row" style="display:none;margin-top:8px;">
+          <button class="btn-add" onclick="updateFfPreset()" style="font-size:11px;padding:5px 12px;">💾 設定を上書き保存</button>
         </div>
         <div id="ff-preset-status" style="font-size:11px;margin-top:6px;color:var(--text-muted);"></div>
       </div>
@@ -871,7 +883,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_66.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_68.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2977,21 +2989,69 @@ function renderFfPresetSelect(selectedName) {
   if (!sel) return;
   const presets = getFfPresets();
   const names = Object.keys(presets);
-  sel.innerHTML = '<option value="">— プリセットを選択 —</option>' +
+  sel.innerHTML = '<option value="">— フォーマットを選択 —</option><option value="__new__">＋ 新規作成</option>' +
     names.map(n => `<option value="${n}" ${n === selectedName ? 'selected' : ''}>${n}</option>`).join('');
+  // 削除ボタン・上書きボタンの表示制御
+  const delBtn = document.getElementById('ff-preset-del-btn');
+  const updateRow = document.getElementById('ff-preset-update-row');
+  const newRow = document.getElementById('ff-preset-new-row');
+  if (delBtn) delBtn.style.display = selectedName && selectedName !== '__new__' ? 'inline-flex' : 'none';
+  if (updateRow) updateRow.style.display = selectedName && selectedName !== '__new__' ? 'block' : 'none';
+  if (newRow) newRow.style.display = selectedName === '__new__' ? 'block' : 'none';
 }
 
-function saveFfPresetDialog() {
-  const name = prompt('プリセット名を入力してください（例: アデコ、新宿CE）');
-  if (!name || !name.trim()) return;
-  const presets = getFfPresets();
-  presets[name.trim()] = saveFfColMapping();
-  localStorage.setItem(FF_PRESET_KEY, JSON.stringify(presets));
-  localStorage.setItem('ff_last_preset', name.trim());
-  renderFfPresetSelect(name.trim());
-  const status = document.getElementById('ff-preset-status');
-  if (status) { status.textContent = '✅ 「' + name.trim() + '」を保存しました'; status.style.color = 'var(--success)'; }
+function onFfPresetChange(val) {
+  const newRow    = document.getElementById('ff-preset-new-row');
+  const updateRow = document.getElementById('ff-preset-update-row');
+  const delBtn    = document.getElementById('ff-preset-del-btn');
+  const status    = document.getElementById('ff-preset-status');
+  if (val === '__new__') {
+    if (newRow)    newRow.style.display    = 'block';
+    if (updateRow) updateRow.style.display = 'none';
+    if (delBtn)    delBtn.style.display    = 'none';
+    if (status)    status.textContent      = '';
+    const inp = document.getElementById('ff-preset-new-name');
+    if (inp) inp.focus();
+  } else if (val) {
+    if (newRow)    newRow.style.display    = 'none';
+    if (updateRow) updateRow.style.display = 'block';
+    if (delBtn)    delBtn.style.display    = 'inline-flex';
+    loadFfPreset(val);
+  } else {
+    if (newRow)    newRow.style.display    = 'none';
+    if (updateRow) updateRow.style.display = 'none';
+    if (delBtn)    delBtn.style.display    = 'none';
+    if (status)    status.textContent      = '';
+  }
 }
+
+function saveFfPresetNew() {
+  const inp = document.getElementById('ff-preset-new-name');
+  const name = inp ? inp.value.trim() : '';
+  if (!name) { alert('フォーマット名を入力してください'); return; }
+  const presets = getFfPresets();
+  presets[name] = saveFfColMapping();
+  localStorage.setItem(FF_PRESET_KEY, JSON.stringify(presets));
+  localStorage.setItem('ff_last_preset', name);
+  renderFfPresetSelect(name);
+  const status = document.getElementById('ff-preset-status');
+  if (status) { status.textContent = '✅ 「' + name + '」を保存しました'; status.style.color = 'var(--success)'; }
+}
+
+function updateFfPreset() {
+  const sel = document.getElementById('ff-preset-select');
+  const name = sel ? sel.value : '';
+  if (!name || name === '__new__') return;
+  const presets = getFfPresets();
+  presets[name] = saveFfColMapping();
+  localStorage.setItem(FF_PRESET_KEY, JSON.stringify(presets));
+  localStorage.setItem('ff_last_preset', name);
+  const status = document.getElementById('ff-preset-status');
+  if (status) { status.textContent = '✅ 「' + name + '」を上書き保存しました'; status.style.color = 'var(--success)'; }
+}
+
+// 旧関数（後方互換）
+function saveFfPresetDialog() { saveFfPresetNew(); }
 
 function loadFfPreset(name) {
   if (!name) return;
@@ -3169,7 +3229,7 @@ function buildFfColMapping() {
       const rowStr = allRows[i].map(c => nk(String(c))).join('');
       if (keywords.filter(k => rowStr.includes(nk(k))).length >= 2) { hIdx = i; break; }
     }
-    headers = allRows[hIdx].map(h => String(h));
+    headers = allRows[hIdx].map(h => String(h).replace(/[\r\n\t]+/g, ''));
   } else if (files['freeformat-kintai']) {
     const rawLines = parseCSV(files['freeformat-kintai'].data);
     if (rawLines && rawLines.length > 0) headers = rawLines[0].map(h => String(h));
@@ -3320,9 +3380,9 @@ function convertFreeFormat() {
       if (['社員番号','従業員','日付','始業','終業','出勤','番号'].filter(k => rowStr.includes(nk(k))).length >= 2) { hIdx = i; break; }
     }
     if (hIdx === -1) hIdx = 0;
-    const hCols = allRows[hIdx];
+    const hCols = allRows[hIdx].map(h => String(h).replace(/[\r\n\t]+/g,''));
     rows = allRows.slice(hIdx + 1).filter(r => r.some(c => String(c).trim()))
-      .map(r => { const o = {}; hCols.forEach((h,i) => { o[String(h)] = r[i] !== undefined ? r[i] : ''; }); return o; });
+      .map(r => { const o = {}; hCols.forEach((h,i) => { o[String(h).replace(/[\r\n\t]+/g,'')] = r[i] !== undefined ? r[i] : ''; }); return o; });
   } else {
     const rawLines = parseCSV(fileInfo.data);
     if (!rawLines || rawLines.length === 0) { addLog('err', 'データが空です'); showResult('freeformat',0,0,0,0,log,null); return; }
@@ -3335,7 +3395,7 @@ function convertFreeFormat() {
     if (hIdx === -1) hIdx = 0;
     const hCols = rawLines[hIdx];
     rows = rawLines.slice(hIdx + 1).filter(r => r.some(c => String(c).trim()))
-      .map(r => { const o = {}; hCols.forEach((h,i) => { o[h] = r[i]||''; }); return o; });
+      .map(r => { const o = {}; hCols.forEach((h,i) => { o[String(h).replace(/[\r\n\t]+/g,'')] = r[i]||''; }); return o; });
   }
   addLog('info', `データ読込: ${rows.length}行（ヘッダー: ${hIdx + 1}行目）`);
 
