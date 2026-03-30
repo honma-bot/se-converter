@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_88.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_89.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -466,16 +466,16 @@ window.addEventListener('load', function() {
         Staff Expressから出力した配置一覧CSVを月初に1回だけ読み込んでください。<br>
         読み込んだデータはすべての変換タブで共通利用されます。
       </p>
-      <div id="haichi-saved-notice" style="display: flex; font-size: 12px; color: var(--success); background: rgba(15, 169, 104, 0.08); border: 1px solid rgba(15, 169, 104, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; align-items: center; justify-content: space-between; gap: 10px;">
-        <span id="haichi-saved-notice-text">✅ 前回保存の配置一覧を自動読込しました（2026/3/26）</span>
+      <div id="haichi-saved-notice" style="display:none;font-size:12px;color:var(--success);background:rgba(15,169,104,0.08);border:1px solid rgba(15,169,104,0.3);border-radius:8px;padding:10px 14px;margin-bottom:12px;align-items:center;justify-content:space-between;gap:10px;">
+        <span id="haichi-saved-notice-text"></span>
         <button class="btn-del" onclick="clearHaichiCache()" style="white-space:nowrap;font-size:11px;">🗑 キャッシュ削除</button>
       </div>
-      <div class="dropzone loaded" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
+      <div class="dropzone" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
         <input type="file" accept=".csv,.xlsx" onchange="loadFile(event,&#39;se-haichi&#39;,&#39;dz-haichi&#39;)">
         <span class="dropzone-icon">📂</span>
         <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
         <div class="dropzone-sub">読み込むと自動保存され、次回起動時も自動で復元されます</div>
-        <div class="file-name" id="fn-se-haichi">✓ 配置一覧.xlsx　（2026/3/26 保存）</div>
+        <div class="file-name" id="fn-se-haichi"></div>
       </div>
     </div>
 
@@ -566,7 +566,7 @@ window.addEventListener('load', function() {
         <div class="stats" id="convert-stats"></div>
         <div class="log" id="convert-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_89.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
         </div>
       </div>
     </div>
@@ -598,7 +598,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_89.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -633,7 +633,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_89.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -668,7 +668,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_89.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -702,7 +702,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_89.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -737,7 +737,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_89.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -948,7 +948,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_89.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -4075,6 +4075,18 @@ function mirrorResultToConvert(id) {
       };
     }
     dstDl.style.display = 'inline-flex';
+  }
+  // 未登録スタッフUI・複数案件UIなどを変換タブ結果カードにも移動
+  const srcResultCard = document.getElementById(prefix + '-result-card');
+  if (srcResultCard) {
+    ['.unmatched-ui', '.multi-anken-ui', '.time-error-ui', '.haichi-missing-ui'].forEach(sel => {
+      const ui = srcResultCard.querySelector(sel);
+      if (ui) {
+        // 変換タブの結果カード内のログの後に追加
+        const dstLog2 = dstCard.querySelector('.log');
+        if (dstLog2) dstLog2.insertAdjacentElement('afterend', ui);
+      }
+    });
   }
   dstCard.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
