@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_87.html -->
+<!-- saved from url=(0053)file:///C:/Users/honma/Downloads/se_converter_88.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -566,7 +566,7 @@ window.addEventListener('load', function() {
         <div class="stats" id="convert-stats"></div>
         <div class="log" id="convert-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_87.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
         </div>
       </div>
     </div>
@@ -598,7 +598,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_87.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -633,7 +633,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_87.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -668,7 +668,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_87.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -702,7 +702,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_87.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -737,7 +737,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_87.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -948,7 +948,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_87.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_88.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -3911,17 +3911,28 @@ function onConvertFileLoaded() {
   if (btn) btn.disabled = false;
 
   if (selectedSystem && selectedSystem.isCustom) {
-    // カスタム: フリー様式のマッピングカード本体をconvert-mapping-areaに移動して表示
-    const mappingArea = document.getElementById('convert-mapping-area');
+    // ファイルをフリー様式側に共有
+    files['freeformat-kintai'] = files['convert-kintai'];
+
+    // ff-mapping-cardを元の場所（フリー様式パネル）に戻してから表示
+    const ffPanel = document.getElementById('panel-freeformat');
     const original = document.getElementById('ff-mapping-card');
-    if (mappingArea && original) {
+    if (ffPanel && original && original.parentElement !== ffPanel) {
+      // 設定パネルより前に戻す
+      const step3 = ffPanel.querySelector('.card:last-of-type');
+      ffPanel.insertBefore(original, step3 || null);
+    }
+
+    // convert-mapping-areaにマッピングカードへのリンクカードを表示
+    const mappingArea = document.getElementById('convert-mapping-area');
+    if (mappingArea) {
       original.style.display = 'block';
       mappingArea.innerHTML = '';
       mappingArea.appendChild(original);
     }
-    // ファイルをフリー様式側に共有してマッピングUIを構築
+
+    // マッピングUIを構築
     setTimeout(() => {
-      files['freeformat-kintai'] = files['convert-kintai'];
       buildFfColMapping();
       if (selectedSystem.presetName) {
         // 登録済みプリセットの場合はそのまま読み込み、上書き保存ボタンを表示
