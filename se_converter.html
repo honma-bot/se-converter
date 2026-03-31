@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_106.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_110.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -436,8 +436,8 @@ window.addEventListener('load', function() {
 
   <div class="tabs">
     <button class="tab" onclick="window.open(&#39;https://honma-bot.github.io/se-converter/manual.html&#39;,&#39;_blank&#39;)">📖 マニュアル</button>
-    <button class="tab" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
-    <button class="tab active" onclick="switchTab(&#39;convert&#39;)">🔄 変換</button>
+    <button class="tab active" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
+    <button class="tab" onclick="switchTab(&#39;convert&#39;)">🔄 変換</button>
   </div>
 
   <!-- ===== マニュアル パネル ===== -->
@@ -456,7 +456,7 @@ window.addEventListener('load', function() {
   </div>
 
   <!-- ===== 設定パネル  <!-- ===== 設定パネル ===== -->
-  <div class="panel" id="panel-settings">
+  <div class="panel active" id="panel-settings">
 
     <!-- 配置一覧 -->
     <div class="card">
@@ -502,7 +502,7 @@ window.addEventListener('load', function() {
   </div>
 
   <!-- ===== 変換パネル ===== -->
-  <div class="panel active" id="panel-convert">
+  <div class="panel" id="panel-convert">
 
     <!-- 検索 & システム選択 -->
     <div class="card">
@@ -528,7 +528,12 @@ window.addEventListener('load', function() {
       <!-- よく使う -->
       <div id="convert-recent-section" style="display: block;">
         <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⭐ よく使う</div>
-        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
+        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">14回</span>
+    <div style="font-size:20px;margin-bottom:5px;">📊</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
+    <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">7回</span>
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新宿アルティウス_MU</div>
@@ -538,11 +543,6 @@ window.addEventListener('load', function() {
     <div style="font-size:20px;margin-bottom:5px;">📋</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">TMJ</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（従業員番号）</div>
-  </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">3回</span>
-    <div style="font-size:20px;margin-bottom:5px;">📊</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
-    <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
   </div></div>
       </div>
 
@@ -554,7 +554,7 @@ window.addEventListener('load', function() {
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">CloudStaffing</div>
     <div style="font-size:10px;color:var(--text-dim);">配置一覧と照合</div>
   </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">3回</span>
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">14回</span>
     <div style="font-size:20px;margin-bottom:5px;">📊</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
@@ -2330,7 +2330,7 @@ window.addEventListener('load', function() {
         <div class="stats" id="convert-stats"></div>
         <div class="log" id="convert-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
         </div>
       </div>
     </div>
@@ -2362,7 +2362,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2397,7 +2397,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2432,7 +2432,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2466,7 +2466,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2501,7 +2501,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2709,7 +2709,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -3186,7 +3186,7 @@ function convertCS() {
   pendingUnmatched['cs'] = [];
 
   // --- フォーマットチェック ---
-  const csRows = csvToObjects(files['cs-kintai'].data);
+  const csRows = csvToObjects((files['cs-kintai'] || files['convert-kintai']).data);
   addLog('info', `勤怠データ読込: ${csRows.length}件`);
 
   const csRequired = ['派遣元スタッフコード','日付','始業時刻','終業時刻','休憩時間','所定内就労時間','超過就労時間','深夜就労時間'];
@@ -4364,7 +4364,7 @@ function convertStaffia() {
   pendingUnmatched['staffia'] = [];
 
   // --- フォーマットチェック ---
-  const rows = csvToObjects(files['staffia-kintai'].data);
+  const rows = csvToObjects((files['staffia-kintai'] || files['convert-kintai']).data);
   addLog('info', `勤怠データ読込: ${rows.length}件`);
 
   const stRequired = ['氏名コード','氏名','日付','出勤状況','勤務開始時間','勤務終了時間','所定内労働時間','時間外１','深夜１'];
@@ -4375,6 +4375,19 @@ function convertStaffia() {
   // --- 重複チェック ---
   const dupErrors = checkDuplicates(rows, '氏名コード', '日付', 'Staffia');
   dupErrors.forEach(e => addLog('warn', e));
+
+  // 配置一覧マップ構築
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const haichiMap = {};
+  haichiRows.forEach(row => {
+    const staffNo = normalizeStaffNo(row['スタッフNO']);
+    const ankenNo = (row['案件管理NO'] || '').trim();
+    const start = normalizeDate(row['就業開始日'] || '');
+    const end   = normalizeDate(row['就業終了日'] || '');
+    if (!staffNo || !ankenNo) return;
+    if (!haichiMap[staffNo]) haichiMap[staffNo] = [];
+    haichiMap[staffNo].push({ ankenNo, start, end });
+  });
 
   // Build mapping lookup
   const mapLookup = {};
@@ -4491,7 +4504,7 @@ function convertHRStation() {
   pendingMultiAnken['hrstation'] = [];
 
   // --- フォーマットチェック ---
-  const rows = csvToObjects(files['hrstation-kintai'].data);
+  const rows = csvToObjects((files['hrstation-kintai'] || files['convert-kintai']).data);
   addLog('info', `勤怠データ読込: ${rows.length}件`);
 
   const hrRequired = ['スタッフコード','就業年月日','区分','勤務開始時刻実績','勤務終了時刻実績','休憩時間（実績）','契約内'];
@@ -4635,7 +4648,7 @@ function convertTMJ() {
   addLog('info', 'TMJ 変換開始...');
   pendingUnmatched['tmj'] = [];
 
-  const rows = csvToObjects(files['tmj-kintai'].data);
+  const rows = csvToObjects((files['tmj-kintai'] || files['convert-kintai']).data);
   addLog('info', `勤怠データ読込: ${rows.length}件`);
 
   // フォーマットチェック
@@ -5806,6 +5819,7 @@ function onConvertFileLoaded() {
   const btn = document.getElementById('btn-convert-main');
   if (btn) btn.disabled = false;
 
+  console.log('onConvertFileLoaded: selectedSystem=', selectedSystem, 'files[convert-kintai]=', files['convert-kintai']);
   if (selectedSystem && selectedSystem.isCustom) {
     // ファイルをフリー様式側に共有
     files['freeformat-kintai'] = files['convert-kintai'];
@@ -5891,7 +5905,8 @@ function saveNewPresetFromConvert() {
 }
 
 function convertSelected() {
-  if (!selectedSystem) return;
+  console.log('convertSelected called, selectedSystem=', selectedSystem, 'files[convert-kintai]=', files['convert-kintai']);
+  if (!selectedSystem) { alert('システムを選択してください'); return; }
   incFreq(selectedSystem.id);
 
   const id = selectedSystem.id;
@@ -5946,12 +5961,14 @@ function convertSelected() {
   if (fnMap[id]) {
     fnMap[id]();
     setTimeout(() => {
-      // 他タブのデータを元に戻す
-      files[targetKey] = prevFile;
-      if (id === 'replyority') replyorityWB = prevReplyorityWB;
-      freeformatWB = prevFreeformatWB; // freeformatWBも復元
       mirrorResultToConvert(id);
     }, 600);
+    // ファイルデータの復元は十分な時間をおいて実行
+    setTimeout(() => {
+      files[targetKey] = prevFile;
+      if (id === 'replyority') replyorityWB = prevReplyorityWB;
+      freeformatWB = prevFreeformatWB;
+    }, 5000);
   }
 }
 
