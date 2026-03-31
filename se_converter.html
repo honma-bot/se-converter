@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_105.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_106.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -425,7 +425,7 @@ window.addEventListener('load', function() {
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
-<script src="./se_converter_files/pdf.min.js.ダウンロード"></script><script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script></head>
+<script src="./se_converter_files/pdf.min.js.ダウンロード"></script><script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script><script src="./se_converter_files/exec"></script></head>
 <body>
 <div class="container">
   <header>
@@ -436,8 +436,8 @@ window.addEventListener('load', function() {
 
   <div class="tabs">
     <button class="tab" onclick="window.open(&#39;https://honma-bot.github.io/se-converter/manual.html&#39;,&#39;_blank&#39;)">📖 マニュアル</button>
-    <button class="tab active" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
-    <button class="tab" onclick="switchTab(&#39;convert&#39;)">🔄 変換</button>
+    <button class="tab" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
+    <button class="tab active" onclick="switchTab(&#39;convert&#39;)">🔄 変換</button>
   </div>
 
   <!-- ===== マニュアル パネル ===== -->
@@ -456,7 +456,7 @@ window.addEventListener('load', function() {
   </div>
 
   <!-- ===== 設定パネル  <!-- ===== 設定パネル ===== -->
-  <div class="panel active" id="panel-settings">
+  <div class="panel" id="panel-settings">
 
     <!-- 配置一覧 -->
     <div class="card">
@@ -502,7 +502,7 @@ window.addEventListener('load', function() {
   </div>
 
   <!-- ===== 変換パネル ===== -->
-  <div class="panel" id="panel-convert">
+  <div class="panel active" id="panel-convert">
 
     <!-- 検索 & システム選択 -->
     <div class="card">
@@ -526,14 +526,1779 @@ window.addEventListener('load', function() {
       </div>
 
       <!-- よく使う -->
-      <div id="convert-recent-section">
+      <div id="convert-recent-section" style="display: block;">
         <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⭐ よく使う</div>
-        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"></div>
+        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">7回</span>
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新宿アルティウス_MU</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;tmj&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-tmj">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">4回</span>
+    <div style="font-size:20px;margin-bottom:5px;">📋</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">TMJ</div>
+    <div style="font-size:10px;color:var(--text-dim);">対応表（従業員番号）</div>
+  </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">3回</span>
+    <div style="font-size:20px;margin-bottom:5px;">📊</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
+    <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
+  </div></div>
       </div>
 
       <!-- 全システム -->
       <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">📋 全システム</div>
-      <div id="convert-all-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;"></div>
+      <div id="convert-all-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;"><div onclick="selectConvertSystem(&#39;cloudstaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-cloudstaffing">
+    
+    <div style="font-size:20px;margin-bottom:5px;">☁️</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">CloudStaffing</div>
+    <div style="font-size:10px;color:var(--text-dim);">配置一覧と照合</div>
+  </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">3回</span>
+    <div style="font-size:20px;margin-bottom:5px;">📊</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
+    <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
+  </div><div onclick="selectConvertSystem(&#39;hrstation&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-hrstation">
+    
+    <div style="font-size:20px;margin-bottom:5px;">🏢</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">HR-Station</div>
+    <div style="font-size:10px;color:var(--text-dim);">スタッフコード下6桁</div>
+  </div><div onclick="selectConvertSystem(&#39;tmj&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-tmj">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">4回</span>
+    <div style="font-size:20px;margin-bottom:5px;">📋</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">TMJ</div>
+    <div style="font-size:10px;color:var(--text-dim);">対応表（従業員番号）</div>
+  </div><div onclick="selectConvertSystem(&#39;replyority&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-replyority">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📁</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">リプライオリティ</div>
+    <div style="font-size:10px;color:var(--text-dim);">対応表（RTHコード）</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:0&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_0">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">0</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:1&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_1">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">1</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:2&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_2">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">2</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:3&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_3">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">3</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:4&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_4">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">4</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:5&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_5">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">5</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:6&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_6">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">6</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:7&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_7">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">7</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:8&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_8">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">8</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:9&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_9">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">9</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:10&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_10">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">10</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:11&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_11">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">11</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:12&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_12">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">12</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:13&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_13">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">13</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:14&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_14">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">14</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:15&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_15">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">15</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:16&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_16">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">16</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:17&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_17">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">17</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:18&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_18">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">18</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:19&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_19">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">19</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:20&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_20">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">20</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:21&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_21">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">21</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:22&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_22">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">22</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:23&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_23">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">23</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:24&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_24">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">24</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:25&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_25">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">25</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:26&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_26">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">26</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:27&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_27">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">27</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:28&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_28">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">28</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:29&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_29">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">29</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:30&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_30">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">30</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:31&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_31">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">31</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:32&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_32">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">32</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:33&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_33">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">33</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:34&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_34">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">34</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:35&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_35">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">35</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:36&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_36">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">36</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:37&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_37">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">37</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:38&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_38">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">38</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:39&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_39">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">39</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:40&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_40">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">40</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:41&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_41">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">41</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:42&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_42">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">42</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:43&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_43">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">43</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:44&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_44">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">44</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:45&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_45">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">45</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:46&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_46">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">46</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:47&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_47">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">47</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:48&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_48">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">48</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:49&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_49">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">49</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:50&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_50">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">50</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:51&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_51">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">51</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:52&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_52">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">52</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:53&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_53">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">53</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:54&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_54">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">54</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:55&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_55">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">55</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:56&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_56">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">56</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:57&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_57">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">57</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:58&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_58">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">58</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:59&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_59">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">59</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:60&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_60">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">60</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:61&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_61">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">61</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:62&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_62">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">62</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:63&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_63">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">63</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:64&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_64">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">64</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:65&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_65">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">65</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:66&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_66">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">66</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:67&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_67">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">67</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:68&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_68">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">68</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:69&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_69">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">69</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:70&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_70">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">70</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:71&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_71">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">71</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:72&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_72">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">72</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:73&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_73">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">73</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:74&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_74">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">74</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:75&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_75">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">75</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:76&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_76">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">76</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:77&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_77">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">77</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:78&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_78">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">78</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:79&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_79">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">79</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:80&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_80">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">80</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:81&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_81">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">81</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:82&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_82">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">82</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:83&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_83">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">83</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:84&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_84">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">84</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:85&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_85">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">85</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:86&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_86">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">86</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:87&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_87">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">87</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:88&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_88">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">88</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:89&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_89">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">89</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:90&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_90">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">90</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:91&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_91">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">91</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:92&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_92">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">92</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:93&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_93">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">93</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:94&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_94">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">94</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:95&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_95">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">95</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:96&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_96">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">96</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:97&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_97">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">97</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:98&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_98">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">98</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:99&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_99">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">99</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:100&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_100">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">100</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:101&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_101">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">101</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:102&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_102">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">102</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:103&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_103">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">103</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:104&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_104">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">104</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:105&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_105">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">105</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:106&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_106">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">106</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:107&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_107">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">107</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:108&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_108">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">108</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:109&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_109">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">109</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:110&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_110">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">110</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:111&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_111">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">111</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:112&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_112">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">112</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:113&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_113">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">113</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:114&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_114">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">114</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:115&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_115">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">115</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:116&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_116">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">116</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:117&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_117">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">117</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:118&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_118">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">118</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:119&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_119">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">119</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:120&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_120">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">120</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:121&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_121">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">121</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:122&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_122">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">122</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:123&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_123">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">123</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:124&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_124">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">124</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:125&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_125">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">125</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:126&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_126">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">126</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:127&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_127">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">127</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:128&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_128">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">128</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:129&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_129">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">129</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:130&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_130">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">130</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:131&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_131">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">131</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:132&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_132">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">132</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:133&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_133">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">133</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:134&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_134">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">134</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:135&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_135">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">135</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:136&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_136">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">136</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:137&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_137">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">137</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:138&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_138">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">138</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:139&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_139">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">139</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:140&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_140">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">140</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:141&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_141">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">141</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:142&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_142">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">142</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:143&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_143">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">143</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:144&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_144">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">144</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:145&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_145">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">145</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:146&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_146">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">146</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:147&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_147">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">147</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:148&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_148">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">148</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:149&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_149">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">149</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:150&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_150">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">150</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:151&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_151">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">151</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:152&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_152">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">152</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:153&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_153">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">153</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:154&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_154">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">154</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:155&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_155">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">155</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:156&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_156">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">156</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:157&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_157">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">157</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:158&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_158">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">158</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:159&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_159">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">159</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:160&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_160">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">160</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:161&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_161">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">161</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:162&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_162">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">162</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:163&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_163">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">163</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:164&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_164">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">164</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:165&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_165">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">165</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:166&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_166">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">166</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:167&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_167">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">167</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:168&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_168">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">168</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:169&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_169">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">169</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:170&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_170">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">170</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:171&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_171">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">171</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:172&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_172">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">172</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:173&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_173">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">173</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:174&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_174">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">174</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:175&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_175">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">175</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:176&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_176">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">176</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:177&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_177">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">177</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:178&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_178">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">178</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:179&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_179">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">179</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:180&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_180">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">180</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:181&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_181">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">181</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:182&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_182">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">182</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:183&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_183">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">183</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:184&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_184">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">184</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:185&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_185">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">185</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:186&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_186">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">186</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:187&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_187">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">187</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:188&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_188">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">188</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:189&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_189">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">189</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:190&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_190">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">190</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:191&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_191">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">191</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:192&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_192">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">192</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:193&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_193">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">193</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:194&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_194">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">194</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:195&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_195">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">195</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:196&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_196">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">196</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:197&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_197">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">197</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:198&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_198">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">198</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:199&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_199">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">199</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:200&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_200">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">200</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:201&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_201">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">201</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:202&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_202">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">202</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:203&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_203">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">203</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:204&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_204">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">204</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:205&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_205">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">205</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:206&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_206">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">206</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:207&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_207">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">207</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:208&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_208">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">208</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:209&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_209">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">209</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:210&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_210">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">210</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:211&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_211">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">211</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:212&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_212">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">212</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:213&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_213">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">213</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:214&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_214">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">214</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:215&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_215">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">215</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:216&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_216">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">216</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:217&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_217">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">217</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:218&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_218">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">218</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:219&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_219">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">219</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:220&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_220">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">220</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:221&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_221">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">221</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:222&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_222">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">222</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:223&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_223">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">223</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:224&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_224">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">224</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:225&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_225">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">225</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:226&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_226">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">226</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:227&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_227">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">227</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:228&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_228">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">228</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:229&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_229">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">229</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:230&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_230">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">230</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:231&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_231">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">231</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:232&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_232">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">232</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:233&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_233">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">233</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:234&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_234">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">234</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:235&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_235">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">235</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:236&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_236">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">236</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:237&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_237">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">237</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:238&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_238">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">238</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:239&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_239">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">239</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:240&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_240">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">240</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:241&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_241">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">241</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:242&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_242">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">242</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:243&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_243">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">243</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:244&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_244">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">244</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:245&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_245">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">245</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:246&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_246">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">246</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:247&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_247">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">247</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:248&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_248">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">248</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:249&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_249">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">249</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:250&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_250">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">250</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:251&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_251">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">251</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:252&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_252">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">252</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:253&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_253">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">253</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:254&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_254">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">254</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:255&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_255">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">255</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:256&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_256">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">256</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:257&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_257">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">257</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:258&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_258">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">258</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:259&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_259">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">259</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:260&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_260">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">260</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:261&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_261">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">261</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:262&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_262">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">262</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:263&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_263">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">263</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:264&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_264">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">264</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:265&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_265">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">265</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:266&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_266">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">266</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:267&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_267">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">267</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:268&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_268">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">268</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:269&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_269">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">269</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:270&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_270">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">270</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:271&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_271">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">271</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:272&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_272">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">272</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:273&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_273">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">273</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:274&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_274">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">274</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:275&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_275">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">275</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:276&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_276">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">276</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:277&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_277">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">277</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:278&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_278">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">278</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:279&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_279">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">279</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:280&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_280">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">280</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:281&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_281">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">281</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:282&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_282">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">282</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:283&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_283">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">283</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:284&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_284">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">284</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:285&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_285">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">285</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:286&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_286">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">286</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:287&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_287">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">287</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:288&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_288">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">288</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:289&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_289">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">289</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:290&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_290">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">290</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:291&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_291">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">291</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:292&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_292">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">292</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:293&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_293">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">293</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:294&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_294">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">294</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:295&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_295">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">295</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:296&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_296">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">296</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:297&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_297">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">297</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:298&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_298">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">298</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:299&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_299">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">299</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:300&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_300">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">300</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:301&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_301">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">301</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:302&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_302">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">302</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:303&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_303">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">303</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:304&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_304">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">304</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:305&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_305">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">305</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:306&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_306">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">306</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:307&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_307">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">307</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:308&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_308">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">308</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:309&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_309">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">309</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:310&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_310">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">310</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:311&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_311">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">311</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:312&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_312">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">312</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:313&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_313">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">313</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:314&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_314">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">314</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:315&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_315">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">315</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:316&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_316">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">316</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:317&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_317">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">317</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:318&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_318">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">318</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:319&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_319">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">319</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:320&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_320">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">320</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:321&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_321">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">321</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:322&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_322">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">322</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:323&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_323">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">323</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:324&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_324">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">324</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:325&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_325">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">325</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:326&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_326">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">326</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:327&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_327">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">327</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:328&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_328">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">328</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:329&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_329">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">329</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:330&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_330">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">330</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:331&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_331">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">331</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:332&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_332">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">332</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:333&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_333">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">333</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:334&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_334">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">334</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:335&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_335">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">335</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:336&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_336">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">336</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:337&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_337">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">337</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:338&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_338">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">338</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:339&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_339">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">339</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:340&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_340">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">340</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:マックスコム&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">マックスコム</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:アルティウス&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">アルティウス</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">7回</span>
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新宿アルティウス_MU</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;__new_custom__&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-__new_custom__">
+    
+    <div style="font-size:20px;margin-bottom:5px;">➕</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新規登録</div>
+    <div style="font-size:10px;color:var(--text-dim);">初回設定</div>
+  </div></div>
     </div>
 
     <!-- ファイルドロップ（システム選択後に表示） -->
@@ -565,7 +2330,7 @@ window.addEventListener('load', function() {
         <div class="stats" id="convert-stats"></div>
         <div class="log" id="convert-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_105.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
         </div>
       </div>
     </div>
@@ -597,7 +2362,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_105.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -632,7 +2397,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_105.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -667,7 +2432,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_105.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -701,7 +2466,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_105.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -736,7 +2501,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_105.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -772,11 +2537,8 @@ window.addEventListener('load', function() {
           登録済みのフォーマットがある場合は選択してください。初めての場合は「＋ 新規作成」を選んでください。
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="onFfPresetChange(this.value)">
-            <option value="">— フォーマットを選択 —</option>
-            <option value="__new__">＋ 新規作成</option>
-          </select>
-          <button class="btn-del" id="ff-preset-del-btn" onclick="deleteFfPreset()" style="white-space:nowrap;display:none;">🗑 削除</button>
+          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="onFfPresetChange(this.value)"><option value="">— フォーマットを選択 —</option><option value="__new__">＋ 新規作成</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option><option value="115">115</option><option value="116">116</option><option value="117">117</option><option value="118">118</option><option value="119">119</option><option value="120">120</option><option value="121">121</option><option value="122">122</option><option value="123">123</option><option value="124">124</option><option value="125">125</option><option value="126">126</option><option value="127">127</option><option value="128">128</option><option value="129">129</option><option value="130">130</option><option value="131">131</option><option value="132">132</option><option value="133">133</option><option value="134">134</option><option value="135">135</option><option value="136">136</option><option value="137">137</option><option value="138">138</option><option value="139">139</option><option value="140">140</option><option value="141">141</option><option value="142">142</option><option value="143">143</option><option value="144">144</option><option value="145">145</option><option value="146">146</option><option value="147">147</option><option value="148">148</option><option value="149">149</option><option value="150">150</option><option value="151">151</option><option value="152">152</option><option value="153">153</option><option value="154">154</option><option value="155">155</option><option value="156">156</option><option value="157">157</option><option value="158">158</option><option value="159">159</option><option value="160">160</option><option value="161">161</option><option value="162">162</option><option value="163">163</option><option value="164">164</option><option value="165">165</option><option value="166">166</option><option value="167">167</option><option value="168">168</option><option value="169">169</option><option value="170">170</option><option value="171">171</option><option value="172">172</option><option value="173">173</option><option value="174">174</option><option value="175">175</option><option value="176">176</option><option value="177">177</option><option value="178">178</option><option value="179">179</option><option value="180">180</option><option value="181">181</option><option value="182">182</option><option value="183">183</option><option value="184">184</option><option value="185">185</option><option value="186">186</option><option value="187">187</option><option value="188">188</option><option value="189">189</option><option value="190">190</option><option value="191">191</option><option value="192">192</option><option value="193">193</option><option value="194">194</option><option value="195">195</option><option value="196">196</option><option value="197">197</option><option value="198">198</option><option value="199">199</option><option value="200">200</option><option value="201">201</option><option value="202">202</option><option value="203">203</option><option value="204">204</option><option value="205">205</option><option value="206">206</option><option value="207">207</option><option value="208">208</option><option value="209">209</option><option value="210">210</option><option value="211">211</option><option value="212">212</option><option value="213">213</option><option value="214">214</option><option value="215">215</option><option value="216">216</option><option value="217">217</option><option value="218">218</option><option value="219">219</option><option value="220">220</option><option value="221">221</option><option value="222">222</option><option value="223">223</option><option value="224">224</option><option value="225">225</option><option value="226">226</option><option value="227">227</option><option value="228">228</option><option value="229">229</option><option value="230">230</option><option value="231">231</option><option value="232">232</option><option value="233">233</option><option value="234">234</option><option value="235">235</option><option value="236">236</option><option value="237">237</option><option value="238">238</option><option value="239">239</option><option value="240">240</option><option value="241">241</option><option value="242">242</option><option value="243">243</option><option value="244">244</option><option value="245">245</option><option value="246">246</option><option value="247">247</option><option value="248">248</option><option value="249">249</option><option value="250">250</option><option value="251">251</option><option value="252">252</option><option value="253">253</option><option value="254">254</option><option value="255">255</option><option value="256">256</option><option value="257">257</option><option value="258">258</option><option value="259">259</option><option value="260">260</option><option value="261">261</option><option value="262">262</option><option value="263">263</option><option value="264">264</option><option value="265">265</option><option value="266">266</option><option value="267">267</option><option value="268">268</option><option value="269">269</option><option value="270">270</option><option value="271">271</option><option value="272">272</option><option value="273">273</option><option value="274">274</option><option value="275">275</option><option value="276">276</option><option value="277">277</option><option value="278">278</option><option value="279">279</option><option value="280">280</option><option value="281">281</option><option value="282">282</option><option value="283">283</option><option value="284">284</option><option value="285">285</option><option value="286">286</option><option value="287">287</option><option value="288">288</option><option value="289">289</option><option value="290">290</option><option value="291">291</option><option value="292">292</option><option value="293">293</option><option value="294">294</option><option value="295">295</option><option value="296">296</option><option value="297">297</option><option value="298">298</option><option value="299">299</option><option value="300">300</option><option value="301">301</option><option value="302">302</option><option value="303">303</option><option value="304">304</option><option value="305">305</option><option value="306">306</option><option value="307">307</option><option value="308">308</option><option value="309">309</option><option value="310">310</option><option value="311">311</option><option value="312">312</option><option value="313">313</option><option value="314">314</option><option value="315">315</option><option value="316">316</option><option value="317">317</option><option value="318">318</option><option value="319">319</option><option value="320">320</option><option value="321">321</option><option value="322">322</option><option value="323">323</option><option value="324">324</option><option value="325">325</option><option value="326">326</option><option value="327">327</option><option value="328">328</option><option value="329">329</option><option value="330">330</option><option value="331">331</option><option value="332">332</option><option value="333">333</option><option value="334">334</option><option value="335">335</option><option value="336">336</option><option value="337">337</option><option value="338">338</option><option value="339">339</option><option value="340">340</option><option value="マックスコム">マックスコム</option><option value="アルティウス">アルティウス</option><option value="新宿アルティウス_MU" selected="">新宿アルティウス_MU</option></select>
+          <button class="btn-del" id="ff-preset-del-btn" onclick="deleteFfPreset()" style="white-space: nowrap; display: inline-flex;">🗑 削除</button>
         </div>
         <!-- 新規作成: 名前入力欄 -->
         <div id="ff-preset-new-row" style="display:none;margin-top:10px;background:rgba(244,86,111,0.05);border:1px dashed var(--accent);border-radius:6px;padding:10px 12px;">
@@ -788,7 +2550,7 @@ window.addEventListener('load', function() {
           <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">名前を入力後、下の列設定を行ってから「💾 この名前で保存」を押してください</div>
         </div>
         <!-- 既存プリセット: 上書き保存ボタン -->
-        <div id="ff-preset-update-row" style="display:none;margin-top:8px;">
+        <div id="ff-preset-update-row" style="display: block; margin-top: 8px;">
           <button class="btn-add" onclick="updateFfPreset()" style="font-size:11px;padding:5px 12px;">💾 設定を上書き保存</button>
         </div>
         <div id="ff-preset-status" style="font-size:11px;margin-top:6px;color:var(--text-muted);"></div>
@@ -947,7 +2709,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_105.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_106.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1054,7 +2816,7 @@ function processFile(file, fileKey, dzId) {
     } else {
       csvText = e.target.result;
     }
-    files[fileKey] = { name: file.name, data: csvText };
+    files[fileKey] = { name: file.name, data: csvText, rawBuffer: isExcel ? e.target.result : null };
 
     // フリー様式ファイル読込後に列マッピングUIを更新
     if (fileKey === 'freeformat-kintai') {
@@ -2642,7 +4404,7 @@ function convertStaffia() {
       matched++;
     }
 
-    const seNo = mapping ? mapping.seNo : '';
+    const seNo = normalizeStaffNo(mapping ? mapping.seNo : '');
     const ankenNo = mapping ? mapping.ankenNo : '';
 
     // 欠勤・休日
@@ -2936,7 +4698,7 @@ function convertTMJ() {
       matched++;
     }
 
-    const seNo = mapping ? mapping.seNo : '';
+    const seNo = normalizeStaffNo(mapping ? mapping.seNo : '');
     const ankenNo_map = mapping ? mapping.ankenNo : '';
 
     // 配置一覧から案件NO特定
@@ -3087,7 +4849,7 @@ function convertReplyority() {
     } else {
       matched++;
     }
-    const seNo = mapping ? mapping.seNo : '';
+    const seNo = normalizeStaffNo(mapping ? mapping.seNo : '');
     const ankenNo_map = mapping ? mapping.ankenNo : '';
 
     // 配置一覧から案件NO特定（後でサンプル日付で）
@@ -4132,20 +5894,23 @@ function convertSelected() {
   if (!selectedSystem) return;
   incFreq(selectedSystem.id);
 
-  // convert-kintaiをそれぞれのfileKeyとして渡す
   const id = selectedSystem.id;
+  const convertFile = files['convert-kintai'];
+  if (!convertFile) { alert('ファイルをドロップしてください'); return; }
 
   if (selectedSystem.isCustom) {
-    // フリー様式エンジンを使用（ファイルキーをconvert-kintaiに向ける）
-    files['freeformat-kintai'] = files['convert-kintai'];
-    freeformatWB = freeformatWB; // 既にセット済み
+    // フリー様式エンジンを使用
+    const prevFF = files['freeformat-kintai'];
+    files['freeformat-kintai'] = convertFile;
     convertFreeFormat();
-    // 結果をconvertパネルにも反映
-    setTimeout(() => mirrorResultToConvert(), 500);
+    setTimeout(() => {
+      files['freeformat-kintai'] = prevFF; // 元に戻す
+      mirrorResultToConvert();
+    }, 600);
     return;
   }
 
-  // 組み込みシステム：それぞれのfileキーにコピー（変換タブ用の一時コピー）
+  // 組み込みシステム：一時的にfileキーをセットして変換、その後元に戻す
   const keyMap = {
     cloudstaffing: 'cs-kintai',
     staffia:       'staffia-kintai',
@@ -4154,15 +5919,22 @@ function convertSelected() {
     replyority:    'replyority-kintai',
   };
   const targetKey = keyMap[id];
-  const prevFile = targetKey ? files[targetKey] : null; // 既存データを退避
-  if (targetKey) {
-    files[targetKey] = files['convert-kintai'];
-    if (id === 'replyority') {
-      replyorityWB = freeformatWB;
+  if (!targetKey) return;
+
+  const prevFile = files[targetKey]; // 既存データを退避
+  const prevReplyorityWB = replyorityWB;
+  const prevFreeformatWB = freeformatWB; // freeformatWBも退避
+  files[targetKey] = convertFile;
+
+  if (id === 'replyority') {
+    // replyorityWBをconvert-kintaiのExcelデータから再読み込み
+    if (convertFile && convertFile.rawBuffer) {
+      replyorityWB = XLSX.read(convertFile.rawBuffer, { type: 'array', cellDates: false });
+    } else {
+      replyorityWB = null;
     }
   }
 
-  // 変換実行
   const fnMap = {
     cloudstaffing: convertCS,
     staffia:       convertStaffia,
@@ -4170,13 +5942,16 @@ function convertSelected() {
     tmj:           convertTMJ,
     replyority:    convertReplyority,
   };
+
   if (fnMap[id]) {
     fnMap[id]();
-    // 変換完了後に元のファイルデータを復元（他タブへの影響を防ぐ）
     setTimeout(() => {
-      if (targetKey && prevFile) files[targetKey] = prevFile;
+      // 他タブのデータを元に戻す
+      files[targetKey] = prevFile;
+      if (id === 'replyority') replyorityWB = prevReplyorityWB;
+      freeformatWB = prevFreeformatWB; // freeformatWBも復元
       mirrorResultToConvert(id);
-    }, 500);
+    }, 600);
   }
 }
 
@@ -4217,15 +5992,18 @@ function mirrorResultToConvert(id) {
     }
     dstDl.style.display = 'inline-flex';
   }
-  // 未登録スタッフUI・複数案件UIなどを変換タブ結果カードにも移動
+  // 未登録スタッフUI・複数案件UIなどを変換タブ結果カードにもコピー
   const srcResultCard = document.getElementById(prefix + '-result-card');
   if (srcResultCard) {
+    // 既存のコピーUIを削除
+    dstCard.querySelectorAll('.unmatched-ui,.multi-anken-ui,.time-error-ui,.haichi-missing-ui').forEach(el => el.remove());
     ['.unmatched-ui', '.multi-anken-ui', '.time-error-ui', '.haichi-missing-ui'].forEach(sel => {
       const ui = srcResultCard.querySelector(sel);
       if (ui) {
-        // 変換タブの結果カード内のログの後に追加
+        // cloneNodeでコピー（元UIはそのまま残す）
+        const clone = ui.cloneNode(true);
         const dstLog2 = dstCard.querySelector('.log');
-        if (dstLog2) dstLog2.insertAdjacentElement('afterend', ui);
+        if (dstLog2) dstLog2.insertAdjacentElement('afterend', clone);
       }
     });
   }
