@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_110.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_117.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -436,8 +436,8 @@ window.addEventListener('load', function() {
 
   <div class="tabs">
     <button class="tab" onclick="window.open(&#39;https://honma-bot.github.io/se-converter/manual.html&#39;,&#39;_blank&#39;)">📖 マニュアル</button>
-    <button class="tab active" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
-    <button class="tab" onclick="switchTab(&#39;convert&#39;)">🔄 変換</button>
+    <button class="tab" onclick="switchTab(&#39;settings&#39;)">⚙ 設定</button>
+    <button class="tab active" onclick="switchTab(&#39;convert&#39;)">🔄 変換</button>
   </div>
 
   <!-- ===== マニュアル パネル ===== -->
@@ -456,7 +456,7 @@ window.addEventListener('load', function() {
   </div>
 
   <!-- ===== 設定パネル  <!-- ===== 設定パネル ===== -->
-  <div class="panel active" id="panel-settings">
+  <div class="panel" id="panel-settings">
 
     <!-- 配置一覧 -->
     <div class="card">
@@ -493,16 +493,20 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
         </div>
-        <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 229件</div>
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
+      <span style="color:var(--success);font-weight:700;">✅ 対応表 229件 登録済</span>
+      <span style="margin-left:12px;font-size:12px;">
+        Staffia: 46件 　TMJ: 111件 　リプライオリティ: 0件 　フリー様式: 72件
+      </span></div>
     </div>
   </div>
 
   <!-- ===== 変換パネル ===== -->
-  <div class="panel" id="panel-convert">
+  <div class="panel active" id="panel-convert">
 
     <!-- 検索 & システム選択 -->
     <div class="card">
@@ -529,12 +533,12 @@ window.addEventListener('load', function() {
       <div id="convert-recent-section" style="display: block;">
         <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⭐ よく使う</div>
         <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">14回</span>
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">20回</span>
     <div style="font-size:20px;margin-bottom:5px;">📊</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
   </div><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">7回</span>
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">9回</span>
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新宿アルティウス_MU</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
@@ -543,23 +547,28 @@ window.addEventListener('load', function() {
     <div style="font-size:20px;margin-bottom:5px;">📋</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">TMJ</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（従業員番号）</div>
+  </div><div onclick="selectConvertSystem(&#39;cloudstaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-cloudstaffing">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">2回</span>
+    <div style="font-size:20px;margin-bottom:5px;">☁️</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">CloudStaffing</div>
+    <div style="font-size:10px;color:var(--text-dim);">配置一覧と照合</div>
   </div></div>
       </div>
 
       <!-- 全システム -->
       <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">📋 全システム</div>
       <div id="convert-all-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;"><div onclick="selectConvertSystem(&#39;cloudstaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-cloudstaffing">
-    
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">2回</span>
     <div style="font-size:20px;margin-bottom:5px;">☁️</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">CloudStaffing</div>
     <div style="font-size:10px;color:var(--text-dim);">配置一覧と照合</div>
   </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">14回</span>
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">20回</span>
     <div style="font-size:20px;margin-bottom:5px;">📊</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
   </div><div onclick="selectConvertSystem(&#39;hrstation&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-hrstation">
-    
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">2回</span>
     <div style="font-size:20px;margin-bottom:5px;">🏢</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">HR-Station</div>
     <div style="font-size:10px;color:var(--text-dim);">スタッフコード下6桁</div>
@@ -573,6 +582,11 @@ window.addEventListener('load', function() {
     <div style="font-size:20px;margin-bottom:5px;">📁</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">リプライオリティ</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（RTHコード）</div>
+  </div><div onclick="selectConvertSystem(&#39;estaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-estaffing">
+    
+    <div style="font-size:20px;margin-bottom:5px;">🌐</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">e-staffing</div>
+    <div style="font-size:10px;color:var(--text-dim);">スタッフNO直結</div>
   </div><div onclick="selectConvertSystem(&#39;custom:0&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_0">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
@@ -2279,7 +2293,7 @@ window.addEventListener('load', function() {
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">340</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
   </div><div onclick="selectConvertSystem(&#39;custom:マックスコム&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______">
-    
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">1回</span>
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">マックスコム</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
@@ -2289,7 +2303,7 @@ window.addEventListener('load', function() {
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">アルティウス</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
   </div><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">7回</span>
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">9回</span>
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新宿アルティウス_MU</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
@@ -2330,7 +2344,7 @@ window.addEventListener('load', function() {
         <div class="stats" id="convert-stats"></div>
         <div class="log" id="convert-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート.csv">⬇ CSVをダウンロード</a>
         </div>
       </div>
     </div>
@@ -2362,7 +2376,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="cs-stats"></div>
       <div class="log" id="cs-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_CloudStaffing.csv">
+        <a class="btn-dl" id="cs-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート_CloudStaffing.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2397,7 +2411,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="tmj-stats"></div>
       <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_TMJ.csv">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2432,7 +2446,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="replyority-stats"></div>
       <div class="log" id="replyority-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_リプライオリティ.csv">
+        <a class="btn-dl" id="replyority-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート_リプライオリティ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2466,7 +2480,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="hrstation-stats"></div>
       <div class="log" id="hrstation-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_HRStation.csv">
+        <a class="btn-dl" id="hrstation-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート_HRStation.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2501,9 +2515,39 @@ window.addEventListener('load', function() {
       <div class="stats" id="staffia-stats"></div>
       <div class="log" id="staffia-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_Staffia.csv">
+        <a class="btn-dl" id="staffia-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート_Staffia.csv">
           ⬇ CSVをダウンロード
         </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== e-staffing パネル ===== -->
+  <div class="panel" id="panel-estaffing">
+    <div class="card">
+      <div class="card-title">STEP 1 — e-staffing 勤怠CSVをアップロード</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+        スタッフNO（列6）はSEスタッフNOと直結です。対応表は不要です。<br>
+        案件NOは配置一覧から自動取得します。
+      </p>
+      <div class="dropzone" id="dz-estaffing" ondragover="dzDrag(event,&#39;dz-estaffing&#39;)" ondragleave="dzLeave(&#39;dz-estaffing&#39;)" ondrop="dzDrop(event,&#39;dz-estaffing&#39;,&#39;estaffing-kintai&#39;)">
+        <input type="file" accept=".csv" onchange="loadFile(event,&#39;estaffing-kintai&#39;,&#39;dz-estaffing&#39;)">
+        <span class="dropzone-icon">📋</span>
+        <div class="dropzone-text">CSVをドロップ または クリック</div>
+        <div class="dropzone-sub">e-staffingの勤怠データCSV</div>
+        <div class="file-name" id="fn-estaffing-kintai"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">STEP 2 — 変換実行</div>
+      <button class="btn-convert" id="btn-estaffing-convert" onclick="convertEStaffing()" disabled="">変換してCSVをダウンロード</button>
+    </div>
+    <div class="card" id="estaffing-result-card" style="display:none">
+      <div class="card-title">変換結果</div>
+      <div class="stats" id="estaffing-stats"></div>
+      <div class="log" id="estaffing-log"></div>
+      <div style="margin-top:16px;">
+        <a class="btn-dl" id="estaffing-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート_eStaffing.csv">⬇ CSVをダウンロード</a>
       </div>
     </div>
   </div>
@@ -2709,7 +2753,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="freeformat-stats"></div>
       <div class="log" id="freeformat-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_110.html#" download="SE_勤怠インポート_フリー様式.csv">
+        <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_117.html#" download="SE_勤怠インポート_フリー様式.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -2763,7 +2807,7 @@ function processFile(file, fileKey, dzId) {
   const isPDF   = (ext === 'pdf');
 
   // PDFはPDF.js非同期処理
-  if (isPDF && fileKey === 'freeformat-kintai') {
+  if (isPDF && (fileKey === 'freeformat-kintai' || fileKey === 'convert-kintai')) {
     processPdfFile(file, fileKey, dzId);
     return;
   }
@@ -2785,7 +2829,7 @@ function processFile(file, fileKey, dzId) {
           replyorityWB = XLSX.read(e.target.result, { type: 'array', cellDates: false });
         }
         // フリー様式用にワークブックを保存（時刻をDate型で保持）
-        if (fileKey === 'freeformat-kintai' || (fileKey === 'convert-kintai' && selectedSystem && selectedSystem.isCustom)) {
+        if (fileKey === 'freeformat-kintai' || fileKey === 'convert-kintai') {
           freeformatWB = XLSX.read(e.target.result, { type: 'array', cellDates: true });
         }
         if (fileKey === 'convert-kintai' && selectedSystem && selectedSystem.id === 'replyority') {
@@ -2868,6 +2912,9 @@ function checkButtons() {
   // フリー様式: Excelのみ
   const ffBtn = document.getElementById('btn-freeformat-convert');
   if (ffBtn) ffBtn.disabled = !files['freeformat-kintai'];
+  // e-staffing
+  const esBtn = document.getElementById('btn-estaffing-convert');
+  if (esBtn) esBtn.disabled = !files['estaffing-kintai'];
   // 配置一覧読込済みなら警告非表示
   const notice = document.getElementById('cs-haichi-notice');
   if (notice && files['se-haichi']) notice.style.display = 'none';
@@ -3107,11 +3154,32 @@ function minToTime(m) {
 // date "2026/02/01" or "20260201" → "YYYY/MM/DD"
 function normalizeDate(d) {
   if (!d) return '';
+  // ExcelのDate型（JavaScriptのDateオブジェクト）はtoLocaleDateStringで変換
+  if (d instanceof Date) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return y + '/' + m + '/' + day;
+  }
   d = String(d).trim();
   // 曜日除去: "2025/10/01(水)" → "2025/10/01"
   d = d.replace(/\([月火水木金土日祝]\)/g, '').trim();
+  // 8桁数字: 20260201 → 2026/02/01
   if (/^\d{8}$/.test(d)) return d.slice(0,4)+'/'+d.slice(4,6)+'/'+d.slice(6,8);
-  if (/^\d{4}\/\d{2}\/\d{2}/.test(d)) return d.slice(0,10);
+  // YYYY/MM/DD または YYYY-MM-DD
+  if (/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}/.test(d)) {
+    const parts = d.split(/[\/\-]/);
+    return parts[0] + '/' + parts[1].padStart(2,'0') + '/' + parts[2].slice(0,2).padStart(2,'0');
+  }
+  // M/D/YY または M/DD/YY（Excelが変換した短縮形: "2/13/26" → "2026/02/13"）
+  const shortDate = d.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+  if (shortDate) {
+    const m = shortDate[1].padStart(2,'0');
+    const day = shortDate[2].padStart(2,'0');
+    let y = parseInt(shortDate[3]);
+    if (y < 100) y += 2000; // 26 → 2026
+    return y + '/' + m + '/' + day;
+  }
   return d;
 }
 
@@ -3364,7 +3432,7 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
       </table>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
         <button class="btn-convert" style="flex:1;padding:12px;" onclick="bulkRegisterMapping('${prefix}')">
-          ✅ 登録してCSVをダウンロード
+          ✅ 登録する
         </button>
       </div>
       <p style="font-size:11px;color:var(--text-dim);margin-top:8px;">
@@ -3453,10 +3521,13 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
   }
 
   setDownloadBtn(prefix, url);
-  // スタッフ選択UIをここで構築（pendingResultDataが確実にセット済みの後）
-  const nameMap2 = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
-  const ym2 = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
-  buildStaffSelectUI(prefix, 'SE_勤怠インポート_' + (nameMap2[prefix]||prefix) + '_' + ym2 + '.csv');
+  // 未登録スタッフが0件の場合は変換直後にスタッフ選択UIを表示
+  // （未登録がある場合はbulkRegisterMapping完了後に表示）
+  if ((pendingUnmatched[prefix] || []).length === 0) {
+    const nameMap3 = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
+    const ym3 = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
+    buildStaffSelectUI(prefix, 'SE_勤怠インポート_' + (nameMap3[prefix]||prefix) + '_' + ym3 + '.csv');
+  }
   card.scrollIntoView({behavior:'smooth'});
   } catch(err) {
     console.error('showResult error:', err);
@@ -3637,17 +3708,9 @@ function applyHaichiMissing(prefix) {
   const url = URL.createObjectURL(blob);
   setDownloadBtn(prefix, url);
 
-  // 自動ダウンロード
-  const a = document.createElement('a');
-  a.href = url;
-  const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
-  const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
-  a.download = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-
   // UIを更新
   renderHaichiMissingRows(prefix);
-  showImportToast(`✅ 紐づけ完了 — ${exportRows.length}件でCSVを出力しました`);
+  showImportToast('✅ 紐づけ完了 — CSVをダウンロードしてください');
   setTimeout(() => buildWarnSummary(prefix), 100);
 }
 
@@ -3915,13 +3978,27 @@ function reExportWithSelection(prefix) {
   const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   setDownloadBtn(prefix, url);
+  // pendingResultDataを補正後のデータで更新
+  pendingResultData[prefix] = corrected;
   showImportToast('✅ 選択内容で再出力しました。CSVをダウンロードしてください。');
 
-  // UIを非表示 & データクリア（再変換しても出てこないように）
+  // UIを非表示 & データクリア
   const ui = document.querySelector(`#${prefix}-result-card .multi-anken-ui`);
   if (ui) ui.remove();
   pendingMultiAnken[prefix] = [];
-  // warn-summaryも更新
+
+  // スタッフ選択UIを表示（案件NO確定後）
+  const nameMapRA = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
+  const ymRA = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
+  buildStaffSelectUI(prefix, 'SE_勤怠インポート_' + (nameMapRA[prefix]||prefix) + '_' + ymRA + '.csv');
+
+  // 変換タブ経由の場合はミラーリング
+  const convertResultCard = document.getElementById('convert-result-card');
+  if (convertResultCard && convertResultCard.style.display !== 'none') {
+    const prefixToId = { cs:'cloudstaffing', staffia:'staffia', hrstation:'hrstation', tmj:'tmj', replyority:'replyority', freeformat:'freeformat' };
+    setTimeout(() => mirrorResultToConvert(prefixToId[prefix]), 100);
+  }
+
   setTimeout(() => buildWarnSummary(prefix), 50);
 }
 
@@ -4021,14 +4098,13 @@ function buildStaffSelectUI(prefix, filename) {
     </div>
     <div id="${prefix}-staff-select-count" style="font-size:11px;color:var(--text-muted);margin-top:6px;"></div>
   `;
-  // ログの後、ダウンロードボタンの前に挿入
-  const ssResultCard = document.getElementById(prefix + '-result-card');
-  const logEl = ssResultCard ? ssResultCard.querySelector('.log') : null;
-  if (logEl) {
-    logEl.insertAdjacentElement('afterend', ui);
+  // ダウンロードボタンの直前に挿入（全UIの最後）
+  const dlBtn = document.getElementById(prefix + '-dl-btn');
+  if (dlBtn && dlBtn.parentElement) {
+    dlBtn.parentElement.insertBefore(ui, dlBtn);
   } else {
-    const dlBtn = document.getElementById(prefix + '-dl-btn');
-    if (dlBtn && dlBtn.parentElement) dlBtn.parentElement.insertBefore(ui, dlBtn);
+    const ssResultCard = document.getElementById(prefix + '-result-card');
+    if (ssResultCard) ssResultCard.appendChild(ui);
   }
 
   // チェック変更時にカウント更新
@@ -4270,9 +4346,9 @@ function bulkRegisterMapping(prefix) {
   const gasUrl = document.getElementById('gas-url').value.trim();
   if (gasUrl && added > 0) {
     pushToSheets().then(() => {
-      showImportToast(`✅ 対応表に${added}件登録 → スプレッドシートへ自動保存しました${noMatch>0?' / 未選択'+noMatch+'件':''}`);
+      showImportToast(`✅ 対応表に${added}件登録しました。CSVをダウンロードしてください${noMatch>0?' / 未選択'+noMatch+'件':''}`);
     }).catch(() => {
-      showImportToast(`✅ 対応表に${added}件登録（スプレッドシート保存は手動で実行してください）`);
+      showImportToast(`✅ 対応表に${added}件登録しました。CSVをダウンロードしてください`);
     });
   } else {
     showImportToast(`✅ 対応表に${added}件登録しました${noMatch>0?' / 未選択'+noMatch+'件':''}`);
@@ -4294,8 +4370,28 @@ function bulkRegisterMapping(prefix) {
 
   // 元コード→{seNo, ankenNo}のルックアップ（スタッフNOが空の行を補完するため）
   const codeToInfo = {};
+  // haichiMapを使って案件NOも自動補完
+  const haichiRowsBR = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const haichiMapBR = {};
+  haichiRowsBR.forEach(row => {
+    const sno = normalizeStaffNo(row['スタッフNO']);
+    const ano = (row['案件管理NO'] || '').trim();
+    const st  = normalizeDate(row['就業開始日'] || '');
+    const en  = normalizeDate(row['就業終了日'] || '');
+    if (!sno || !ano) return;
+    if (!haichiMapBR[sno]) haichiMapBR[sno] = [];
+    haichiMapBR[sno].push({ ankenNo: ano, start: st, end: en });
+  });
+
   (pendingUnmatched[prefix]||[]).forEach(x => {
-    if (x.code) codeToInfo[x.code] = x;
+    if (x.code) {
+      // seNoから案件NOを自動補完
+      if (x.seNo && !x.ankenNo && haichiMapBR[normalizeStaffNo(x.seNo)]) {
+        const matches = haichiMapBR[normalizeStaffNo(x.seNo)];
+        if (matches.length === 1) x.ankenNo = matches[0].ankenNo;
+      }
+      codeToInfo[x.code] = x;
+    }
   });
 
   // pendingResultDataの_staffiaCode（元コード）を使って補完
@@ -4340,20 +4436,28 @@ function bulkRegisterMapping(prefix) {
     const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
     const url = URL.createObjectURL(blob);
     setDownloadBtn(prefix, url);
-    // 自動ダウンロード
-    const a = document.createElement('a');
-    a.href = url;
-    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
-    const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
-    a.download = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
   }
 
   // UIを非表示
-  const ui = document.querySelector(`#${prefix}-result-card .unmatched-ui`);
-  if (ui) ui.remove();
+  const ui2 = document.querySelector(`#${prefix}-result-card .unmatched-ui`);
+  if (ui2) ui2.remove();
   pendingUnmatched[prefix] = [];
-  setTimeout(() => buildWarnSummary(prefix), 50);
+
+  // マッピング完了後にスタッフ選択UIを表示
+  const nameMapBR = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式' };
+  const ymBR = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
+  const filenameForUI = 'SE_勤怠インポート_' + (nameMapBR[prefix]||prefix) + '_' + ymBR + '.csv';
+
+  setTimeout(() => {
+    buildWarnSummary(prefix);
+    buildStaffSelectUI(prefix, filenameForUI);
+    // 変換タブ経由の場合は変換タブにも結果を反映
+    const convertResultCard = document.getElementById('convert-result-card');
+    if (convertResultCard && convertResultCard.style.display !== 'none') {
+      const prefixToId = { cs:'cloudstaffing', staffia:'staffia', hrstation:'hrstation', tmj:'tmj', replyority:'replyority', freeformat:'freeformat' };
+      mirrorResultToConvert(prefixToId[prefix]);
+    }
+  }, 100);
 }
 
 // ===================== Staffia 変換 =====================
@@ -5202,6 +5306,7 @@ async function processPdfFile(file, fileKey, dzId) {
 }
 
 function buildFfColMapping() {
+  console.log('buildFfColMapping: freeformatWB=', !!freeformatWB, 'freeformat-kintai=', !!files['freeformat-kintai']);
   const card = document.getElementById('ff-mapping-card');
   if (!card) return;
 
@@ -5563,6 +5668,7 @@ const BUILTIN_SYSTEMS = [
   { id:'hrstation',     label:'HR-Station',    icon:'🏢', desc:'スタッフコード下6桁', accept:'.csv,.xlsx,.xls' },
   { id:'tmj',           label:'TMJ',           icon:'📋', desc:'対応表（従業員番号）', accept:'.csv,.xlsx,.xls' },
   { id:'replyority',    label:'リプライオリティ', icon:'📁', desc:'対応表（RTHコード）', accept:'.xlsx,.xls' },
+  { id:'estaffing',     label:'e-staffing',    icon:'🌐', desc:'スタッフNO直結', accept:'.csv' },
 ];
 
 function getFreq() {
@@ -5757,6 +5863,7 @@ function selectConvertSystem(id) {
       hrstation:     'スタッフコードの下6桁をSEスタッフNOとして使用します（対応表不要）。',
       tmj:           '対応表（TMJ種別）でスタッフNOを照合します。',
       replyority:    '1人1シートのExcelファイルをドロップしてください。',
+      estaffing:     'スタッフNOはSEと直結。案件NOは列7を使用します。',
     };
     note.textContent = selectedSystem.isCustom
       ? `カスタム設定「${selectedSystem.presetName}」を使用します。`
@@ -5824,18 +5931,10 @@ function onConvertFileLoaded() {
     // ファイルをフリー様式側に共有
     files['freeformat-kintai'] = files['convert-kintai'];
 
-    // ff-mapping-cardを元の場所（フリー様式パネル）に戻してから表示
-    const ffPanel = document.getElementById('panel-freeformat');
+    // ff-mapping-cardをconvert-mapping-areaに移動して表示
     const original = document.getElementById('ff-mapping-card');
-    if (ffPanel && original && original.parentElement !== ffPanel) {
-      // 設定パネルより前に戻す
-      const step3 = ffPanel.querySelector('.card:last-of-type');
-      ffPanel.insertBefore(original, step3 || null);
-    }
-
-    // convert-mapping-areaにマッピングカードへのリンクカードを表示
     const mappingArea = document.getElementById('convert-mapping-area');
-    if (mappingArea) {
+    if (original && mappingArea) {
       original.style.display = 'block';
       mappingArea.innerHTML = '';
       mappingArea.appendChild(original);
@@ -5932,6 +6031,7 @@ function convertSelected() {
     hrstation:     'hrstation-kintai',
     tmj:           'tmj-kintai',
     replyority:    'replyority-kintai',
+    estaffing:     'estaffing-kintai',
   };
   const targetKey = keyMap[id];
   if (!targetKey) return;
@@ -5956,6 +6056,7 @@ function convertSelected() {
     hrstation:     convertHRStation,
     tmj:           convertTMJ,
     replyority:    convertReplyority,
+    estaffing:     convertEStaffing,
   };
 
   if (fnMap[id]) {
@@ -5976,7 +6077,7 @@ function mirrorResultToConvert(id) {
   // 元タブの結果をconvertパネルにミラーリング
   const prefixMap = {
     cloudstaffing: 'cs', staffia: 'staffia', hrstation: 'hrstation',
-    tmj: 'tmj', replyority: 'replyority', undefined: 'freeformat'
+    tmj: 'tmj', replyority: 'replyority', estaffing: 'estaffing', undefined: 'freeformat'
   };
   const prefix = prefixMap[id] || 'freeformat';
   const srcStats = document.getElementById(prefix + '-stats');
@@ -6009,20 +6110,30 @@ function mirrorResultToConvert(id) {
     }
     dstDl.style.display = 'inline-flex';
   }
-  // 未登録スタッフUI・複数案件UIなどを変換タブ結果カードにもコピー
+  // 未登録スタッフUI・複数案件UI・スタッフ選択UIなどを変換タブ結果カードにもコピー
   const srcResultCard = document.getElementById(prefix + '-result-card');
   if (srcResultCard) {
     // 既存のコピーUIを削除
-    dstCard.querySelectorAll('.unmatched-ui,.multi-anken-ui,.time-error-ui,.haichi-missing-ui').forEach(el => el.remove());
+    dstCard.querySelectorAll('.unmatched-ui,.multi-anken-ui,.time-error-ui,.haichi-missing-ui,.staff-select-ui').forEach(el => el.remove());
+    const dstLog2 = dstCard.querySelector('.log');
     ['.unmatched-ui', '.multi-anken-ui', '.time-error-ui', '.haichi-missing-ui'].forEach(sel => {
       const ui = srcResultCard.querySelector(sel);
       if (ui) {
-        // cloneNodeでコピー（元UIはそのまま残す）
         const clone = ui.cloneNode(true);
-        const dstLog2 = dstCard.querySelector('.log');
         if (dstLog2) dstLog2.insertAdjacentElement('afterend', clone);
       }
     });
+    // スタッフ選択UIをコピー（または新規構築）
+    const staffUI = srcResultCard.querySelector('.staff-select-ui');
+    if (staffUI) {
+      const clone = staffUI.cloneNode(true);
+      // チェックボックスのイベントを再設定
+      clone.querySelectorAll('.staff-chk-' + prefix).forEach(chk => {
+        chk.addEventListener('change', () => updateStaffCount(prefix));
+      });
+      if (dstLog2) dstLog2.insertAdjacentElement('afterend', clone);
+      updateStaffCount(prefix);
+    }
   }
   dstCard.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
@@ -6082,6 +6193,125 @@ function deletePresetFromGAS(name) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action: 'deletePreset', name })
   }).catch(() => {});
+}
+
+
+// ===================== e-staffing 変換 =====================
+function convertEStaffing() {
+  const log = [];
+  const addLog = (type, msg) => log.push({type, msg});
+  addLog('info', 'e-staffing 変換開始...');
+
+  const fileData = files['estaffing-kintai'] || files['convert-kintai'];
+  if (!fileData) { addLog('err', 'ファイルが読み込まれていません'); showResult('estaffing',0,0,0,0,log,null); return; }
+
+  // CP932で読み込まれているのでそのまま使用
+  const rawLines = parseCSV(fileData.data);
+  if (!rawLines || rawLines.length === 0) { addLog('err', 'データが空です'); showResult('estaffing',0,0,0,0,log,null); return; }
+
+  addLog('info', `データ読込: ${rawLines.length}行`);
+
+  // 配置一覧
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const haichiMap = {};
+  haichiRows.forEach(row => {
+    const sno = normalizeStaffNo(row['スタッフNO']);
+    const ano = (row['案件管理NO'] || '').trim();
+    const st  = normalizeDate(row['就業開始日'] || '');
+    const en  = normalizeDate(row['就業終了日'] || '');
+    if (!sno || !ano) return;
+    if (!haichiMap[sno]) haichiMap[sno] = [];
+    haichiMap[sno].push({ ankenNo: ano, start: st, end: en });
+  });
+
+  const results = [];
+  let matched = 0, absent = 0, multiAnken = 0;
+  const START_COL = 30;
+  const BLOCK_SIZE = 16;
+
+  rawLines.forEach(row => {
+    const staffNo = normalizeStaffNo(row[5] || '');
+    const name    = (row[6] || '').trim();
+    const ankenFromFile = (row[7] || '').trim();
+
+    if (!staffNo) return;
+
+    // 16列ずつ日付ブロックを処理
+    let col = START_COL;
+    while (col + BLOCK_SIZE <= row.length) {
+      const dateRaw = (row[col]   || '').trim();
+      const start   = (row[col+1] || '').trim();
+      const end     = (row[col+2] || '').trim();
+      const rest    = (row[col+5] || '').trim();
+
+      if (dateRaw) {
+        const date = normalizeDate(dateRaw);
+        if (date) {
+          // 案件NO特定（配置一覧優先）
+          let ankenNo = '';
+          if (haichiMap[staffNo]) {
+            const matches = findAllAnken(haichiMap, staffNo, date);
+            if (matches.length === 1) {
+              ankenNo = matches[0];
+              matched++;
+            } else if (matches.length > 1) {
+              ankenNo = matches[0];
+              multiAnken++;
+            }
+          }
+          if (!ankenNo) ankenNo = ankenFromFile;
+
+          if (start && end) {
+            // 出勤行
+            const restTime = rest || '0:00';
+            const calc = calcWorkTime(start, end, restTime, '0:00');
+            results.push({
+              'スタッフNO': staffNo, '就業年月日': date,
+              '支給始業時間': start, '支給終業時間': end,
+              '支給基本休憩時間': restTime, '支給深夜休憩時間': '0:00',
+              '支給基本時間': calc.kihon, '支給残業時間': calc.zangyou,
+              '支給深夜時間': calc.shinya, '支給出勤区分': '0',
+              '請求始業時間': start, '請求終業時間': end,
+              '請求基本休憩時間': restTime, '請求深夜休憩時間': '0:00',
+              '請求基本時間': calc.kihon, '請求残業時間': calc.zangyou,
+              '請求深夜時間': calc.shinya, '請求出勤区分': '0',
+              '案件管理NO': ankenNo, '_name': name
+            });
+          } else {
+            // 欠勤行
+            absent++;
+            results.push({
+              'スタッフNO': staffNo, '就業年月日': date,
+              '支給始業時間': '', '支給終業時間': '',
+              '支給基本休憩時間': '', '支給深夜休憩時間': '',
+              '支給基本時間': '', '支給残業時間': '',
+              '支給深夜時間': '', '支給出勤区分': '',
+              '請求始業時間': '', '請求終業時間': '',
+              '請求基本休憩時間': '', '請求深夜休憩時間': '',
+              '請求基本時間': '', '請求残業時間': '',
+              '請求深夜時間': '', '請求出勤区分': '',
+              '案件管理NO': ankenNo, '_name': name
+            });
+          }
+        }
+      }
+      col += BLOCK_SIZE;
+    }
+  });
+
+  addLog('ok', `変換完了: ${results.length}件`);
+  if (absent > 0) addLog('info', `欠勤/休日: ${absent}件（時間空白で出力）`);
+  if (multiAnken > 0) addLog('warn', `案件NO複数ヒット: ${multiAnken}件（先頭を使用）`);
+
+  runValidation(results, null, null, null, null, null, addLog, haichiMap);
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間','支給基本時間','支給残業時間','支給深夜時間','支給出勤区分','請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間','請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const exportRows = results.filter(r => r['支給始業時間']);
+  const csv = [cols.join(','), ...exportRows.map(r => cols.map(c => r[c]||'').join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  pendingResultData['estaffing'] = results;
+  showResult('estaffing', results.length, matched, 0, absent, log, url);
 }
 
 // ===================== Google Sheets連携 =====================
