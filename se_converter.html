@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_121.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_122.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3146,12 +3146,16 @@ function isRealTime(t) {
   return true;
 }
 
-// 時刻を HH:MM に正規化（秒を除去・1桁時をゼロ埋め）
+// 時刻を HH:MM に正規化（秒除去・1桁ゼロ埋め・24時以上は-24して翌日表記に変換）
+// 例: "32:05:00" → "08:05"、"9:00" → "09:00"、"25:30" → "01:30"
 function normalizeTimeHHMM(t) {
   if (!t) return '';
-  const m = String(t).trim().match(/^(\d{1,2}):(\d{2})/);
+  const m = String(t).trim().match(/^(\d+):(\d{2})/);
   if (!m) return '';
-  return String(parseInt(m[1])).padStart(2,'0') + ':' + m[2];
+  let h = parseInt(m[1]);
+  const min = m[2];
+  if (h >= 24) h -= 24;
+  return String(h).padStart(2,'0') + ':' + min;
 }
 
 // 4桁数字 "0850" → "08:50"
