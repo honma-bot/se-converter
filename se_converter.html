@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_124.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_125.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -493,6 +493,7 @@ window.addEventListener('load', function() {
           <input type="text" id="gas-url" placeholder="https://script.google.com/macros/s/xxxx/exec" style="flex:1;min-width:260px;">
           <button class="btn-add" onclick="saveGasUrl()">URLを保存</button>
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
+          <button class="btn-add" onclick="manualSyncPresets()" style="background:rgba(244,86,111,0.08);border-color:var(--accent);color:var(--accent);">🔄 プリセット再読込</button>
         </div>
         <div id="gas-status" style="font-size:11px;margin-top:8px;color:var(--text-muted);"></div>
       </div>
@@ -6263,6 +6264,39 @@ function syncPresetsFromGAS() {
   document.head.appendChild(s);
 }
 
+// プリセット手動再読込（GAS → localStorage → UI更新）
+function manualSyncPresets() {
+  const gasUrl = document.getElementById('gas-url')?.value?.trim() ||
+                 localStorage.getItem('se_converter_gas_url') || '';
+  if (!gasUrl) { setGasStatus('⚠ GAS URLが未設定です', 'warn'); return; }
+  setGasStatus('プリセットを読み込み中...', 'info');
+
+  const cb = 'presetCb_' + Date.now();
+  window[cb] = (data) => {
+    delete window[cb];
+    if (!data || typeof data !== 'object') {
+      setGasStatus('❌ プリセットの取得に失敗しました', 'err');
+      return;
+    }
+    const local = JSON.parse(localStorage.getItem(FF_PRESET_KEY) || '{}');
+    const merged = { ...local, ...data };
+    localStorage.setItem(FF_PRESET_KEY, JSON.stringify(merged));
+    if (document.getElementById('convert-all-grid')) buildConvertCards();
+    if (document.getElementById('ff-preset-select')) renderFfPresetSelect(localStorage.getItem('ff_last_preset') || '');
+    const count = Object.keys(data).length;
+    setGasStatus(`✅ プリセット ${count}件 を読み込みました`, 'ok');
+  };
+
+  const s = document.createElement('script');
+  s.src = gasUrl + '?action=getPresets&callback=' + cb;
+  s.onerror = () => {
+    delete window[cb];
+    document.head.removeChild(s);
+    setGasStatus('❌ プリセットの読み込みに失敗しました', 'err');
+  };
+  document.head.appendChild(s);
+}
+
 // GASにプリセットを1件保存
 function pushPresetToGAS(name, cfg) {
   const gasUrl = document.getElementById('gas-url')?.value?.trim() ||
@@ -6272,7 +6306,7 @@ function pushPresetToGAS(name, cfg) {
   fetch(gasUrl, {
     method: 'POST',
     mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ action: 'setPreset', name, cfg })
   }).catch(() => {});
 }
@@ -6286,7 +6320,7 @@ function deletePresetFromGAS(name) {
   fetch(gasUrl, {
     method: 'POST',
     mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ action: 'deletePreset', name })
   }).catch(() => {});
 }
