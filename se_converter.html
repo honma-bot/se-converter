@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_125.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_126.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6116,7 +6116,7 @@ function convertSelected() {
     convertFreeFormat();
     setTimeout(() => {
       files['freeformat-kintai'] = prevFF; // 元に戻す
-      mirrorResultToConvert();
+      mirrorResultToConvert('freeformat_custom');
     }, 600);
     return;
   }
@@ -6174,7 +6174,8 @@ function mirrorResultToConvert(id) {
   // 元タブの結果をconvertパネルにミラーリング
   const prefixMap = {
     cloudstaffing: 'cs', staffia: 'staffia', hrstation: 'hrstation',
-    tmj: 'tmj', replyority: 'replyority', estaffing: 'estaffing', undefined: 'freeformat'
+    tmj: 'tmj', replyority: 'replyority', estaffing: 'estaffing',
+    freeformat_custom: 'freeformat', undefined: 'freeformat'
   };
   const prefix = prefixMap[id] || 'freeformat';
   const srcStats = document.getElementById(prefix + '-stats');
@@ -6184,7 +6185,13 @@ function mirrorResultToConvert(id) {
   const dstStats = document.getElementById('convert-stats');
   const dstLog   = document.getElementById('convert-log');
   const dstDl    = document.getElementById('convert-dl-btn');
-  if (!srcStats || !dstCard) return;
+  // srcStats が非表示パネル内でも dstCard があれば続行
+  if (!dstCard) return;
+  if (!srcStats) {
+    // 元パネルが非表示の場合でも結果カードは表示する
+    dstCard.style.display = 'block';
+    dstCard.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
   dstCard.style.display = 'block';
   if (dstStats) dstStats.innerHTML = srcStats.innerHTML;
   if (dstLog)   dstLog.innerHTML   = srcLog ? srcLog.innerHTML : '';
@@ -6220,6 +6227,15 @@ function mirrorResultToConvert(id) {
         if (dstLog2) dstLog2.insertAdjacentElement('afterend', clone);
       }
     });
+    // 複数案件UIがある場合、変換タブのカード内にウィザードを再レンダリング
+    if (pendingMultiAnken[prefix] && pendingMultiAnken[prefix].length > 0) {
+      // wizardコンテナのIDを変換タブ用に差し替え
+      const dstWizard = dstCard.querySelector('#' + prefix + '-multi-wizard');
+      if (dstWizard) {
+        multiAnkenPage[prefix] = 0;
+        renderMultiAnkenRows(prefix);
+      }
+    }
     // スタッフ選択UIをコピー（または新規構築）
     const staffUI = srcResultCard.querySelector('.staff-select-ui');
     if (staffUI) {
@@ -6249,8 +6265,12 @@ function syncPresetsFromGAS() {
   window[cb] = (data) => {
     delete window[cb];
     if (!data || typeof data !== 'object') return;
+    // 数字のみのプリセット名を除外（誤登録されたゴミデータ対策）
+    Object.keys(data).forEach(k => { if (/^\d+$/.test(k)) delete data[k]; });
     // GASのプリセットとlocalStorageをマージ（GAS優先）
     const local = JSON.parse(localStorage.getItem(FF_PRESET_KEY) || '{}');
+    // localStorageの数字プリセットも除外
+    Object.keys(local).forEach(k => { if (/^\d+$/.test(k)) delete local[k]; });
     const merged = { ...local, ...data };
     localStorage.setItem(FF_PRESET_KEY, JSON.stringify(merged));
     // カードを再描画
@@ -6278,7 +6298,10 @@ function manualSyncPresets() {
       setGasStatus('❌ プリセットの取得に失敗しました', 'err');
       return;
     }
+    // 数字のみのプリセット名を除外
+    Object.keys(data).forEach(k => { if (/^\d+$/.test(k)) delete data[k]; });
     const local = JSON.parse(localStorage.getItem(FF_PRESET_KEY) || '{}');
+    Object.keys(local).forEach(k => { if (/^\d+$/.test(k)) delete local[k]; });
     const merged = { ...local, ...data };
     localStorage.setItem(FF_PRESET_KEY, JSON.stringify(merged));
     if (document.getElementById('convert-all-grid')) buildConvertCards();
