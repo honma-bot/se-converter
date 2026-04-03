@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_126.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_127.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -467,7 +467,7 @@ window.addEventListener('load', function() {
         読み込んだデータはすべての変換タブで共通利用されます。
       </p>
       <div id="haichi-saved-notice" style="display: flex; font-size: 12px; color: var(--success); background: rgba(15, 169, 104, 0.08); border: 1px solid rgba(15, 169, 104, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; align-items: center; justify-content: space-between; gap: 10px;">
-        <span id="haichi-saved-notice-text">✅ 前回保存の配置一覧を自動読込しました（2026/3/30）</span>
+        <span id="haichi-saved-notice-text">✅ 前回保存の配置一覧を自動読込しました（2026/4/3）</span>
         <button class="btn-del" onclick="clearHaichiCache()" style="white-space:nowrap;font-size:11px;">🗑 キャッシュ削除</button>
       </div>
       <div class="dropzone loaded" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
@@ -475,7 +475,7 @@ window.addEventListener('load', function() {
         <span class="dropzone-icon">📂</span>
         <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
         <div class="dropzone-sub">読み込むと自動保存され、次回起動時も自動で復元されます</div>
-        <div class="file-name" id="fn-se-haichi">✓ 2月配置一覧.xlsx　（2026/3/30 保存）</div>
+        <div class="file-name" id="fn-se-haichi">✓ 配置一覧.xlsx　（2026/4/3 保存）</div>
       </div>
     </div>
 
@@ -6767,6 +6767,18 @@ loadGasUrl();
 renderMapping();
 // ページ読み込み時の自動復元
 window.addEventListener('load', () => {
+  // LocalStorageの数字のみのプリセットを自動クリーンアップ（全員の端末で自動削除）
+  try {
+    const presets = JSON.parse(localStorage.getItem(FF_PRESET_KEY) || '{}');
+    const before = Object.keys(presets).length;
+    Object.keys(presets).forEach(k => { if (/^\d+$/.test(k)) delete presets[k]; });
+    const after = Object.keys(presets).length;
+    if (before !== after) {
+      localStorage.setItem(FF_PRESET_KEY, JSON.stringify(presets));
+      console.log(`数字プリセット ${before - after}件 を自動削除しました`);
+    }
+  } catch(e) {}
+
   // フリー様式タブの初期状態
   updateSeModeUI();
   // GASからプリセットを同期（GAS設定済みの場合）
