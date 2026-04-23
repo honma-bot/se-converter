@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_135.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_137.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4703,7 +4703,27 @@ function convertStaffia() {
     }
 
     const seNo = normalizeStaffNo(mapping ? mapping.seNo : '');
-    const ankenNo = mapping ? mapping.ankenNo : '';
+    const ankenNo_map_staffia = mapping ? mapping.ankenNo : '';
+
+    // 配置一覧から案件NO特定（配置一覧優先）
+    let ankenNo = ankenNo_map_staffia;
+    if (seNo && haichiRows.length > 0) {
+      const ankenMatchesSt = findAllAnken(haichiMap, seNo, date);
+      if (ankenMatchesSt.length === 1) {
+        ankenNo = ankenMatchesSt[0].ankenNo;
+      } else if (ankenMatchesSt.length > 1) {
+        const resolved = resolveMultiAnken(ankenMatchesSt, date);
+        ankenNo = resolved.ankenNo;
+        if (!resolved.autoResolved) {
+          if (!pendingMultiAnken['staffia']) pendingMultiAnken['staffia'] = [];
+          pendingMultiAnken['staffia'].push({
+            staffNo: seNo, name: String(row['氏名']||'').trim(), date,
+            candidates: ankenMatchesSt.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+            selected: ankenMatchesSt[0].ankenNo
+          });
+        }
+      }
+    }
 
     // 欠勤・休日
     if (status === '／' || status === '' || !row['勤務開始時間'] || row['勤務開始時間'] === '0') {
@@ -4999,17 +5019,30 @@ function convertTMJ() {
     const seNo = normalizeStaffNo(mapping ? mapping.seNo : '');
     const ankenNo_map = mapping ? mapping.ankenNo : '';
 
-    // 配置一覧から案件NO特定
-    let ankenNo = ankenNo_map;
+    // 配置一覧から案件NO特定（配置一覧優先・対応表のankenNoは使わない）
+    let ankenNo = '';
     if (seNo && haichiRows.length > 0) {
       const ankenMatches = findAllAnken(haichiMap, normalizeStaffNo(seNo), date);
       if (ankenMatches.length === 1) {
         ankenNo = ankenMatches[0].ankenNo;
       } else if (ankenMatches.length > 1) {
-        multiAnken++;
-        ankenNo = ankenMatches[0].ankenNo;
-        addLog('warn', `案件NO複数ヒット: スタッフ${seNo} ${date} → 先頭を使用`);
+        const resolved = resolveMultiAnken(ankenMatches, date);
+        ankenNo = resolved.ankenNo;
+        if (!resolved.autoResolved) {
+          multiAnken++;
+          if (!pendingMultiAnken['tmj']) pendingMultiAnken['tmj'] = [];
+          pendingMultiAnken['tmj'].push({
+            staffNo: seNo, name: String(row['氏名']||'').trim(), date,
+            candidates: ankenMatches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+            selected: ankenMatches[0].ankenNo
+          });
+        }
+      } else {
+        // 配置一覧になければ対応表のankenNoをフォールバックとして使用
+        ankenNo = ankenNo_map;
       }
+    } else {
+      ankenNo = ankenNo_map;
     }
 
     // 欠勤・休日
@@ -5167,11 +5200,29 @@ function convertReplyority() {
       const zangyouRaw = row[11];
       const shinyaRaw  = row[12];
 
-      // 案件NO
-      let ankenNo = ankenNo_map;
+      // 案件NO（配置一覧優先・複数ヒット時は手動選択）
+      let ankenNo = '';
       if (seNo && haichiRows.length > 0) {
-        const ankenMatches = findAllAnken(haichiMap, normalizeStaffNo(seNo), date);
-        if (ankenMatches.length >= 1) ankenNo = ankenMatches[0].ankenNo;
+        const ankenMatchesRp = findAllAnken(haichiMap, normalizeStaffNo(seNo), date);
+        if (ankenMatchesRp.length === 1) {
+          ankenNo = ankenMatchesRp[0].ankenNo;
+        } else if (ankenMatchesRp.length > 1) {
+          const resolved = resolveMultiAnken(ankenMatchesRp, date);
+          ankenNo = resolved.ankenNo;
+          if (!resolved.autoResolved) {
+            multiAnken++;
+            if (!pendingMultiAnken['replyority']) pendingMultiAnken['replyority'] = [];
+            pendingMultiAnken['replyority'].push({
+              staffNo: seNo, name: staffName, date,
+              candidates: ankenMatchesRp.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+              selected: ankenMatchesRp[0].ankenNo
+            });
+          }
+        } else {
+          ankenNo = ankenNo_map; // 配置一覧になければ対応表のankenNoをフォールバック
+        }
+      } else {
+        ankenNo = ankenNo_map;
       }
 
       // 出勤判定（出勤時刻が空 = 休日・欠勤）
@@ -6606,7 +6657,7 @@ function convertEStaffing() {
       if (dateRaw) {
         const date = normalizeDate(dateRaw);
         if (date) {
-          // 案件NO特定（配置一覧優先）
+          // 案件NO特定（配置一覧優先・複数ヒット時は手動選択）
           let ankenNo = '';
           if (haichiMap[staffNo]) {
             const matches = findAllAnken(haichiMap, staffNo, date);
@@ -6614,8 +6665,19 @@ function convertEStaffing() {
               ankenNo = String(matches[0].ankenNo || '');
               matched++;
             } else if (matches.length > 1) {
-              ankenNo = String(matches[0].ankenNo || '');
-              multiAnken++;
+              const resolved = resolveMultiAnken(matches, date);
+              ankenNo = String(resolved.ankenNo || '');
+              if (!resolved.autoResolved) {
+                multiAnken++;
+                if (!pendingMultiAnken['estaffing']) pendingMultiAnken['estaffing'] = [];
+                pendingMultiAnken['estaffing'].push({
+                  staffNo, name, date,
+                  candidates: matches.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+                  selected: matches[0].ankenNo
+                });
+              } else {
+                matched++;
+              }
             }
           }
           if (!ankenNo) ankenNo = String(ankenFromFile || '');
