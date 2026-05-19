@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_147.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_148.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2691,6 +2691,7 @@ window.addEventListener('load', function() {
       <!-- 横型専用設定 -->
       <div id="ff-horizontal-settings" style="display:none;margin-bottom:16px;padding:16px;border-radius:10px;background:#f0f4ff;border:1px solid #c8d8ff;">
         <div style="font-size:12px;font-weight:700;color:#2255cc;margin-bottom:14px;">📐 横型レイアウト設定</div>
+        <!-- 基本設定 -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">日付ヘッダー行番号 <span style="color:var(--accent);">*</span></label>
@@ -2699,8 +2700,8 @@ window.addEventListener('load', function() {
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">データ開始列番号 <span style="color:var(--accent);">*</span></label>
-            <input type="number" id="ff-h-data-col" value="5" min="1" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
-            <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">日付データが始まる列（A=1, E=5）</div>
+            <input type="text" id="ff-h-data-col" value="E" maxlength="3" placeholder="例: E" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;text-transform:uppercase;">
+            <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">日付データが始まる列（例: E、K）</div>
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">スタッフ開始行番号 <span style="color:var(--accent);">*</span></label>
@@ -2709,20 +2710,61 @@ window.addEventListener('load', function() {
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">1人あたりの行数 <span style="color:var(--accent);">*</span></label>
-            <input type="number" id="ff-h-block-size" value="7" min="1" max="20" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
+            <input type="number" id="ff-h-block-size" value="7" min="1" max="30" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
             <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">スタッフ1名分の行数（例: 7）</div>
           </div>
           <div>
-            <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">氏名の列番号</label>
-            <input type="number" id="ff-h-name-col" value="3" min="1" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
-            <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">氏名が入っている列（C=3）</div>
-          </div>
-          <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">行種別ラベルの列番号</label>
-            <input type="number" id="ff-h-label-col" value="4" min="1" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
-            <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">出勤/退勤/休憩が入る列（D=4）</div>
+            <input type="text" id="ff-h-label-col" value="D" maxlength="3" placeholder="例: D" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;text-transform:uppercase;">
+            <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">出勤/退勤/休憩が入る列（例: D、I）</div>
           </div>
         </div>
+
+        <!-- 氏名設定 -->
+        <div style="margin-bottom:12px;padding:10px 12px;background:rgba(0,0,0,0.03);border-radius:6px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px;">👤 氏名の位置</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">氏名の列番号</label>
+              <input type="text" id="ff-h-name-col" value="C" maxlength="3" placeholder="例: C" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;text-transform:uppercase;">
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">氏名が入っている列（例: C、B）</div>
+            </div>
+            <div>
+              <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">氏名は上から何行目か</label>
+              <input type="number" id="ff-h-name-row-offset" value="1" min="1" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">1=1行目、2=2行目...（アルティウスリンク=1、Disney=3）</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- スタッフコード設定 -->
+        <div style="margin-bottom:12px;padding:10px 12px;background:rgba(0,0,0,0.03);border-radius:6px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px;">🔑 スタッフコードの取得方法</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;">
+              <input type="radio" name="ff-h-code-mode" value="none" checked="" onchange="updateHCodeModeUI()" style="accent-color:var(--accent);">
+              なし（氏名で対応表・freeformat種別照合）← アルティウスリンク等
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;">
+              <input type="radio" name="ff-h-code-mode" value="cell" onchange="updateHCodeModeUI()" style="accent-color:var(--accent);">
+              ブロック内の特定行・列から取得 ← Disney等
+            </label>
+          </div>
+          <div id="ff-h-code-cell-options" style="display:none;margin-top:10px;display:none;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">コードは上から何行目か</label>
+              <input type="number" id="ff-h-code-row-offset" value="1" min="1" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">1=1行目、2=2行目...（Disney=1）</div>
+            </div>
+            <div>
+              <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">スタッフコードの列番号</label>
+              <input type="text" id="ff-h-code-col" value="B" maxlength="3" placeholder="例: B" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;text-transform:uppercase;">
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">コードが入っている列（例: B、A）</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 時刻ラベル設定 -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">始業時刻のラベル</label>
@@ -2737,8 +2779,9 @@ window.addEventListener('load', function() {
             <input type="text" id="ff-h-rest-label" value="休憩" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
           </div>
         </div>
-        <div style="margin-top:10px;padding:8px 12px;background:rgba(34,85,204,0.06);border-radius:6px;font-size:11px;color:#2255cc;">
-          💡 アルティウスリンク標準値：日付行=11、開始列=5、スタッフ行=13、行数=7、氏名列=3、ラベル列=4、出勤/退勤/休憩
+        <div style="margin-top:10px;padding:8px 12px;background:rgba(34,85,204,0.06);border-radius:6px;font-size:11px;color:#2255cc;line-height:1.7;">
+          💡 アルティウスリンク：日付行=11、開始列=5、スタッフ行=13、行数=7、ラベル列=4、氏名列=3・1行目、コードなし、出勤/退勤/休憩<br>
+          💡 Disney：日付行=5、開始列=11、スタッフ行=10、行数=13、ラベル列=9、氏名列=2・3行目、コードあり（1行目・B列=2）、Login/Logout/Lunch
         </div>
       </div>
 
@@ -5703,15 +5746,23 @@ function buildFfColMapping() {
   }
   const hFields = {
     'ff-h-date-row': saved.h_dateRow,
-    'ff-h-data-col': saved.h_dataCol,
+    'ff-h-data-col': saved.h_dataCol ? colNumToLetter(saved.h_dataCol) : '',
     'ff-h-staff-row': saved.h_staffRow,
     'ff-h-block-size': saved.h_blockSize,
-    'ff-h-name-col': saved.h_nameCol,
-    'ff-h-label-col': saved.h_labelCol,
+    'ff-h-name-col': saved.h_nameCol ? colNumToLetter(saved.h_nameCol) : '',
+    'ff-h-name-row-offset': saved.h_nameRowOffset,
+    'ff-h-label-col': saved.h_labelCol ? colNumToLetter(saved.h_labelCol) : '',
+    'ff-h-code-row-offset': saved.h_codeRowOffset,
+    'ff-h-code-col': saved.h_codeCol ? colNumToLetter(saved.h_codeCol) : '',
     'ff-h-start-label': saved.h_startLabel,
     'ff-h-end-label': saved.h_endLabel,
     'ff-h-rest-label': saved.h_restLabel,
   };
+  // スタッフコード取得方法の復元
+  if (saved.h_codeMode) {
+    const r = document.querySelector('input[name="ff-h-code-mode"][value="'+saved.h_codeMode+'"]');
+    if (r) { r.checked = true; updateHCodeModeUI(); }
+  }
   Object.entries(hFields).forEach(([id, val]) => {
     const el = document.getElementById(id);
     if (el && val !== undefined) el.value = val;
@@ -5766,6 +5817,28 @@ function buildFfColMapping() {
 }
 
 // 列マッピング設定を保存して返す
+// Excel列文字 → 数値変換（A=1, B=2, Z=26, AA=27...）
+function colLetterToNum(s) {
+  s = String(s || '').trim().toUpperCase().replace(/[^A-Z]/g,'');
+  if (!s) return 1;
+  let n = 0;
+  for (let i = 0; i < s.length; i++) n = n * 26 + s.charCodeAt(i) - 64;
+  return n;
+}
+// 数値 → Excel列文字変換
+function colNumToLetter(n) {
+  n = parseInt(n) || 1;
+  let s = '';
+  while (n > 0) { n--; s = String.fromCharCode(65 + n % 26) + s; n = Math.floor(n / 26); }
+  return s;
+}
+
+function updateHCodeModeUI() {
+  const mode = document.querySelector('input[name="ff-h-code-mode"]:checked')?.value || 'none';
+  const opts = document.getElementById('ff-h-code-cell-options');
+  if (opts) opts.style.display = mode === 'cell' ? 'grid' : 'none';
+}
+
 function updateLayoutUI() {
   const layout = document.querySelector('input[name="ff-layout"]:checked')?.value || 'vertical';
   const hSettings = document.getElementById('ff-horizontal-settings');
@@ -5803,11 +5876,15 @@ function saveFfColMapping() {
     billingSame:  gb('ff-billing-same'),
     layout:       gr('ff-layout') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2') || '{}').layout || 'vertical'; } catch(e) { return 'vertical'; } })(),
     h_dateRow:    gn('ff-h-date-row') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_dateRow||11; } catch(e){return 11;} })(),
-    h_dataCol:    gn('ff-h-data-col') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_dataCol||5; } catch(e){return 5;} })(),
+    h_dataCol:    colLetterToNum(document.getElementById('ff-h-data-col')?.value) || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_dataCol||5; } catch(e){return 5;} })(),
     h_staffRow:   gn('ff-h-staff-row') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_staffRow||13; } catch(e){return 13;} })(),
     h_blockSize:  gn('ff-h-block-size') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_blockSize||7; } catch(e){return 7;} })(),
-    h_nameCol:    gn('ff-h-name-col') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_nameCol||3; } catch(e){return 3;} })(),
-    h_labelCol:   gn('ff-h-label-col') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_labelCol||4; } catch(e){return 4;} })(),
+    h_nameCol:    colLetterToNum(document.getElementById('ff-h-name-col')?.value) || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_nameCol||3; } catch(e){return 3;} })(),
+    h_nameRowOffset: gn('ff-h-name-row-offset') || 0,
+    h_labelCol:   colLetterToNum(document.getElementById('ff-h-label-col')?.value) || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_labelCol||4; } catch(e){return 4;} })(),
+    h_codeMode:   (document.querySelector('input[name="ff-h-code-mode"]:checked')?.value) || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_codeMode||'none'; } catch(e){return 'none';} })(),
+    h_codeRowOffset: gn('ff-h-code-row-offset') || 0,
+    h_codeCol:    colLetterToNum(document.getElementById('ff-h-code-col')?.value) || 2,
     h_startLabel: document.getElementById('ff-h-start-label')?.value || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_startLabel||'出勤'; } catch(e){return '出勤';} })(),
     h_endLabel:   document.getElementById('ff-h-end-label')?.value || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_endLabel||'退勤'; } catch(e){return '退勤';} })(),
     h_restLabel:  document.getElementById('ff-h-rest-label')?.value || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_restLabel||'休憩'; } catch(e){return '休憩';} })(),
@@ -7934,11 +8011,15 @@ async function convertFreeFormatHorizontal(cfg, log) {
   const dataColStart = (cfg.h_dataCol   || 5)  - 1;
   const staffRowStart= (cfg.h_staffRow  || 13) - 1;
   const blockSize    = cfg.h_blockSize  || 7;
-  const nameColIdx   = (cfg.h_nameCol   || 3)  - 1;
-  const labelColIdx  = (cfg.h_labelCol  || 4)  - 1;
-  const startLabel   = cfg.h_startLabel || '出勤';
-  const endLabel     = cfg.h_endLabel   || '退勤';
-  const restLabel    = cfg.h_restLabel  || '休憩';
+  const nameColIdx      = (cfg.h_nameCol        || 3)  - 1;
+  const nameRowOffset   = Math.max(0, (cfg.h_nameRowOffset || 1) - 1); // UI表示は1始まり
+  const labelColIdx     = (cfg.h_labelCol      || 4)  - 1;
+  const startLabel      = cfg.h_startLabel     || '出勤';
+  const endLabel        = cfg.h_endLabel       || '退勤';
+  const restLabel       = cfg.h_restLabel      || '休憩';
+  const codeMode        = cfg.h_codeMode       || 'none';
+  const codeRowOffset   = Math.max(0, (cfg.h_codeRowOffset || 1) - 1); // UI表示は1始まり
+  const codeColIdx      = (cfg.h_codeCol       || 2)  - 1;
 
   // 日付ヘッダー行から日付リストを取得
   const dateRow = allRows[dateRowIdx] || [];
@@ -7982,9 +8063,15 @@ async function convertFreeFormatHorizontal(cfg, log) {
   while (rowIdx + blockSize <= allRows.length) {
     const block = allRows.slice(rowIdx, rowIdx + blockSize);
 
-    // 氏名を取得（最初の行）
-    const name = String(block[0][nameColIdx] || '').trim();
+    // 氏名を取得（行オフセット指定）
+    const name = String(block[Math.min(nameRowOffset, block.length-1)][nameColIdx] || '').trim();
     if (!name || name === '-') { rowIdx += blockSize; continue; }
+
+    // スタッフコードを取得
+    let rawCode = '';
+    if (codeMode === 'cell') {
+      rawCode = String(block[Math.min(codeRowOffset, block.length-1)][codeColIdx] || '').trim();
+    }
 
     // 各ラベル行のインデックスを特定
     let startRowOff = -1, endRowOff = -1, restRowOff = -1;
@@ -7997,12 +8084,28 @@ async function convertFreeFormatHorizontal(cfg, log) {
 
     if (startRowOff < 0 || endRowOff < 0) { rowIdx += blockSize; continue; }
 
-    // SEスタッフNO解決（対応表 or 直結）
+    // SEスタッフNO解決
     let seNo = '', ankenNoBase = '';
-    if (cfg.semode === 'mapping') {
+    if (codeMode === 'cell' && rawCode) {
+      // スタッフコードあり → 対応表（freeformat種別）でコード照合
       const mapLookup = {};
       mappingData.filter(m => m.type === 'freeformat').forEach(m => { mapLookup[m.staffiaCode] = m; });
-      // 氏名で対応表検索
+      const mapByCode = mapLookup[rawCode];
+      if (mapByCode) {
+        seNo = mapByCode.seNo; ankenNoBase = mapByCode.ankenNo || ''; matched++;
+      } else {
+        // コードで見つからなければ氏名でも試みる
+        const mapByName = mappingData.find(m => m.name && name && m.name.replace(/\s/g,'') === name.replace(/\s/g,''));
+        if (mapByName) { seNo = mapByName.seNo; ankenNoBase = mapByName.ankenNo || ''; matched++; }
+        else {
+          if (!pendingUnmatched['freeformat'].find(x => x.code === rawCode)) {
+            pendingUnmatched['freeformat'].push({ type:'freeformat', code: rawCode, name, seNo:'', ankenNo:'' });
+          }
+          unmatched++;
+        }
+      }
+    } else {
+      // スタッフコードなし → 氏名で対応表（freeformat種別）照合
       const mapByName = mappingData.find(m => m.name && name && m.name.replace(/\s/g,'') === name.replace(/\s/g,''));
       if (mapByName) { seNo = mapByName.seNo; ankenNoBase = mapByName.ankenNo || ''; matched++; }
       else {
@@ -8011,11 +8114,6 @@ async function convertFreeFormatHorizontal(cfg, log) {
         }
         unmatched++;
       }
-    } else {
-      // staffcodeがない横型では氏名で対応表検索を試みる
-      const mapByName = mappingData.find(m => m.name && name && m.name.replace(/\s/g,'') === name.replace(/\s/g,''));
-      if (mapByName) { seNo = mapByName.seNo; ankenNoBase = mapByName.ankenNo || ''; }
-      // 直結・headなどは対応表で補完できないためスキップ
     }
 
     // 日付ごとに変換
