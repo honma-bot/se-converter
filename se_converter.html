@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_146.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_147.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -5801,16 +5801,16 @@ function saveFfColMapping() {
     restfmt:           gv('ff-map-restfmt'),
     restFlagMinutes:   gn('ff-rest-flag-minutes') || 60,
     billingSame:  gb('ff-billing-same'),
-    layout:       gr('ff-layout') || 'vertical',
-    h_dateRow:    gn('ff-h-date-row') || 11,
-    h_dataCol:    gn('ff-h-data-col') || 5,
-    h_staffRow:   gn('ff-h-staff-row') || 13,
-    h_blockSize:  gn('ff-h-block-size') || 7,
-    h_nameCol:    gn('ff-h-name-col') || 3,
-    h_labelCol:   gn('ff-h-label-col') || 4,
-    h_startLabel: document.getElementById('ff-h-start-label')?.value || '出勤',
-    h_endLabel:   document.getElementById('ff-h-end-label')?.value || '退勤',
-    h_restLabel:  document.getElementById('ff-h-rest-label')?.value || '休憩',
+    layout:       gr('ff-layout') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2') || '{}').layout || 'vertical'; } catch(e) { return 'vertical'; } })(),
+    h_dateRow:    gn('ff-h-date-row') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_dateRow||11; } catch(e){return 11;} })(),
+    h_dataCol:    gn('ff-h-data-col') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_dataCol||5; } catch(e){return 5;} })(),
+    h_staffRow:   gn('ff-h-staff-row') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_staffRow||13; } catch(e){return 13;} })(),
+    h_blockSize:  gn('ff-h-block-size') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_blockSize||7; } catch(e){return 7;} })(),
+    h_nameCol:    gn('ff-h-name-col') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_nameCol||3; } catch(e){return 3;} })(),
+    h_labelCol:   gn('ff-h-label-col') || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_labelCol||4; } catch(e){return 4;} })(),
+    h_startLabel: document.getElementById('ff-h-start-label')?.value || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_startLabel||'出勤'; } catch(e){return '出勤';} })(),
+    h_endLabel:   document.getElementById('ff-h-end-label')?.value || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_endLabel||'退勤'; } catch(e){return '退勤';} })(),
+    h_restLabel:  document.getElementById('ff-h-rest-label')?.value || (() => { try { return JSON.parse(localStorage.getItem('ff_col_mapping_v2')||'{}').h_restLabel||'休憩'; } catch(e){return '休憩';} })(),
     billStart:    gv('ff-map-bill-start'),
     billEnd:      gv('ff-map-bill-end'),
     semode:       gr('ff-semode'),
@@ -5847,7 +5847,20 @@ function convertFreeFormat() {
   const fileInfo = files['freeformat-kintai'];
   if (!fileInfo) { addLog('err', 'ファイルが読み込まれていません'); showResult('freeformat',0,0,0,0,log,null); return; }
 
+  // プリセット選択中の場合はプリセットのcfgを直接使用（DOMが非表示でも正しい値を取得するため）
+  const lastPreset = localStorage.getItem('ff_last_preset');
+  const presets = getFfPresets();
+  const savedPresetCfg = (lastPreset && presets[lastPreset]) ? presets[lastPreset] : null;
   const cfg = saveFfColMapping();
+  // 横型レイアウト判定：DOM取得失敗時はプリセットの値を優先
+  if (savedPresetCfg && savedPresetCfg.layout === 'horizontal') cfg.layout = 'horizontal';
+  if (savedPresetCfg) {
+    // 横型設定値もプリセットから補完
+    ['h_dateRow','h_dataCol','h_staffRow','h_blockSize','h_nameCol','h_labelCol',
+     'h_startLabel','h_endLabel','h_restLabel'].forEach(k => {
+      if (!cfg[k] && savedPresetCfg[k]) cfg[k] = savedPresetCfg[k];
+    });
+  }
   // 横型レイアウトの場合は専用変換処理へ
   if (cfg.layout === 'horizontal') { convertFreeFormatHorizontal(cfg, log); return; }
   addLog('info', `モード: ${cfg.semode === 'direct' ? 'SEと直結' : cfg.semode === 'mapping' ? '対応表照合' : cfg.semode}`);
