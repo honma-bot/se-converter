@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_145.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_146.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -5245,12 +5245,30 @@ function convertReplyority() {
     const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
     if (rows.length < 10) return;
 
-    // 年月取得（行0列0: "2025年5月"）
-    const yearMonthStr = String(rows[0][0] || '');
-    const ymMatch = yearMonthStr.match(/(\d{4})年(\d{1,2})月/);
-    if (!ymMatch) return;
-    const year = ymMatch[1];
-    const month = String(parseInt(ymMatch[2])).padStart(2, '0');
+    // 年月取得（複数パターン対応）
+    let year = '', month = '';
+    // パターン1: 行0〜3のどこかに "YYYY年M月" 形式
+    const ymPatterns = [...rows.slice(0,4).map(r => r.join(' ')), sheetName].join(' ');
+    const ymMatch = ymPatterns.match(/(\d{4})年(\d{1,2})月/);
+    if (ymMatch) {
+      year = ymMatch[1];
+      month = String(parseInt(ymMatch[2])).padStart(2,'0');
+    } else {
+      // パターン2: 行0列0がExcelシリアル日付（数値）→ 日付に変換
+      const serialVal = rows[0][0];
+      if (typeof serialVal === 'number' && serialVal > 40000) {
+        const d = new Date(Math.round((serialVal - 25569) * 86400 * 1000));
+        year  = String(d.getUTCFullYear());
+        month = String(d.getUTCMonth() + 1).padStart(2,'0');
+      }
+    }
+    // パターン3: 勤怠行の日付から年月を推定（上記どちらも失敗した場合）
+    if (!year) {
+      const now = new Date();
+      year  = String(now.getFullYear());
+      month = String(now.getMonth() + 1).padStart(2,'0');
+      addLog('warn', `シート「${sheetName}」: 年月を自動判定できませんでした。今月（${year}/${month}）として処理します。`);
+    }
 
     // スタッフ情報（行3）
     const staffName = String(rows[3][0] || '').trim();
