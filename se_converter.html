@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_156.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_160.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -425,7 +425,7 @@ window.addEventListener('load', function() {
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
-<script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="./se_converter_files/pdf.min.js.ダウンロード"></script><script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script><script src="./se_converter_files/exec"></script></head>
+<script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="./se_converter_files/pdf.min.js.ダウンロード"></script><script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script></head>
 <body>
 <div class="container">
   <header>
@@ -508,7 +508,7 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
           <button class="btn-add" onclick="manualSyncPresets()" style="background:rgba(244,86,111,0.08);border-color:var(--accent);color:var(--accent);">🔄 プリセット再読込</button>
         </div>
-        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 242件</div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 232件</div>
       </div>
 
       <!-- プリセット手動共有 -->
@@ -530,11 +530,7 @@ window.addEventListener('load', function() {
       </div>
 
       <!-- 対応表の件数表示 -->
-      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
-      <span style="color:var(--success);font-weight:700;">✅ 対応表 242件 登録済</span>
-      <span style="margin-left:12px;font-size:12px;">
-        Staffia: 43件 　TMJ: 0件 　リプライオリティ: 1件 　フリー様式: 198件
-      </span></div>
+      <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;"><span style="color:var(--text-dim);">対応表はまだ登録されていません</span></div>
     </div>
   </div>
 
@@ -563,129 +559,14 @@ window.addEventListener('load', function() {
       </div>
 
       <!-- よく使う -->
-      <div id="convert-recent-section" style="display: block;">
+      <div id="convert-recent-section" style="display: none;">
         <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⭐ よく使う</div>
-        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"><div onclick="selectConvertSystem(&#39;__new_custom__&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;border-color:var(--accent);background:var(--accent-light);" id="syscard-__new_custom__">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">14回</span>
-    <div style="font-size:20px;margin-bottom:5px;">➕</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新規登録</div>
-    <div style="font-size:10px;color:var(--text-dim);">初回設定</div>
-  </div><div onclick="selectConvertSystem(&#39;replyority&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-replyority">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">9回</span>
-    <div style="font-size:20px;margin-bottom:5px;">📁</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">リプライオリティ</div>
-    <div style="font-size:10px;color:var(--text-dim);">対応表（RTHコード）</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【福岡天神】アルティウスリンク_姪浜&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom___________________">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">1回</span>
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【福岡天神】アルティウスリンク_姪浜</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div></div>
+        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"></div>
       </div>
 
       <!-- 全システム -->
       <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">📋 全システム</div>
-      <div id="convert-all-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;"><div onclick="selectConvertSystem(&#39;cloudstaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-cloudstaffing">
-    
-    <div style="font-size:20px;margin-bottom:5px;">☁️</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">CloudStaffing</div>
-    <div style="font-size:10px;color:var(--text-dim);">配置一覧と照合</div>
-  </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📊</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
-    <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
-  </div><div onclick="selectConvertSystem(&#39;hrstation&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-hrstation">
-    
-    <div style="font-size:20px;margin-bottom:5px;">🏢</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">HR-Station</div>
-    <div style="font-size:10px;color:var(--text-dim);">スタッフコード下6桁</div>
-  </div><div onclick="selectConvertSystem(&#39;tmj&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-tmj">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📋</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">TMJ</div>
-    <div style="font-size:10px;color:var(--text-dim);">対応表（従業員番号）</div>
-  </div><div onclick="selectConvertSystem(&#39;replyority&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-replyority">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">9回</span>
-    <div style="font-size:20px;margin-bottom:5px;">📁</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">リプライオリティ</div>
-    <div style="font-size:10px;color:var(--text-dim);">対応表（RTHコード）</div>
-  </div><div onclick="selectConvertSystem(&#39;estaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-estaffing">
-    
-    <div style="font-size:20px;margin-bottom:5px;">🌐</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">e-staffing</div>
-    <div style="font-size:10px;color:var(--text-dim);">スタッフNO直結</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:アルティウス&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">アルティウス</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新宿アルティウス_MU</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:マックスコム&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">マックスコム</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【札幌】マックスコム_EGR業務&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom____________EGR__">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【札幌】マックスコム_EGR業務</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______________MU">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】アルティウスリンク_MU</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_新宿CE&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_________________CE">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】アルティウスリンク_新宿CE</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】マックスコム_足立区業務&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_________________">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】マックスコム_足立区業務</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【BPO】Airシフト&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__BPO_Air___">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【BPO】Airシフト</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【熊本】ギグワークスアドバリュー株式会社&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_____________________">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【熊本】ギグワークスアドバリュー株式会社</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_NXC&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______________NXC">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】アルティウスリンク_NXC</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【梅田】CRTM&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_____CRTM">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【梅田】CRTM</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【梅田】アルティウス_求人審査&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom________________">
-    
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【梅田】アルティウス_求人審査</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【福岡天神】アルティウスリンク_姪浜&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom___________________">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">1回</span>
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【福岡天神】アルティウスリンク_姪浜</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;__new_custom__&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;border-color:var(--accent);background:var(--accent-light);" id="syscard-__new_custom__">
-    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">14回</span>
-    <div style="font-size:20px;margin-bottom:5px;">➕</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新規登録</div>
-    <div style="font-size:10px;color:var(--text-dim);">初回設定</div>
-  </div></div>
+      <div id="convert-all-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;"></div>
     </div>
 
     <!-- ファイルドロップ（システム選択後に表示） -->
@@ -707,12 +588,12 @@ window.addEventListener('load', function() {
           <span class="dropzone-icon">📋</span>
           <div class="dropzone-text">ファイルをドロップ または クリック</div>
           <div class="dropzone-sub" id="convert-file-sub">CSV・Excel・PDF</div>
-          <div class="file-name" id="fn-convert-kintai">✓ 【Justfine】Disney+ 2026年 4月 勤務状況ファイル.xlsx</div>
+          <div class="file-name" id="fn-convert-kintai">✓ ｱﾙﾃｨｳｽﾘﾝｸ姪浜　2026年4月_ｼﾞｬｽﾄﾌｧｲﾝ_6名.xlsx</div>
         </div>
       </div>
 
       <!-- カスタム列マッピング（カスタムシステム選択時のみ） -->
-      <div id="convert-mapping-area"><div class="card" id="ff-mapping-card" style="display: block;">
+      <div id="convert-mapping-area"><div class="card" id="ff-mapping-card" style="display: none;">
       <div class="card-title">STEP 2 — 列マッピング設定</div>
 
       <!-- プリセット -->
@@ -722,8 +603,8 @@ window.addEventListener('load', function() {
           登録済みのフォーマットがある場合は選択してください。初めての場合は「＋ 新規作成」を選んでください。
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="onFfPresetChange(this.value)"><option value="">— フォーマットを選択 —</option><option value="__new__">＋ 新規作成</option><option value="アルティウス">アルティウス</option><option value="新宿アルティウス_MU">新宿アルティウス_MU</option><option value="マックスコム">マックスコム</option><option value="【札幌】マックスコム_EGR業務">【札幌】マックスコム_EGR業務</option><option value="【新宿】アルティウスリンク_MU">【新宿】アルティウスリンク_MU</option><option value="【新宿】アルティウスリンク_新宿CE">【新宿】アルティウスリンク_新宿CE</option><option value="【新宿】マックスコム_足立区業務">【新宿】マックスコム_足立区業務</option><option value="【BPO】Airシフト">【BPO】Airシフト</option><option value="【熊本】ギグワークスアドバリュー株式会社">【熊本】ギグワークスアドバリュー株式会社</option><option value="【新宿】アルティウスリンク_NXC">【新宿】アルティウスリンク_NXC</option><option value="【梅田】CRTM">【梅田】CRTM</option><option value="【梅田】アルティウス_求人審査">【梅田】アルティウス_求人審査</option><option value="【福岡天神】アルティウスリンク_姪浜" selected="">【福岡天神】アルティウスリンク_姪浜</option></select>
-          <button class="btn-del" id="ff-preset-del-btn" onclick="deleteFfPreset()" style="white-space: nowrap; display: inline-flex;">🗑 削除</button>
+          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="onFfPresetChange(this.value)"><option value="">— フォーマットを選択 —</option><option value="__new__">＋ 新規作成</option></select>
+          <button class="btn-del" id="ff-preset-del-btn" onclick="deleteFfPreset()" style="white-space: nowrap; display: none;">🗑 削除</button>
         </div>
         <!-- 新規作成: 名前入力欄 -->
         <div id="ff-preset-new-row" style="display:none;margin-top:10px;background:rgba(244,86,111,0.05);border:1px dashed var(--accent);border-radius:6px;padding:10px 12px;">
@@ -735,10 +616,10 @@ window.addEventListener('load', function() {
           <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">名前を入力後、下の列設定を行ってから「💾 この名前で保存」を押してください</div>
         </div>
         <!-- 既存プリセット: 上書き保存ボタン -->
-        <div id="ff-preset-update-row" style="display: block; margin-top: 8px;">
+        <div id="ff-preset-update-row" style="display: none; margin-top: 8px;">
           <button class="btn-add" onclick="updateFfPreset()" style="font-size:11px;padding:5px 12px;">💾 設定を上書き保存</button>
         </div>
-        <div id="ff-preset-status" style="font-size: 11px; margin-top: 6px; color: var(--success);">✅ 前回のプリセット「【福岡天神】アルティウスリンク_姪浜」を自動読込しました</div>
+        <div id="ff-preset-status" style="font-size:11px;margin-top:6px;color:var(--text-muted);"></div>
       </div>
 
       <!-- レイアウト切り替え（先頭に移動・注釈なし） -->
@@ -818,7 +699,7 @@ window.addEventListener('load', function() {
               ブロック内の特定行・列から取得
             </label>
           </div>
-          <div id="ff-h-code-cell-options" style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div id="ff-h-code-cell-options" style="display:none;margin-top:10px;display:none;grid-template-columns:1fr 1fr;gap:10px;">
             <div>
               <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">コードは上から何行目か</label>
               <input type="number" id="ff-h-code-row-offset" value="1" min="1" style="width:100%;font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;">
@@ -858,17 +739,17 @@ window.addEventListener('load', function() {
       <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
         <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">スタッフコード列 <span style="color:var(--accent);">*必須</span></div>
       <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">勤怠データ内のスタッフコードが入っている列を選択してください（社員番号・従業員コード等）</div>
-        <select id="ff-map-staffcode" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;margin-bottom:10px;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+        <select id="ff-map-staffcode" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;margin-bottom:10px;"><option value="">— 未選択 —</option></select>
 
         <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">SEスタッフNOの取得方法</div>
         <div style="display:flex;flex-direction:column;gap:6px;" id="ff-semode-group">
 
-          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--border); border-radius: 6px; cursor: pointer; background: white;" id="ff-semode-opt-direct">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--accent); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; background: var(--accent-light);" id="ff-semode-opt-direct">
             <input type="radio" name="ff-semode" value="direct" checked="" onchange="updateSeModeUI()" style="accent-color:var(--accent);">
             <span style="font-size:12px;">そのまま使用（SEスタッフNOと直結）</span>
           </label>
 
-          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--accent); border-radius: 6px; cursor: pointer; background: var(--accent-light);" id="ff-semode-opt-mapping">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 6px; cursor: pointer; background: white;" id="ff-semode-opt-mapping">
             <input type="radio" name="ff-semode" value="mapping" onchange="updateSeModeUI()" style="accent-color:var(--accent);">
             <span style="font-size:12px;">対応表で照合（freeformat種別）</span>
           </label>
@@ -910,15 +791,15 @@ window.addEventListener('load', function() {
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">日付 <span style="color:var(--accent);">*必須</span></label>
-            <select id="ff-map-date" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-date" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">氏名</label>
-            <select id="ff-map-name" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-name" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">休憩時間</label>
-            <select id="ff-map-rest" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-rest" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
         </div>
       </div>
@@ -931,11 +812,11 @@ window.addEventListener('load', function() {
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">始業時刻</label>
-            <select id="ff-map-start" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-start" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">終業時刻</label>
-            <select id="ff-map-end" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-end" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
         </div>
       </div>
@@ -950,11 +831,11 @@ window.addEventListener('load', function() {
         <div id="ff-billing-detail" style="display:none;grid-template-columns:1fr 1fr;gap:10px;">
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">始業時刻</label>
-            <select id="ff-map-bill-start" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-bill-start" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">終業時刻</label>
-            <select id="ff-map-bill-end" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-bill-end" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
         </div>
       </div>
@@ -998,7 +879,7 @@ window.addEventListener('load', function() {
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">判定列 <span style="color:var(--text-dim);">（空欄なら始業時刻で判定）</span></label>
-            <select id="ff-map-kubun" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option><option value="">(空白)</option><option value="錦糸町サポートセンター　勤務状況">錦糸町サポートセンター　勤務状況</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="8:00">8:00</option><option value="残業申請">残業申請</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="0">0</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="使用列">使用列</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option><option value="">(空白)</option></select>
+            <select id="ff-map-kubun" style="width:100%;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;"><option value="">— 未選択 —</option></select>
           </div>
           <div>
             <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">出勤とみなす値</label>
@@ -1008,17 +889,7 @@ window.addEventListener('load', function() {
         <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">※ 上のプリセットに名前をつけて保存できます。次回ファイル読込時に自動で最後のプリセットが復元されます。</div>
       </div>
       </div><!-- /ff-vertical-settings -->
-    <div id="ff-new-name-area" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
-            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">フォーマット名をつけて保存</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">列の設定が完了したら、名前をつけて保存してください。次回からカードから選ぶだけで使えます。</div>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <input type="text" id="ff-new-preset-name" placeholder="例: アデコ、新宿CE、〇〇社..." style="flex:1;font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:6px;">
-              <button class="btn-add" onclick="saveNewPresetFromConvert()" style="white-space:nowrap;padding:7px 14px;">
-                💾 この名前で保存
-              </button>
-            </div>
-            <div id="ff-new-preset-status" style="font-size:11px;margin-top:6px;"></div>
-          </div></div></div>
+    </div></div>
 
       <!-- 変換実行 -->
       <div class="card">
@@ -1027,82 +898,12 @@ window.addEventListener('load', function() {
       </div>
 
       <!-- 変換結果 -->
-      <div class="card" id="convert-result-card" style="display: block;">
+      <div class="card" id="convert-result-card" style="display: none;">
         <div class="card-title">変換結果</div>
-        <div class="stats" id="convert-stats">
-    <div class="stat"><span class="stat-num">61</span><div class="stat-label">変換件数</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--success)">4</span><div class="stat-label">照合済み</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">0</span><div class="stat-label">未登録</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">131</span><div class="stat-label">欠勤/休日</div></div>
-  </div>
-        <div class="log" id="convert-log"><div class="info">[INFO] フリー様式 変換開始...</div><div class="info">[INFO] 横型レイアウトで変換開始...</div><div class="info">[INFO] 日付列を48件検出</div><div class="info">[INFO] 変換完了: 61件</div></div><div class="staff-select-ui" style="margin-top: 16px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-      <div style="font-size:12px;font-weight:700;color:var(--text);">📋 取り込むスタッフを選択（4名）</div>
-      <div style="display:flex;gap:6px;">
-        <button onclick="toggleAllStaff(&#39;freeformat&#39;, true)" class="btn-add" style="font-size:11px;padding:4px 10px;">✅ 全て選択</button>
-        <button onclick="toggleAllStaff(&#39;freeformat&#39;, false)" class="btn-del" style="font-size:11px;padding:4px 10px;">☐ 全て解除</button>
-      </div>
-    </div>
-    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead>
-          <tr style="background:#fdf5f6;">
-            <th style="padding:7px 10px;text-align:center;width:40px;border-bottom:1px solid var(--border);">✓</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">スタッフNO</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">氏名</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">案件NO</th>
-            <th style="padding:7px 10px;text-align:center;border-bottom:1px solid var(--border);">出勤日数</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="161323" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">161323</td>
-              <td style="padding:6px 10px;font-weight:700;">吉田 彰文</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">40097-004</td>
-              <td style="padding:6px 10px;text-align:center;">22日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="197884" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">197884</td>
-              <td style="padding:6px 10px;font-weight:700;">新城 長秀</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">34759-005</td>
-              <td style="padding:6px 10px;text-align:center;">5日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="201893" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">201893</td>
-              <td style="padding:6px 10px;font-weight:700;">小出 瞬</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">35401-005</td>
-              <td style="padding:6px 10px;text-align:center;">19日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="209313" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">209313</td>
-              <td style="padding:6px 10px;font-weight:700;">柄澤 卓巳</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">39848-004</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-        </tbody>
-      </table>
-    </div>
-    <div id="freeformat-staff-select-count" style="font-size:11px;color:var(--text-muted);margin-top:6px;">8 / 8 名を取り込み対象として選択中</div>
-  </div>
+        <div class="stats" id="convert-stats"></div>
+        <div class="log" id="convert-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_156.html#" download="SE_勤怠インポート.csv" style="display: inline-flex;">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_160.html#" download="SE_勤怠インポート.csv" style="display: none;">⬇ CSVをダウンロード</a>
         </div>
       </div>
     </div>
@@ -1310,6 +1111,21 @@ window.addEventListener('load', function() {
     </div>
   </div>
 
+  <!-- ===== セントリック 結果カード（hidden, 変換タブ専用） ===== -->
+  <!-- 変換タブ専用なので親divをdisplay:noneで完全に非表示にする -->
+  <!-- showResult が内部のcentric-result-card を block にしても親が none なので画面に出ない -->
+  <!-- mirrorResultToConvert がコンテンツを convert-result-card にコピーすることで表示される -->
+  <div id="centric-hidden-container" style="display:none">
+    <div id="centric-result-card" class="card" style="display:none">
+      <div class="card-title">変換結果</div>
+      <div class="stats" id="centric-stats"></div>
+      <div class="log" id="centric-log"></div>
+      <div style="margin-top:16px;">
+        <a class="btn-dl" id="centric-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_160.html#" download="SE_勤怠インポート_セントリック.csv" style="display:none;">⬇ CSVをダウンロード</a>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== フリー様式 パネル ===== -->
   <div class="panel" id="panel-freeformat">
 
@@ -1334,85 +1150,15 @@ window.addEventListener('load', function() {
     <!-- STEP 3: 変換実行 -->
     <div class="card">
       <div class="card-title">STEP 3 — 変換実行</div>
-      <button class="btn-convert" id="btn-freeformat-convert" onclick="convertFreeFormat()">変換してCSVをダウンロード</button>
+      <button class="btn-convert" id="btn-freeformat-convert" onclick="convertFreeFormat()" disabled="">変換してCSVをダウンロード</button>
     </div>
 
-    <div class="card" id="freeformat-result-card" style="display: block;">
+    <div class="card" id="freeformat-result-card" style="display: none;">
         <div class="card-title">変換結果</div>
-        <div class="stats" id="freeformat-stats">
-    <div class="stat"><span class="stat-num">61</span><div class="stat-label">変換件数</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--success)">4</span><div class="stat-label">照合済み</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">0</span><div class="stat-label">未登録</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">131</span><div class="stat-label">欠勤/休日</div></div>
-  </div>
-        <div class="log" id="freeformat-log"><div class="info">[INFO] フリー様式 変換開始...</div><div class="info">[INFO] 横型レイアウトで変換開始...</div><div class="info">[INFO] 日付列を48件検出</div><div class="info">[INFO] 変換完了: 61件</div></div>
+        <div class="stats" id="freeformat-stats"></div>
+        <div class="log" id="freeformat-log"></div>
         <div style="margin-top:16px;">
-          <div class="staff-select-ui" style="margin-top: 16px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-      <div style="font-size:12px;font-weight:700;color:var(--text);">📋 取り込むスタッフを選択（4名）</div>
-      <div style="display:flex;gap:6px;">
-        <button onclick="toggleAllStaff(&#39;freeformat&#39;, true)" class="btn-add" style="font-size:11px;padding:4px 10px;">✅ 全て選択</button>
-        <button onclick="toggleAllStaff(&#39;freeformat&#39;, false)" class="btn-del" style="font-size:11px;padding:4px 10px;">☐ 全て解除</button>
-      </div>
-    </div>
-    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead>
-          <tr style="background:#fdf5f6;">
-            <th style="padding:7px 10px;text-align:center;width:40px;border-bottom:1px solid var(--border);">✓</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">スタッフNO</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">氏名</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">案件NO</th>
-            <th style="padding:7px 10px;text-align:center;border-bottom:1px solid var(--border);">出勤日数</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="161323" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">161323</td>
-              <td style="padding:6px 10px;font-weight:700;">吉田 彰文</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">40097-004</td>
-              <td style="padding:6px 10px;text-align:center;">22日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="197884" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">197884</td>
-              <td style="padding:6px 10px;font-weight:700;">新城 長秀</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">34759-005</td>
-              <td style="padding:6px 10px;text-align:center;">5日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="201893" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">201893</td>
-              <td style="padding:6px 10px;font-weight:700;">小出 瞬</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">35401-005</td>
-              <td style="padding:6px 10px;text-align:center;">19日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-freeformat" data-staffno="209313" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">209313</td>
-              <td style="padding:6px 10px;font-weight:700;">柄澤 卓巳</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">39848-004</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-        </tbody>
-      </table>
-    </div>
-    <div id="freeformat-staff-select-count" style="font-size:11px;color:var(--text-muted);margin-top:6px;">4 / 4 名を取り込み対象として選択中</div>
-  </div><a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_156.html#" download="SE_勤怠インポート_フリー様式.csv" style="display: inline-flex;">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_160.html#" download="SE_勤怠インポート_フリー様式.csv" style="display: none;">⬇ CSVをダウンロード</a>
         </div>
       </div>
   </div>
@@ -1593,6 +1339,11 @@ function processFile(file, fileKey, dzId) {
   const isExcel = (ext === 'xlsx' || ext === 'xls');
   const isPDF   = (ext === 'pdf');
 
+  // セントリックPDFは専用パーサー
+  if (isPDF && fileKey === 'convert-kintai' && selectedSystem && selectedSystem.id === 'centric') {
+    processCentricPdf(file, fileKey, dzId);
+    return;
+  }
   // PDFはPDF.js非同期処理
   if (isPDF && (fileKey === 'freeformat-kintai' || fileKey === 'convert-kintai')) {
     processPdfFile(file, fileKey, dzId);
@@ -2338,7 +2089,7 @@ function showResult(prefix, total, matched, unmatched, absent, log, url) {
   // 未登録スタッフが0件の場合は変換直後にスタッフ選択UIを表示
   // （未登録がある場合はbulkRegisterMapping完了後に表示）
   if ((pendingUnmatched[prefix] || []).length === 0) {
-    const nameMap3 = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing' };
+    const nameMap3 = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing', centric:'セントリック' };
     const ym3 = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
     buildStaffSelectUI(prefix, 'SE_勤怠インポート_' + (nameMap3[prefix]||prefix) + '_' + ym3 + '.csv');
   }
@@ -2610,7 +2361,12 @@ function renderUnmatchedRows(prefix) {
 
 function selectHaichiMatch(prefix, idx, staffNo, ankenNo) {
   const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
-  const matched = haichiRows.find(r => String(r['スタッフNO']||'').trim() === staffNo);
+  // 同一スタッフNOで複数案件がある場合、案件管理NOで正しい行を特定する
+  // （これがないと最初のヒット行の会社名が常に表示されてしまう）
+  const matched = haichiRows.find(r =>
+    String(r['スタッフNO']||'').trim() === staffNo &&
+    String(r['案件管理NO']||'').trim() === ankenNo
+  ) || haichiRows.find(r => String(r['スタッフNO']||'').trim() === staffNo);
   pendingUnmatched[prefix][idx].seNo = staffNo;
   pendingUnmatched[prefix][idx].ankenNo = ankenNo;
   pendingUnmatched[prefix][idx].matched = true;
@@ -2808,14 +2564,14 @@ function reExportWithSelection(prefix) {
   pendingMultiAnken[prefix] = [];
 
   // スタッフ選択UIを表示（案件NO確定後）
-  const nameMapRA = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing' };
+  const nameMapRA = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing', centric:'セントリック' };
   const ymRA = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
   buildStaffSelectUI(prefix, 'SE_勤怠インポート_' + (nameMapRA[prefix]||prefix) + '_' + ymRA + '.csv');
 
   // 変換タブ経由の場合はミラーリング
   const convertResultCard = document.getElementById('convert-result-card');
   if (convertResultCard && convertResultCard.style.display !== 'none') {
-    const prefixToId = { cs:'cloudstaffing', staffia:'staffia', hrstation:'hrstation', tmj:'tmj', replyority:'replyority', freeformat:'freeformat' };
+    const prefixToId = { cs:'cloudstaffing', staffia:'staffia', hrstation:'hrstation', tmj:'tmj', replyority:'replyority', freeformat:'freeformat', centric:'centric' };
     setTimeout(() => mirrorResultToConvert(prefixToId[prefix]), 100);
   }
 
@@ -2829,7 +2585,7 @@ const pendingHaichiMissing = {}; // 配置一覧未登録スタッフ
 
 // ダウンロードボタン設定（全タブ共通）
 function setDownloadBtn(prefix, url) {
-  const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing' };
+  const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing', centric:'セントリック' };
   const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
   const filename = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
   const dlBtn = document.getElementById(prefix+'-dl-btn');
@@ -3224,8 +2980,10 @@ function bulkRegisterMapping(prefix) {
     if (x.skipped && x.code) skippedMap[x.code] = true;
     if (x.skipped && x.name) skippedMap['_name_'+x.name.replace(/\s/g,'')] = true;
   });
-  // freeformat種別の mappingData だけを抽出（最新の登録を含む）
-  const ffMappings = mappingData.filter(m => (m.type||'staffia') === prefix);
+  // 対応表 mappingData を抽出（最新の登録を含む）
+  // ※セントリックは freeformat 種別の対応表を共用するため、種別を読み替える
+  const mappingType = (prefix === 'centric') ? 'freeformat' : prefix;
+  const ffMappings = mappingData.filter(m => (m.type||'staffia') === mappingType);
   const nkName = s => String(s||'').replace(/\s/g,'').trim();
   // 氏名正規化キーでルックアップ
   const byNameMap = {};
@@ -3288,7 +3046,7 @@ function bulkRegisterMapping(prefix) {
   pendingUnmatched[prefix] = [];
 
   // マッピング完了後にスタッフ選択UIを表示
-  const nameMapBR = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing' };
+  const nameMapBR = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing', centric:'セントリック' };
   const ymBR = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
   const filenameForUI = 'SE_勤怠インポート_' + (nameMapBR[prefix]||prefix) + '_' + ymBR + '.csv';
 
@@ -3298,7 +3056,7 @@ function bulkRegisterMapping(prefix) {
     // 変換タブ経由の場合は変換タブにも結果を反映
     const convertResultCard = document.getElementById('convert-result-card');
     if (convertResultCard && convertResultCard.style.display !== 'none') {
-      const prefixToId = { cs:'cloudstaffing', staffia:'staffia', hrstation:'hrstation', tmj:'tmj', replyority:'replyority', freeformat:'freeformat' };
+      const prefixToId = { cs:'cloudstaffing', staffia:'staffia', hrstation:'hrstation', tmj:'tmj', replyority:'replyority', freeformat:'freeformat', centric:'centric' };
       mirrorResultToConvert(prefixToId[prefix]);
     }
   }, 100);
@@ -4250,6 +4008,428 @@ async function processPdfFile(file, fileKey, dzId) {
   }
 }
 
+// ===================== セントリック PDF処理 =====================
+// 各ページ＝1名のタイムカードPDFをページ単位でテキスト抽出して保持
+async function processCentricPdf(file, fileKey, dzId) {
+  const fnEl = document.getElementById('fn-' + fileKey);
+  if (fnEl) fnEl.textContent = '⏳ PDFを読み込み中...';
+
+  if (typeof pdfjsLib === 'undefined') {
+    alert('PDF.jsの読み込み中です。少し待ってから再度お試しください。');
+    return;
+  }
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    // cMapUrl は日本語フォント (Adobe-Japan1) のマッピングに必須
+    // ※cdnjs は cmaps/ ディレクトリを配信していないので jsdelivr を使用
+    const pdf = await pdfjsLib.getDocument({
+      data: arrayBuffer,
+      cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',
+      cMapPacked: true,
+    }).promise;
+
+    // 各ページのテキストをY座標順に行ごとに保存
+    const pageData = []; // [{ text: full string, rows: [{y, items:[{text,x}]}] }]
+    for (let p = 1; p <= pdf.numPages; p++) {
+      const page = await pdf.getPage(p);
+      const content = await page.getTextContent();
+      // テキストアイテムの座標を取得
+      const items = content.items.map(it => ({
+        text: it.str,
+        x: Math.round(it.transform[4]),
+        y: Math.round(it.transform[5])
+      })).filter(i => i.text.trim());
+      // Y座標で行グルーピング
+      const yGroups = {};
+      items.forEach(it => {
+        const yKey = Math.round(it.y / 5) * 5;
+        if (!yGroups[yKey]) yGroups[yKey] = [];
+        yGroups[yKey].push(it);
+      });
+      // Y降順で並べた後、隣接行（Y差<=5）をマージ
+      // ※手動編集の打刻と通常打刻が数px ずれる事があるため
+      const yKeys = Object.keys(yGroups).map(Number).sort((a,b) => b - a);
+      const rows = [];
+      yKeys.forEach(y => {
+        const prev = rows[rows.length - 1];
+        if (prev && (prev.y - y) <= 5) {
+          prev.items = prev.items.concat(yGroups[y]).sort((a,b) => a.x - b.x);
+        } else {
+          rows.push({ y, items: yGroups[y].sort((a,b) => a.x - b.x) });
+        }
+      });
+      // フラットテキスト（regex検索用）
+      const text = rows.map(r => r.items.map(i => i.text).join(' ')).join('\n');
+      pageData.push({ text, rows });
+    }
+
+    if (pageData.length === 0) {
+      alert('PDFからテキストを抽出できませんでした。スキャンPDFは対応していません。');
+      if (fnEl) fnEl.textContent = '❌ 読込失敗';
+      return;
+    }
+
+    // convert-kintai に保存（centric用）
+    files[fileKey] = { name: file.name, data: '', isCentricPdf: true, pdfPageData: pageData };
+
+    if (fnEl) fnEl.textContent = '✓ ' + file.name + ' (' + pageData.length + 'ページ)';
+    const dz = document.getElementById(dzId);
+    if (dz) dz.classList.add('loaded');
+
+    // ボタン有効化
+    checkButtons();
+    const btn = document.getElementById('btn-convert-main');
+    if (btn) btn.disabled = false;
+  } catch(e) {
+    console.error('セントリックPDF処理エラー:', e);
+    alert('PDF読込エラー: ' + e.message);
+    if (fnEl) fnEl.textContent = '❌ 読込失敗';
+  }
+}
+
+// ===================== セントリック 変換 =====================
+function convertCentric() {
+  const log = [];
+  const addLog = (type, msg) => log.push({type, msg});
+  addLog('info', 'セントリック 変換開始...');
+  pendingUnmatched['centric'] = [];
+  pendingMultiAnken['centric'] = [];
+  pendingResultData['centric'] = [];
+
+  const fileInfo = files['centric-kintai'] || files['convert-kintai'];
+  if (!fileInfo || !fileInfo.isCentricPdf || !fileInfo.pdfPageData) {
+    addLog('err', 'セントリックのPDFファイルが読み込まれていません');
+    showResult('centric', 0, 0, 0, 0, log, null);
+    return;
+  }
+
+  // 配置一覧マップ構築
+  const haichiRows = files['se-haichi'] ? csvToObjects(files['se-haichi'].data) : [];
+  const haichiMap = {};
+  haichiRows.forEach(row => {
+    const sno = normalizeStaffNo(row['スタッフNO']);
+    const ano = (row['案件管理NO'] || '').trim();
+    const st  = normalizeDate(row['就業開始日'] || '');
+    const en  = normalizeDate(row['就業終了日'] || '');
+    if (!sno || !ano) return;
+    if (!haichiMap[sno]) haichiMap[sno] = [];
+    haichiMap[sno].push({ ankenNo: ano, start: st, end: en });
+  });
+
+  // ヘルパー
+  const clockToMin = s => {
+    const m = String(s||'').match(/^(\d{1,2}):(\d{2})$/);
+    return m ? parseInt(m[1])*60 + parseInt(m[2]) : 0;
+  };
+  const minToHHMM = min => {
+    if (min < 0) min = 0;
+    const h = Math.floor(min / 60);
+    const mm = min % 60;
+    return String(h).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+  };
+  // HH.MM (ドット区切り) → 分。8.00 = 480分、0.05 = 5分
+  const hhmmDotToMin = (h, mm) => parseInt(h) * 60 + parseInt(mm);
+
+  // 1ページのテキストから {staffId, staffName, year, month, records[]} を抽出
+  // PDFは横長レイアウト: 各「項目」がY軸方向、各「日付」がX軸方向に並ぶ
+  // PDFが値の少ない列をコンパクション（同じY座標に統合）するため、ゾーン単位で集計する
+  // pageData = { text, rows: [{y, items:[{text,x}]}] }
+  function parseCentricPage(pageData) {
+    const pageText = pageData.text;
+    const rows = pageData.rows;
+
+    // 年月の抽出（複数パターンに対応）
+    let year = null, month = null;
+    let ymMatch = pageText.match(/(\d{4})年\s*(\d{1,2})月/);
+    if (ymMatch) {
+      year = parseInt(ymMatch[1]);
+      month = parseInt(ymMatch[2]);
+    } else {
+      // cMapが読めずに「年」「月」が抽出できなかった場合のフォールバック
+      // "2026 04" (年月の数字のみ) を探す
+      const fallback = pageText.match(/(\d{4})\s+(\d{1,2})\b/);
+      if (fallback) {
+        year = parseInt(fallback[1]);
+        month = parseInt(fallback[2]);
+      } else {
+        // それも無理なら日付ヘッダー(04/01など)から月を取得し、年は当年
+        const dateHeader = pageText.match(/\b(\d{2})\/\d{2}\b/);
+        if (dateHeader) {
+          month = parseInt(dateHeader[1]);
+          year = new Date().getFullYear();
+        }
+      }
+    }
+    if (!year || !month) return { error: '年月が抽出できません' };
+
+    // 従業員コードの抽出
+    let staffId = '';
+    const codeLabelRow = rows.find(r => r.items.some(i => /^従業員コード/.test(i.text)));
+    if (codeLabelRow) {
+      const codeLabel = codeLabelRow.items.find(i => /^従業員コード/.test(i.text));
+      const candidates = rows
+        .filter(r => r !== codeLabelRow && Math.abs(r.y - codeLabelRow.y) < 100)
+        .flatMap(r => r.items)
+        .filter(i => /^\d{4,}$/.test(i.text) && Math.abs(i.x - codeLabel.x) < 15);
+      if (candidates.length > 0) staffId = candidates[0].text;
+    }
+    if (!staffId) {
+      // cMap が読めずラベルが取れない場合のフォールバック
+      // ページ上で「2026年 04月」の近くにある4桁以上の数字を探す
+      const idMatch = pageText.match(/\b(\d{4,5})\b/);
+      if (idMatch) staffId = idMatch[1];
+    }
+    if (!staffId) return { error: '従業員コードが抽出できません' };
+
+    // 氏名
+    let staffName = '';
+    const nameLabelRow = rows.find(r => r.items.some(i => i.text === '名前'));
+    if (nameLabelRow) {
+      const nameLabel = nameLabelRow.items.find(i => i.text === '名前');
+      const candidates = rows
+        .filter(r => r !== nameLabelRow && Math.abs(r.y - nameLabelRow.y) < 100)
+        .flatMap(r => r.items)
+        .filter(i => /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]/.test(i.text)
+                  && Math.abs(i.x - nameLabel.x) < 15
+                  && !/[\d:：]/.test(i.text))
+        .filter(i => !/(派遣社員|熊本センター|従業員グループ|熊本支店|出勤|退勤|スケジュール|休暇|所定|残業|深夜|休日|休憩|備考|欠勤|運用)/.test(i.text));
+      if (candidates.length > 0) staffName = candidates[0].text.trim();
+    }
+
+    // 日付ヘッダー行
+    const dateRow = rows.find(r => r.items.filter(i => /^\d{2}\/\d{2}/.test(i.text)).length >= 5);
+    if (!dateRow) return { staffId, staffName, year, month, records: [] };
+    const dateXMap = {};
+    dateRow.items.forEach(it => {
+      const m = it.text.match(/^(\d{2})\/(\d{2})/);
+      if (m) dateXMap[parseInt(m[2])] = it.x;
+    });
+
+    const matchDateByX = (x) => {
+      let bestDay = -1, bestDiff = 99;
+      for (const [day, dx] of Object.entries(dateXMap)) {
+        const diff = Math.abs(x - dx);
+        if (diff < bestDiff) { bestDiff = diff; bestDay = parseInt(day); }
+      }
+      return bestDiff <= 10 ? bestDay : -1;
+    };
+
+    // ラベルのY座標を取得
+    const findLabelY = (labelText) => {
+      const r = rows.find(r => r.items.some(i => i.text === labelText));
+      return r ? r.y : null;
+    };
+
+    // ラベルに最も近い「日付列にデータがある行」を探す（最大Y距離30）
+    const findDataRowNearLabel = (labelText, maxDist) => {
+      const labelY = findLabelY(labelText);
+      if (labelY === null) return null;
+      const candidates = rows.filter(r => r.y !== labelY && r.items.some(i => i.x >= 178));
+      if (candidates.length === 0) return null;
+      candidates.sort((a, b) => Math.abs(a.y - labelY) - Math.abs(b.y - labelY));
+      const top = candidates[0];
+      if (Math.abs(top.y - labelY) > (maxDist || 30)) return null;
+      return top;
+    };
+
+    // 日付列ごとに値を集める
+    const collectByDate = (row) => {
+      const map = {};
+      if (!row) return map;
+      row.items.forEach(it => {
+        const day = matchDateByX(it.x);
+        if (day > 0) map[day] = it.text;
+      });
+      return map;
+    };
+
+    const punchInRow = findDataRowNearLabel('出勤(方法)', 30);
+    const punchOutRow = findDataRowNearLabel('退勤(方法)', 30);
+    const absRow = findDataRowNearLabel('休暇区分', 30);
+    const kihonRow = findDataRowNearLabel('所定', 30);
+    const restRow = findDataRowNearLabel('休憩', 30);
+
+    const punchInMap = collectByDate(punchInRow);
+    const punchOutMap = collectByDate(punchOutRow);
+    const absMap = collectByDate(absRow);
+    const kihonMap = collectByDate(kihonRow);
+    const restMapPdf = collectByDate(restRow);
+
+    // paid_extra ゾーン: 所定データ行と休憩データ行の間にある全アイテムを日付ごとに合算
+    // PDFのコンパクションで所定外/残業/深夜系/休日系が同一Yに混在することがあるため
+    const paidExtraMap = {};
+    if (kihonRow && restRow) {
+      const yLow = Math.min(kihonRow.y, restRow.y) + 5;
+      const yHigh = Math.max(kihonRow.y, restRow.y) - 5;
+      rows.forEach(r => {
+        if (r.y > yLow && r.y < yHigh) {
+          r.items.forEach(it => {
+            if (it.x < 178) return;
+            const day = matchDateByX(it.x);
+            if (day <= 0) return;
+            const m = String(it.text).match(/(\d+)\.(\d+)/);
+            if (!m) return;
+            const v = hhmmDotToMin(m[1], m[2]);
+            paidExtraMap[day] = (paidExtraMap[day] || 0) + v;
+          });
+        }
+      });
+    }
+
+    const parseHHMM = s => {
+      if (!s) return 0;
+      const m = String(s).match(/(\d+)\.(\d+)/);
+      return m ? hhmmDotToMin(m[1], m[2]) : 0;
+    };
+    const cleanPunch = s => {
+      if (!s) return '';
+      const m = String(s).match(/(\d{1,2}:\d{2})/);
+      return m ? m[1] : '';
+    };
+
+    const records = [];
+    Object.keys(dateXMap).map(d => parseInt(d)).sort((a,b) => a-b).forEach(day => {
+      if (absMap[day] && /欠勤/.test(absMap[day])) return;
+      const clockIn = cleanPunch(punchInMap[day]);
+      const clockOut = cleanPunch(punchOutMap[day]);
+      if (!clockIn || !clockOut) return;
+
+      records.push({
+        year, month, day,
+        clockIn, clockOut,
+        basicMin: parseHHMM(kihonMap[day]),
+        paidExtraMin: paidExtraMap[day] || 0,
+        restMinPdf: parseHHMM(restMapPdf[day])
+      });
+    });
+
+    return { staffId, staffName, year, month, records };
+  }
+
+  // 各ページを変換
+  const results = [];
+  let matched = 0, unmatched = 0, absent = 0;
+  const unmatchedCodes = new Set();
+  const ffMappings = mappingData.filter(m => (m.type||'') === 'freeformat');
+  const byCodeMap = {};
+  ffMappings.forEach(m => { if (m.staffiaCode) byCodeMap[m.staffiaCode] = m; });
+
+  fileInfo.pdfPageData.forEach((pageData, idx) => {
+    const parsed = parseCentricPage(pageData);
+    if (!parsed || parsed.error) {
+      const reason = parsed && parsed.error ? parsed.error : '不明';
+      addLog('warn', `ページ${idx+1}: ヘッダーを認識できませんでした (${reason})`);
+      // デバッグ用にテキストの一部をログ出力
+      const sample = (pageData.text || '').substring(0, 200).replace(/\n/g, ' / ');
+      addLog('warn', `  抽出テキスト先頭: ${sample}`);
+      return;
+    }
+    if (parsed.records.length === 0) {
+      addLog('warn', `ページ${idx+1}: 従業員番号=${parsed.staffId} 出勤データが0件（PDF構造が想定と異なる可能性）`);
+    }
+    const displayName = parsed.staffName || parsed.staffId;
+    addLog('info', `ページ${idx+1}: 従業員番号=${parsed.staffId}${parsed.staffName?' ('+parsed.staffName+')':''}, 出勤${parsed.records.length}日`);
+
+    // 対応表から SEスタッフNO を取得（freeformat種別、staffiaCode = 従業員番号で照合）
+    let seNo = '', ankenNoBase = '';
+    const mapping = byCodeMap[parsed.staffId];
+    if (mapping) {
+      seNo = mapping.seNo;
+      ankenNoBase = mapping.ankenNo || '';
+      matched++;
+    } else {
+      // 未登録
+      unmatchedCodes.add(parsed.staffId);
+      if (!pendingUnmatched['centric'].find(x => x.code === parsed.staffId)) {
+        pendingUnmatched['centric'].push({
+          type:'freeformat', code: parsed.staffId,
+          name: parsed.staffName || parsed.staffId,
+          seNo:'', ankenNo:''
+        });
+      }
+      unmatched++;
+    }
+
+    parsed.records.forEach(r => {
+      const dateStr = `${r.year}/${String(r.month).padStart(2,'0')}/${String(r.day).padStart(2,'0')}`;
+
+      // 実打刻時刻
+      const startNorm = r.clockIn;
+      const endNorm = r.clockOut;
+
+      // 経過時間 = 退勤 - 出勤（夜勤跨ぎは退勤<出勤なら+24h）
+      const startMin = clockToMin(r.clockIn);
+      let endMin = clockToMin(r.clockOut);
+      if (endMin < startMin) endMin += 24 * 60;
+      const elapsedMin = endMin - startMin;
+
+      // ユーザー指示の(C)方式: 休憩 = 経過 - 基本 - 所定外 - 残業
+      // paidExtraMin はすでに parseCentricPage で 所定外+残業+深夜系+休日系 を合算済み
+      const breakMin = Math.max(0, elapsedMin - r.basicMin - r.paidExtraMin);
+      const restNorm = minToHHMM(breakMin);
+
+      // 案件NO（配置一覧優先）
+      let ankenNo = ankenNoBase;
+      if (seNo && haichiRows.length > 0) {
+        const ams = findAllAnken(haichiMap, normalizeStaffNo(seNo), dateStr);
+        if (ams.length === 1) ankenNo = ams[0].ankenNo;
+        else if (ams.length > 1) {
+          const resolved = resolveMultiAnken(ams, dateStr);
+          ankenNo = resolved.ankenNo;
+          if (!resolved.autoResolved) {
+            pendingMultiAnken['centric'].push({
+              staffNo: seNo, name: displayName, date: dateStr,
+              candidates: ams.map(a => ({ ankenNo: a.ankenNo, start: a.start, end: a.end })),
+              selected: ams[0].ankenNo
+            });
+          }
+        }
+      }
+
+      // SE形式の基本/残業はcalcKihonZangyou(start,end,rest)で再計算
+      const calc = calcKihonZangyou(startNorm, endNorm, restNorm);
+      results.push({
+        'スタッフNO': seNo || '', '就業年月日': dateStr,
+        '支給始業時間': startNorm, '支給終業時間': endNorm,
+        '支給基本休憩時間': restNorm, '支給深夜休憩時間': '00:00',
+        '支給基本時間': calc.kihon, '支給残業時間': calc.zangyou,
+        '支給深夜時間': '00:00', '支給出勤区分': '0',
+        '請求始業時間': startNorm, '請求終業時間': endNorm,
+        '請求基本休憩時間': restNorm, '請求深夜休憩時間': '00:00',
+        '請求基本時間': calc.kihon, '請求残業時間': calc.zangyou,
+        '請求深夜時間': '00:00', '請求出勤区分': '0',
+        '案件管理NO': ankenNo,
+        '_name': displayName,
+        '_origCode': parsed.staffId
+      });
+    });
+  });
+
+  addLog('info', `変換完了: ${results.length}件 / 照合済${matched} / 未登録${unmatched}`);
+
+  if (results.length === 0) {
+    addLog('warn', 'データが0件です。PDFの形式を確認してください。');
+    showResult('centric', 0, 0, 0, 0, log, null);
+    return;
+  }
+
+  const cols = ['スタッフNO','就業年月日','支給始業時間','支給終業時間','支給基本休憩時間','支給深夜休憩時間',
+    '支給基本時間','支給残業時間','支給深夜時間','支給出勤区分',
+    '請求始業時間','請求終業時間','請求基本休憩時間','請求深夜休憩時間',
+    '請求基本時間','請求残業時間','請求深夜時間','請求出勤区分','案件管理NO'];
+  const exportRows = results.filter(r => r['スタッフNO']);
+  const csv = [cols.join(','), ...exportRows.map(r => cols.map(c => {
+    const v = String(r[c]||'');
+    return v.includes(',') ? '"'+v+'"' : v;
+  }).join(','))].join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  pendingResultData['centric'] = results;
+  sendUsageLog('セントリック', results.length);
+  showResult('centric', results.length, matched, unmatched, absent, log, url);
+}
+
 function buildFfColMapping() {
   console.log('buildFfColMapping: freeformatWB=', !!freeformatWB, 'freeformat-kintai=', !!files['freeformat-kintai']);
   const card = document.getElementById('ff-mapping-card');
@@ -4731,6 +4911,7 @@ const BUILTIN_SYSTEMS = [
   { id:'tmj',           label:'TMJ',           icon:'📋', desc:'対応表（従業員番号）', accept:'.csv,.xlsx,.xls' },
   { id:'replyority',    label:'リプライオリティ', icon:'📁', desc:'対応表（RTHコード）', accept:'.xlsx,.xls' },
   { id:'estaffing',     label:'e-staffing',    icon:'🌐', desc:'スタッフNO直結', accept:'.csv' },
+  { id:'centric',       label:'セントリック',    icon:'🏥', desc:'PDF（従業員番号）', accept:'.pdf' },
 ];
 
 function getFreq() {
@@ -4930,6 +5111,7 @@ function selectConvertSystem(id) {
       tmj:           '対応表（TMJ種別）でスタッフNOを照合します。',
       replyority:    '1人1シートのExcelファイルをドロップしてください。',
       estaffing:     'スタッフNOはSEと直結。案件NOは列7を使用します。',
+      centric:       'セントリックのPDF勤怠データを変換。1ページ＝1名、ヘッダーの従業員番号で対応表（freeformat種別）と照合します。実打刻時刻を使用し、休憩時間は実打刻差分から基本労働時間を引いた値を設定します。',
     };
     note.textContent = selectedSystem.isCustom
       ? `カスタム設定「${selectedSystem.presetName}」を使用します。`
@@ -5095,6 +5277,7 @@ function convertSelected() {
     tmj:           'tmj-kintai',
     replyority:    'replyority-kintai',
     estaffing:     'estaffing-kintai',
+    centric:       'centric-kintai',
   };
   const targetKey = keyMap[id];
   if (!targetKey) return;
@@ -5127,6 +5310,7 @@ function convertSelected() {
     tmj:           convertTMJ,
     replyority:    convertReplyority,
     estaffing:     convertEStaffing,
+    centric:       convertCentric,
   };
 
   if (fnMap[id]) {
@@ -5148,6 +5332,7 @@ function mirrorResultToConvert(id) {
   const prefixMap = {
     cloudstaffing: 'cs', staffia: 'staffia', hrstation: 'hrstation',
     tmj: 'tmj', replyority: 'replyority', estaffing: 'estaffing',
+    centric: 'centric',
     freeformat_custom: 'freeformat', undefined: 'freeformat'
   };
   const prefix = prefixMap[id] || 'freeformat';
@@ -5170,7 +5355,7 @@ function mirrorResultToConvert(id) {
   if (dstLog)   dstLog.innerHTML   = srcLog ? srcLog.innerHTML : '';
   if (dstDl && srcDl) {
     // downloadWithStaffFilter を変換タブ側でも呼ぶように設定
-    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing' };
+    const nameMap = { cs:'CloudStaffing', staffia:'Staffia', hrstation:'HRStation', tmj:'TMJ', replyority:'リプライオリティ', freeformat:'フリー様式', estaffing:'eStaffing', centric:'セントリック' };
     const ym = new Date().getFullYear() + String(new Date().getMonth()+1).padStart(2,'0');
     const dlFilename = 'SE_勤怠インポート_' + (nameMap[prefix]||prefix) + '_' + ym + '.csv';
     dstDl._dlUrl = srcDl._dlUrl || '';
