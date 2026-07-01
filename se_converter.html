@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_161.html -->
+<!-- saved from url=(0054)file:///C:/Users/honma/Downloads/se_converter_162.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -425,7 +425,7 @@ window.addEventListener('load', function() {
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
-<script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="./se_converter_files/pdf.min.js.ダウンロード"></script><script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script><script src="./se_converter_files/exec"></script><style>@keyframes slideIn { from { transform: translateX(120%); opacity:0; } to { transform: translateX(0); opacity:1; } }</style></head>
+<script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/pdf.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/xlsx.full.min.js.%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89"></script><script src="file:///C:/Users/honma/Downloads/se_converter_files/exec"></script><script src="./se_converter_files/pdf.min.js.ダウンロード"></script><script src="./se_converter_files/xlsx.full.min.js.ダウンロード"></script><script src="./se_converter_files/exec"></script></head>
 <body>
 <div class="container">
   <header>
@@ -468,7 +468,7 @@ window.addEventListener('load', function() {
         読み込んだデータはすべての変換タブで共通利用されます。
       </p>
       <div id="haichi-saved-notice" style="display: flex; font-size: 12px; color: var(--success); background: rgba(15, 169, 104, 0.08); border: 1px solid rgba(15, 169, 104, 0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; align-items: center; justify-content: space-between; gap: 10px;">
-        <span id="haichi-saved-notice-text">✅ 前回保存の配置一覧を自動読込しました（2026/4/3）</span>
+        <span id="haichi-saved-notice-text">✅ 前回保存の配置一覧を自動読込しました（2026/5/29）</span>
         <button class="btn-del" onclick="clearHaichiCache()" style="white-space:nowrap;font-size:11px;">🗑 キャッシュ削除</button>
       </div>
       <div class="dropzone loaded" id="dz-haichi" ondragover="dzDrag(event,&#39;dz-haichi&#39;)" ondragleave="dzLeave(&#39;dz-haichi&#39;)" ondrop="dzDrop(event,&#39;dz-haichi&#39;,&#39;se-haichi&#39;)">
@@ -476,7 +476,7 @@ window.addEventListener('load', function() {
         <span class="dropzone-icon">📂</span>
         <div class="dropzone-text">配置一覧 CSV/Excelをドロップ または クリック</div>
         <div class="dropzone-sub">読み込むと自動保存され、次回起動時も自動で復元されます</div>
-        <div class="file-name" id="fn-se-haichi">✓ 配置一覧.csv</div>
+        <div class="file-name" id="fn-se-haichi">✓ 配置一覧.csv　（2026/5/29 保存）</div>
       </div>
     </div>
 
@@ -508,7 +508,7 @@ window.addEventListener('load', function() {
           <button class="btn-add" onclick="testGasConnection()" style="background:rgba(15,169,104,0.1);border-color:var(--success);color:var(--success);">接続テスト</button>
           <button class="btn-add" onclick="manualSyncPresets()" style="background:rgba(244,86,111,0.08);border-color:var(--accent);color:var(--accent);">🔄 プリセット再読込</button>
         </div>
-        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 290件</div>
+        <div id="gas-status" style="font-size: 11px; margin-top: 8px; color: var(--success);">✅ 読込完了 — 572件</div>
       </div>
 
       <!-- プリセット手動共有 -->
@@ -531,9 +531,9 @@ window.addEventListener('load', function() {
 
       <!-- 対応表の件数表示 -->
       <div id="mapping-summary" style="font-size:13px;color:var(--text-muted);padding:8px 0;">
-      <span style="color:var(--success);font-weight:700;">✅ 対応表 290件 登録済</span>
+      <span style="color:var(--success);font-weight:700;">✅ 対応表 572件 登録済</span>
       <span style="margin-left:12px;font-size:12px;">
-        Staffia: 43件 　TMJ: 31件 　リプライオリティ: 1件 　フリー様式: 215件
+        Staffia: 47件 　TMJ: 166件 　リプライオリティ: 46件 　フリー様式: 313件
       </span></div>
     </div>
   </div>
@@ -565,137 +565,142 @@ window.addEventListener('load', function() {
       <!-- よく使う -->
       <div id="convert-recent-section" style="display: block;">
         <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⭐ よく使う</div>
-        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"><div onclick="selectConvertSystem(&#39;__new_custom__&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-__new_custom__">
+        <div id="convert-recent-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:18px;"><div onclick="selectConvertSystem(&#39;__new_custom__&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-__new_custom__">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">15回</span>
     <div style="font-size:20px;margin-bottom:5px;">➕</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新規登録</div>
     <div style="font-size:10px;color:var(--text-dim);">初回設定</div>
-  </div><div onclick="selectConvertSystem(&#39;replyority&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-replyority">
+  </div><div onclick="selectConvertSystem(&#39;replyority&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-replyority">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">9回</span>
     <div style="font-size:20px;margin-bottom:5px;">📁</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">リプライオリティ</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（RTHコード）</div>
-  </div><div onclick="selectConvertSystem(&#39;centric&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-centric">
+  </div><div onclick="selectConvertSystem(&#39;centric&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-centric">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">5回</span>
     <div style="font-size:20px;margin-bottom:5px;">🏥</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">セントリック</div>
     <div style="font-size:10px;color:var(--text-dim);">PDF（従業員番号）</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【福岡天神】アルティウスリンク_姪浜&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom___________________">
+  </div><div onclick="selectConvertSystem(&#39;tmj&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-tmj">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">1回</span>
-    <div style="font-size:20px;margin-bottom:5px;">📄</div>
-    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【福岡天神】アルティウスリンク_姪浜</div>
-    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+    <div style="font-size:20px;margin-bottom:5px;">📋</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">TMJ</div>
+    <div style="font-size:10px;color:var(--text-dim);">対応表（従業員番号）</div>
   </div></div>
       </div>
 
       <!-- 全システム -->
       <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">📋 全システム</div>
-      <div id="convert-all-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;"><div onclick="selectConvertSystem(&#39;cloudstaffing&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-cloudstaffing">
+      <div id="convert-all-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;"><div onclick="selectConvertSystem(&#39;cloudstaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-cloudstaffing">
     
     <div style="font-size:20px;margin-bottom:5px;">☁️</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">CloudStaffing</div>
     <div style="font-size:10px;color:var(--text-dim);">配置一覧と照合</div>
-  </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-staffia">
+  </div><div onclick="selectConvertSystem(&#39;staffia&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-staffia">
     
     <div style="font-size:20px;margin-bottom:5px;">📊</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">Staffia</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（氏名コード）</div>
-  </div><div onclick="selectConvertSystem(&#39;hrstation&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-hrstation">
+  </div><div onclick="selectConvertSystem(&#39;hrstation&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-hrstation">
     
     <div style="font-size:20px;margin-bottom:5px;">🏢</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">HR-Station</div>
     <div style="font-size:10px;color:var(--text-dim);">スタッフコード下6桁</div>
-  </div><div onclick="selectConvertSystem(&#39;tmj&#39;)" style="position: relative; background: var(--accent-light); border-color: var(--accent); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-tmj">
-    
+  </div><div onclick="selectConvertSystem(&#39;tmj&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-tmj">
+    <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">1回</span>
     <div style="font-size:20px;margin-bottom:5px;">📋</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">TMJ</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（従業員番号）</div>
-  </div><div onclick="selectConvertSystem(&#39;replyority&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-replyority">
+  </div><div onclick="selectConvertSystem(&#39;replyority&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-replyority">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">9回</span>
     <div style="font-size:20px;margin-bottom:5px;">📁</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">リプライオリティ</div>
     <div style="font-size:10px;color:var(--text-dim);">対応表（RTHコード）</div>
-  </div><div onclick="selectConvertSystem(&#39;estaffing&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-estaffing">
+  </div><div onclick="selectConvertSystem(&#39;estaffing&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-estaffing">
     
     <div style="font-size:20px;margin-bottom:5px;">🌐</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">e-staffing</div>
     <div style="font-size:10px;color:var(--text-dim);">スタッフNO直結</div>
-  </div><div onclick="selectConvertSystem(&#39;centric&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-centric">
+  </div><div onclick="selectConvertSystem(&#39;centric&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-centric">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">5回</span>
     <div style="font-size:20px;margin-bottom:5px;">🏥</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">セントリック</div>
     <div style="font-size:10px;color:var(--text-dim);">PDF（従業員番号）</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:アルティウス&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_______">
+  </div><div onclick="selectConvertSystem(&#39;custom:アルティウス&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">アルティウス</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom__________MU">
+  </div><div onclick="selectConvertSystem(&#39;custom:新宿アルティウス_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__________MU">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新宿アルティウス_MU</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:マックスコム&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_______">
+  </div><div onclick="selectConvertSystem(&#39;custom:マックスコム&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">マックスコム</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【札幌】マックスコム_EGR業務&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom____________EGR__">
+  </div><div onclick="selectConvertSystem(&#39;custom:【札幌】マックスコム_EGR業務&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom____________EGR__">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【札幌】マックスコム_EGR業務</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_MU&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_______________MU">
+  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_MU&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______________MU">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】アルティウスリンク_MU</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_新宿CE&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_________________CE">
+  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_新宿CE&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_________________CE">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】アルティウスリンク_新宿CE</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】マックスコム_足立区業務&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_________________">
+  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】マックスコム_足立区業務&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_________________">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】マックスコム_足立区業務</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【BPO】Airシフト&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom__BPO_Air___">
+  </div><div onclick="selectConvertSystem(&#39;custom:【BPO】Airシフト&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom__BPO_Air___">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【BPO】Airシフト</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【熊本】ギグワークスアドバリュー株式会社&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_____________________">
+  </div><div onclick="selectConvertSystem(&#39;custom:【熊本】ギグワークスアドバリュー株式会社&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_____________________">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【熊本】ギグワークスアドバリュー株式会社</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_NXC&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_______________NXC">
+  </div><div onclick="selectConvertSystem(&#39;custom:【新宿】アルティウスリンク_NXC&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_______________NXC">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【新宿】アルティウスリンク_NXC</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【梅田】CRTM&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom_____CRTM">
+  </div><div onclick="selectConvertSystem(&#39;custom:【梅田】CRTM&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom_____CRTM">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【梅田】CRTM</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【梅田】アルティウス_求人審査&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom________________">
+  </div><div onclick="selectConvertSystem(&#39;custom:【梅田】アルティウス_求人審査&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom________________">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【梅田】アルティウス_求人審査</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【福岡天神】アルティウスリンク_姪浜&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom___________________">
+  </div><div onclick="selectConvertSystem(&#39;custom:【福岡天神】アルティウスリンク_姪浜&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom___________________">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">1回</span>
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【福岡天神】アルティウスリンク_姪浜</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;custom:【札幌】ビーウィズ_TEPCCS&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-custom___________TEPCCS">
+  </div><div onclick="selectConvertSystem(&#39;custom:【札幌】ビーウィズ_TEPCCS&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom___________TEPCCS">
     
     <div style="font-size:20px;margin-bottom:5px;">📄</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【札幌】ビーウィズ_TEPCCS</div>
     <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
-  </div><div onclick="selectConvertSystem(&#39;__new_custom__&#39;)" style="position: relative; background: white; border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s;" id="syscard-__new_custom__">
+  </div><div onclick="selectConvertSystem(&#39;custom:【福岡】アルティウスリンク&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-custom______________">
+    
+    <div style="font-size:20px;margin-bottom:5px;">📄</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">【福岡】アルティウスリンク</div>
+    <div style="font-size:10px;color:var(--text-dim);">登録済み</div>
+  </div><div onclick="selectConvertSystem(&#39;__new_custom__&#39;)" style="position:relative;background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;text-align:center;transition:all 0.15s;" id="syscard-__new_custom__">
     <span style="position:absolute;top:6px;right:6px;font-size:9px;background:rgba(244,86,111,0.15);color:var(--accent);border-radius:10px;padding:1px 5px;">15回</span>
     <div style="font-size:20px;margin-bottom:5px;">➕</div>
     <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;">新規登録</div>
@@ -707,13 +712,22 @@ window.addEventListener('load', function() {
     <div id="convert-file-area" style="display: block;">
       <div class="card">
         <div class="card-title" id="convert-step2-title">STEP 2 — ファイルをアップロード</div>
-        <div id="convert-system-note" style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">対応表（TMJ種別）でスタッフNOを照合します。</div>
+        <div id="convert-system-note" style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.7;">
+      <div style="background:rgba(244,86,111,0.07);border:1px solid var(--accent);border-radius:8px;padding:14px 16px;">
+        <div style="font-weight:700;font-size:13px;color:var(--accent);margin-bottom:6px;">📋 新しいシステムを登録する手順</div>
+        <div style="font-size:12px;line-height:1.8;color:var(--text-muted);">
+          1. 下のドロップゾーンにファイルをドロップしてください<br>
+          2. 列マッピング設定が表示されるので各列を指定してください<br>
+          3. フォーマット名を入力して「💾 この名前で保存」を押してください<br>
+          4. 次回以降はカードから選ぶだけで使えます
+        </div>
+      </div></div>
         <div class="dropzone loaded" id="dz-convert" ondragover="dzDrag(event,&#39;dz-convert&#39;)" ondragleave="dzLeave(&#39;dz-convert&#39;)" ondrop="dzDrop(event,&#39;dz-convert&#39;,&#39;convert-kintai&#39;)">
-          <input type="file" id="convert-file-input" accept=".csv,.xlsx,.xls" onchange="loadFile(event,&#39;convert-kintai&#39;,&#39;dz-convert&#39;)">
+          <input type="file" id="convert-file-input" accept=".csv,.xlsx,.xls,.pdf" onchange="loadFile(event,&#39;convert-kintai&#39;,&#39;dz-convert&#39;)">
           <span class="dropzone-icon">📋</span>
           <div class="dropzone-text">ファイルをドロップ または クリック</div>
           <div class="dropzone-sub" id="convert-file-sub">CSV・Excel・PDF</div>
-          <div class="file-name" id="fn-convert-kintai">✓ TMJ_20260529.csv</div>
+          <div class="file-name" id="fn-convert-kintai">✓ ｱﾙﾃｨｳｽﾘﾝｸ姪浜　2026年4月_ｼﾞｬｽﾄﾌｧｲﾝ_6名.xlsx</div>
         </div>
       </div>
 
@@ -728,7 +742,7 @@ window.addEventListener('load', function() {
           登録済みのフォーマットがある場合は選択してください。初めての場合は「＋ 新規作成」を選んでください。
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="onFfPresetChange(this.value)"><option value="">— フォーマットを選択 —</option><option value="__new__">＋ 新規作成</option><option value="アルティウス">アルティウス</option><option value="新宿アルティウス_MU">新宿アルティウス_MU</option><option value="マックスコム">マックスコム</option><option value="【札幌】マックスコム_EGR業務">【札幌】マックスコム_EGR業務</option><option value="【新宿】アルティウスリンク_MU">【新宿】アルティウスリンク_MU</option><option value="【新宿】アルティウスリンク_新宿CE">【新宿】アルティウスリンク_新宿CE</option><option value="【新宿】マックスコム_足立区業務">【新宿】マックスコム_足立区業務</option><option value="【BPO】Airシフト">【BPO】Airシフト</option><option value="【熊本】ギグワークスアドバリュー株式会社">【熊本】ギグワークスアドバリュー株式会社</option><option value="【新宿】アルティウスリンク_NXC">【新宿】アルティウスリンク_NXC</option><option value="【梅田】CRTM">【梅田】CRTM</option><option value="【梅田】アルティウス_求人審査">【梅田】アルティウス_求人審査</option><option value="【福岡天神】アルティウスリンク_姪浜" selected="">【福岡天神】アルティウスリンク_姪浜</option><option value="【札幌】ビーウィズ_TEPCCS">【札幌】ビーウィズ_TEPCCS</option></select>
+          <select id="ff-preset-select" style="flex:1;min-width:160px;font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:white;" onchange="onFfPresetChange(this.value)"><option value="">— フォーマットを選択 —</option><option value="__new__">＋ 新規作成</option><option value="アルティウス">アルティウス</option><option value="新宿アルティウス_MU">新宿アルティウス_MU</option><option value="マックスコム">マックスコム</option><option value="【札幌】マックスコム_EGR業務">【札幌】マックスコム_EGR業務</option><option value="【新宿】アルティウスリンク_MU">【新宿】アルティウスリンク_MU</option><option value="【新宿】アルティウスリンク_新宿CE">【新宿】アルティウスリンク_新宿CE</option><option value="【新宿】マックスコム_足立区業務">【新宿】マックスコム_足立区業務</option><option value="【BPO】Airシフト">【BPO】Airシフト</option><option value="【熊本】ギグワークスアドバリュー株式会社">【熊本】ギグワークスアドバリュー株式会社</option><option value="【新宿】アルティウスリンク_NXC">【新宿】アルティウスリンク_NXC</option><option value="【梅田】CRTM">【梅田】CRTM</option><option value="【梅田】アルティウス_求人審査">【梅田】アルティウス_求人審査</option><option value="【福岡天神】アルティウスリンク_姪浜" selected="">【福岡天神】アルティウスリンク_姪浜</option><option value="【札幌】ビーウィズ_TEPCCS">【札幌】ビーウィズ_TEPCCS</option><option value="【福岡】アルティウスリンク">【福岡】アルティウスリンク</option></select>
           <button class="btn-del" id="ff-preset-del-btn" onclick="deleteFfPreset()" style="white-space: nowrap; display: inline-flex;">🗑 削除</button>
         </div>
         <!-- 新規作成: 名前入力欄 -->
@@ -1023,342 +1037,12 @@ window.addEventListener('load', function() {
       </div>
 
       <!-- 変換結果 -->
-      <div class="card" id="convert-result-card" style="display: block;">
+      <div class="card" id="convert-result-card" style="display: none;">
         <div class="card-title">変換結果</div>
-        <div class="stats" id="convert-stats">
-    <div class="stat"><span class="stat-num">765</span><div class="stat-label">変換件数</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--success)">765</span><div class="stat-label">照合済み</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">0</span><div class="stat-label">未登録</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">390</span><div class="stat-label">欠勤/休日</div></div>
-  </div>
-        <div class="log" id="convert-log"><div class="info">[INFO] TMJ 変換開始...</div><div class="info">[INFO] 勤怠データ読込: 765件</div><div class="ok">[OK] ⏱ 時間チェック: 異常なし</div><div class="ok">[OK] 📋 件数チェック: 全スタッフ日数一致</div><div class="ok">[OK] 変換完了: 765件</div><div class="ok">[OK] 対応表マッチ: 765件</div><div class="warn">[WARN] 案件NO複数ヒット: 1件（先頭を使用）</div><div class="info">[INFO] 休日・欠勤: 390件（時間空白で出力）</div><div class="ok">[OK] エラーなし — インポートの準備ができています</div></div><div class="staff-select-ui" style="margin-top: 16px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-      <div style="font-size:12px;font-weight:700;color:var(--text);">📋 取り込むスタッフを選択（30名）</div>
-      <div style="display:flex;gap:6px;">
-        <button onclick="toggleAllStaff(&#39;tmj&#39;, true)" class="btn-add" style="font-size:11px;padding:4px 10px;">✅ 全て選択</button>
-        <button onclick="toggleAllStaff(&#39;tmj&#39;, false)" class="btn-del" style="font-size:11px;padding:4px 10px;">☐ 全て解除</button>
-      </div>
-    </div>
-    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead>
-          <tr style="background:#fdf5f6;">
-            <th style="padding:7px 10px;text-align:center;width:40px;border-bottom:1px solid var(--border);">✓</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">スタッフNO</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">氏名</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">案件NO</th>
-            <th style="padding:7px 10px;text-align:center;border-bottom:1px solid var(--border);">出勤日数</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="124884" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">124884</td>
-              <td style="padding:6px 10px;font-weight:700;">金子 理恵</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45855-000</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="134597" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">134597</td>
-              <td style="padding:6px 10px;font-weight:700;">坂井 万里子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46535-000</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="134719" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">134719</td>
-              <td style="padding:6px 10px;font-weight:700;">谷浦 さゆり</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">43616-002</td>
-              <td style="padding:6px 10px;text-align:center;">18日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="158470" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">158470</td>
-              <td style="padding:6px 10px;font-weight:700;">田原 浩子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46213-000</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="160488" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">160488</td>
-              <td style="padding:6px 10px;font-weight:700;">米原 英裕</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">44477-001</td>
-              <td style="padding:6px 10px;text-align:center;">16日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="169269" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">169269</td>
-              <td style="padding:6px 10px;font-weight:700;">池上 崇子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45817-000</td>
-              <td style="padding:6px 10px;text-align:center;">16日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="170908" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">170908</td>
-              <td style="padding:6px 10px;font-weight:700;">小河 達也</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45814-000</td>
-              <td style="padding:6px 10px;text-align:center;">17日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="175817" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">175817</td>
-              <td style="padding:6px 10px;font-weight:700;">矢野 直美</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46534-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="180033" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">180033</td>
-              <td style="padding:6px 10px;font-weight:700;">福川 和彦</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">44529-002</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="186068" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">186068</td>
-              <td style="padding:6px 10px;font-weight:700;">山岡 幸高</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46668-000</td>
-              <td style="padding:6px 10px;text-align:center;">6日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="186752" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">186752</td>
-              <td style="padding:6px 10px;font-weight:700;">内田 温子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">41287-003</td>
-              <td style="padding:6px 10px;text-align:center;">12日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="188177" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">188177</td>
-              <td style="padding:6px 10px;font-weight:700;">松本 吾一郎</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">39715-005</td>
-              <td style="padding:6px 10px;text-align:center;">17日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="196431" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">196431</td>
-              <td style="padding:6px 10px;font-weight:700;">田中 円</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">34822-009</td>
-              <td style="padding:6px 10px;text-align:center;">16日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="198998" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">198998</td>
-              <td style="padding:6px 10px;font-weight:700;">上野 亜樹</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45816-000</td>
-              <td style="padding:6px 10px;text-align:center;">14日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="204943" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">204943</td>
-              <td style="padding:6px 10px;font-weight:700;">大熊 香織</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45818-000</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="205744" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">205744</td>
-              <td style="padding:6px 10px;font-weight:700;">倉光 礼子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46669-000</td>
-              <td style="padding:6px 10px;text-align:center;">8日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="205918" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">205918</td>
-              <td style="padding:6px 10px;font-weight:700;">熊本 健治</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46032-000</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="206659" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">206659</td>
-              <td style="padding:6px 10px;font-weight:700;">安富 美加</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">43615-002</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="206682" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">206682</td>
-              <td style="padding:6px 10px;font-weight:700;">末永 優哉</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46670-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="211188" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">211188</td>
-              <td style="padding:6px 10px;font-weight:700;">木谷 陽子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">39476-005</td>
-              <td style="padding:6px 10px;text-align:center;">19日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="211465" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">211465</td>
-              <td style="padding:6px 10px;font-weight:700;">島田 千菜</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">43453-002</td>
-              <td style="padding:6px 10px;text-align:center;">11日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="212347" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">212347</td>
-              <td style="padding:6px 10px;font-weight:700;">鴛海 奈津帆</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">41714-003</td>
-              <td style="padding:6px 10px;text-align:center;">9日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="212730" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">212730</td>
-              <td style="padding:6px 10px;font-weight:700;">初瀬 太郎</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">40917-003</td>
-              <td style="padding:6px 10px;text-align:center;">12日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="215226" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">215226</td>
-              <td style="padding:6px 10px;font-weight:700;">小関 文子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">42837-002</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="215298" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">215298</td>
-              <td style="padding:6px 10px;font-weight:700;">上原 千春</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">44390-001</td>
-              <td style="padding:6px 10px;text-align:center;">14日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="216570" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">216570</td>
-              <td style="padding:6px 10px;font-weight:700;">藤井 一嘉</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46541-000</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="221583" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">221583</td>
-              <td style="padding:6px 10px;font-weight:700;">森山 優輝</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46619-000</td>
-              <td style="padding:6px 10px;text-align:center;">2日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="224024" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">224024</td>
-              <td style="padding:6px 10px;font-weight:700;">川井 沙那子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45854-000</td>
-              <td style="padding:6px 10px;text-align:center;">17日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="225897" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">225897</td>
-              <td style="padding:6px 10px;font-weight:700;">田嶋 亜都恵</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46270-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="225988" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">225988</td>
-              <td style="padding:6px 10px;font-weight:700;">中別府 奈津美</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46265-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-        </tbody>
-      </table>
-    </div>
-    <div id="tmj-staff-select-count" style="font-size:11px;color:var(--text-muted);margin-top:6px;">60 / 60 名を取り込み対象として選択中</div>
-  </div>
+        <div class="stats" id="convert-stats"></div>
+        <div class="log" id="convert-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_161.html#" download="SE_勤怠インポート.csv" style="display: inline-flex;">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="convert-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_162.html#" download="SE_勤怠インポート.csv" style="display: none;">⬇ CSVをダウンロード</a>
         </div>
       </div>
     </div>
@@ -1420,342 +1104,12 @@ window.addEventListener('load', function() {
       <div class="card-title">STEP 2 — 変換実行</div>
       <button class="btn-convert" id="btn-tmj-convert" onclick="convertTMJ()" disabled="">変換してCSVをダウンロード</button>
     </div>
-    <div class="card" id="tmj-result-card" style="display: block;">
+    <div class="card" id="tmj-result-card" style="display:none">
       <div class="card-title">変換結果</div>
-      <div class="stats" id="tmj-stats">
-    <div class="stat"><span class="stat-num">765</span><div class="stat-label">変換件数</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--success)">765</span><div class="stat-label">照合済み</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">0</span><div class="stat-label">未登録</div></div>
-    <div class="stat"><span class="stat-num" style="color:var(--text-muted)">390</span><div class="stat-label">欠勤/休日</div></div>
-  </div>
-      <div class="log" id="tmj-log"><div class="info">[INFO] TMJ 変換開始...</div><div class="info">[INFO] 勤怠データ読込: 765件</div><div class="ok">[OK] ⏱ 時間チェック: 異常なし</div><div class="ok">[OK] 📋 件数チェック: 全スタッフ日数一致</div><div class="ok">[OK] 変換完了: 765件</div><div class="ok">[OK] 対応表マッチ: 765件</div><div class="warn">[WARN] 案件NO複数ヒット: 1件（先頭を使用）</div><div class="info">[INFO] 休日・欠勤: 390件（時間空白で出力）</div><div class="ok">[OK] エラーなし — インポートの準備ができています</div></div>
+      <div class="stats" id="tmj-stats"></div>
+      <div class="log" id="tmj-log"></div>
       <div style="margin-top:16px;">
-        <div class="staff-select-ui" style="margin-top: 16px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-      <div style="font-size:12px;font-weight:700;color:var(--text);">📋 取り込むスタッフを選択（30名）</div>
-      <div style="display:flex;gap:6px;">
-        <button onclick="toggleAllStaff(&#39;tmj&#39;, true)" class="btn-add" style="font-size:11px;padding:4px 10px;">✅ 全て選択</button>
-        <button onclick="toggleAllStaff(&#39;tmj&#39;, false)" class="btn-del" style="font-size:11px;padding:4px 10px;">☐ 全て解除</button>
-      </div>
-    </div>
-    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead>
-          <tr style="background:#fdf5f6;">
-            <th style="padding:7px 10px;text-align:center;width:40px;border-bottom:1px solid var(--border);">✓</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">スタッフNO</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">氏名</th>
-            <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">案件NO</th>
-            <th style="padding:7px 10px;text-align:center;border-bottom:1px solid var(--border);">出勤日数</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="124884" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">124884</td>
-              <td style="padding:6px 10px;font-weight:700;">金子 理恵</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45855-000</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="134597" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">134597</td>
-              <td style="padding:6px 10px;font-weight:700;">坂井 万里子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46535-000</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="134719" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">134719</td>
-              <td style="padding:6px 10px;font-weight:700;">谷浦 さゆり</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">43616-002</td>
-              <td style="padding:6px 10px;text-align:center;">18日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="158470" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">158470</td>
-              <td style="padding:6px 10px;font-weight:700;">田原 浩子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46213-000</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="160488" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">160488</td>
-              <td style="padding:6px 10px;font-weight:700;">米原 英裕</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">44477-001</td>
-              <td style="padding:6px 10px;text-align:center;">16日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="169269" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">169269</td>
-              <td style="padding:6px 10px;font-weight:700;">池上 崇子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45817-000</td>
-              <td style="padding:6px 10px;text-align:center;">16日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="170908" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">170908</td>
-              <td style="padding:6px 10px;font-weight:700;">小河 達也</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45814-000</td>
-              <td style="padding:6px 10px;text-align:center;">17日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="175817" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">175817</td>
-              <td style="padding:6px 10px;font-weight:700;">矢野 直美</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46534-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="180033" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">180033</td>
-              <td style="padding:6px 10px;font-weight:700;">福川 和彦</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">44529-002</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="186068" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">186068</td>
-              <td style="padding:6px 10px;font-weight:700;">山岡 幸高</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46668-000</td>
-              <td style="padding:6px 10px;text-align:center;">6日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="186752" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">186752</td>
-              <td style="padding:6px 10px;font-weight:700;">内田 温子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">41287-003</td>
-              <td style="padding:6px 10px;text-align:center;">12日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="188177" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">188177</td>
-              <td style="padding:6px 10px;font-weight:700;">松本 吾一郎</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">39715-005</td>
-              <td style="padding:6px 10px;text-align:center;">17日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="196431" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">196431</td>
-              <td style="padding:6px 10px;font-weight:700;">田中 円</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">34822-009</td>
-              <td style="padding:6px 10px;text-align:center;">16日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="198998" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">198998</td>
-              <td style="padding:6px 10px;font-weight:700;">上野 亜樹</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45816-000</td>
-              <td style="padding:6px 10px;text-align:center;">14日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="204943" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">204943</td>
-              <td style="padding:6px 10px;font-weight:700;">大熊 香織</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45818-000</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="205744" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">205744</td>
-              <td style="padding:6px 10px;font-weight:700;">倉光 礼子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46669-000</td>
-              <td style="padding:6px 10px;text-align:center;">8日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="205918" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">205918</td>
-              <td style="padding:6px 10px;font-weight:700;">熊本 健治</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46032-000</td>
-              <td style="padding:6px 10px;text-align:center;">15日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="206659" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">206659</td>
-              <td style="padding:6px 10px;font-weight:700;">安富 美加</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">43615-002</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="206682" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">206682</td>
-              <td style="padding:6px 10px;font-weight:700;">末永 優哉</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46670-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="211188" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">211188</td>
-              <td style="padding:6px 10px;font-weight:700;">木谷 陽子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">39476-005</td>
-              <td style="padding:6px 10px;text-align:center;">19日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="211465" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">211465</td>
-              <td style="padding:6px 10px;font-weight:700;">島田 千菜</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">43453-002</td>
-              <td style="padding:6px 10px;text-align:center;">11日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="212347" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">212347</td>
-              <td style="padding:6px 10px;font-weight:700;">鴛海 奈津帆</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">41714-003</td>
-              <td style="padding:6px 10px;text-align:center;">9日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="212730" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">212730</td>
-              <td style="padding:6px 10px;font-weight:700;">初瀬 太郎</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">40917-003</td>
-              <td style="padding:6px 10px;text-align:center;">12日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="215226" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">215226</td>
-              <td style="padding:6px 10px;font-weight:700;">小関 文子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">42837-002</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="215298" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">215298</td>
-              <td style="padding:6px 10px;font-weight:700;">上原 千春</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">44390-001</td>
-              <td style="padding:6px 10px;text-align:center;">14日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="216570" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">216570</td>
-              <td style="padding:6px 10px;font-weight:700;">藤井 一嘉</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46541-000</td>
-              <td style="padding:6px 10px;text-align:center;">13日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="221583" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">221583</td>
-              <td style="padding:6px 10px;font-weight:700;">森山 優輝</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46619-000</td>
-              <td style="padding:6px 10px;text-align:center;">2日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="224024" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">224024</td>
-              <td style="padding:6px 10px;font-weight:700;">川井 沙那子</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">45854-000</td>
-              <td style="padding:6px 10px;text-align:center;">17日</td>
-            </tr>
-          
-            <tr style="">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="225897" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">225897</td>
-              <td style="padding:6px 10px;font-weight:700;">田嶋 亜都恵</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46270-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-            <tr style="background:#fafafa;">
-              <td style="padding:6px 10px;text-align:center;">
-                <input type="checkbox" class="staff-chk-tmj" data-staffno="225988" checked="" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;">
-              </td>
-              <td style="padding:6px 10px;font-family:&#39;Space Mono&#39;,monospace;font-size:11px;color:var(--accent);">225988</td>
-              <td style="padding:6px 10px;font-weight:700;">中別府 奈津美</td>
-              <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);">46265-000</td>
-              <td style="padding:6px 10px;text-align:center;">7日</td>
-            </tr>
-          
-        </tbody>
-      </table>
-    </div>
-    <div id="tmj-staff-select-count" style="font-size:11px;color:var(--text-muted);margin-top:6px;"></div>
-  </div><a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_120.html#" download="SE_勤怠インポート_TMJ.csv" style="display: inline-flex;">
+        <a class="btn-dl" id="tmj-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_120.html#" download="SE_勤怠インポート_TMJ.csv">
           ⬇ CSVをダウンロード
         </a>
       </div>
@@ -1906,7 +1260,7 @@ window.addEventListener('load', function() {
       <div class="stats" id="centric-stats"></div>
       <div class="log" id="centric-log"></div>
       <div style="margin-top:16px;">
-        <a class="btn-dl" id="centric-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_161.html#" download="SE_勤怠インポート_セントリック.csv" style="display:none;">⬇ CSVをダウンロード</a>
+        <a class="btn-dl" id="centric-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_162.html#" download="SE_勤怠インポート_セントリック.csv" style="display:none;">⬇ CSVをダウンロード</a>
       </div>
     </div>
   </div>
@@ -1943,7 +1297,7 @@ window.addEventListener('load', function() {
         <div class="stats" id="freeformat-stats"></div>
         <div class="log" id="freeformat-log"></div>
         <div style="margin-top:16px;">
-          <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_161.html#" download="SE_勤怠インポート_フリー様式.csv" style="display: none;">⬇ CSVをダウンロード</a>
+          <a class="btn-dl" id="freeformat-dl-btn" href="file:///C:/Users/honma/Downloads/se_converter_162.html#" download="SE_勤怠インポート_フリー様式.csv" style="display: none;">⬇ CSVをダウンロード</a>
         </div>
       </div>
   </div>
@@ -4965,30 +4319,55 @@ function convertCentric() {
     const rows = pageData.rows;
 
     // 年月の抽出（複数パターンに対応）
+    // Pattern A: 「2026年 04月」（旧・回転レイアウト）
+    // Pattern B: 「2026/06」（新・縦向きレイアウト）
     let year = null, month = null;
     let ymMatch = pageText.match(/(\d{4})年\s*(\d{1,2})月/);
     if (ymMatch) {
       year = parseInt(ymMatch[1]);
       month = parseInt(ymMatch[2]);
     } else {
-      // cMapが読めずに「年」「月」が抽出できなかった場合のフォールバック
-      // "2026 04" (年月の数字のみ) を探す
-      const fallback = pageText.match(/(\d{4})\s+(\d{1,2})\b/);
-      if (fallback) {
-        year = parseInt(fallback[1]);
-        month = parseInt(fallback[2]);
+      // "2026/06" のパターン
+      ymMatch = pageText.match(/\b(\d{4})\/(\d{1,2})(?![\/\d])/);
+      if (ymMatch) {
+        year = parseInt(ymMatch[1]);
+        month = parseInt(ymMatch[2]);
       } else {
-        // それも無理なら日付ヘッダー(04/01など)から月を取得し、年は当年
-        const dateHeader = pageText.match(/\b(\d{2})\/\d{2}\b/);
-        if (dateHeader) {
-          month = parseInt(dateHeader[1]);
-          year = new Date().getFullYear();
+        // "2026 04" (cMap失敗時のフォールバック)
+        const fallback = pageText.match(/(\d{4})\s+(\d{1,2})\b/);
+        if (fallback) {
+          year = parseInt(fallback[1]);
+          month = parseInt(fallback[2]);
+        } else {
+          // 日付ヘッダー(04/01など)から月を取得し、年は当年
+          const dateHeader = pageText.match(/\b(\d{2})\/\d{2}\b/);
+          if (dateHeader) {
+            month = parseInt(dateHeader[1]);
+            year = new Date().getFullYear();
+          }
         }
       }
     }
     if (!year || !month) return { error: '年月が抽出できません' };
 
-    // 従業員コードの抽出
+    // レイアウト判定:
+    //  - 回転レイアウト: 日付ヘッダー行に MM/DD 形式が5個以上並ぶ
+    //  - 縦向きレイアウト: 各データ行に MM/DD 形式が1個ずつ並ぶ（複数行に分散）
+    const rotatedDateRow = rows.find(r => r.items.filter(i => /^\d{2}\/\d{2}/.test(i.text)).length >= 5);
+    if (rotatedDateRow) {
+      return parseRotatedLayout(pageData, year, month, rotatedDateRow);
+    } else {
+      return parsePortraitLayout(pageData, year, month);
+    }
+  }
+
+  // ========== 回転レイアウト（旧: 4月PDF）==========
+  // 日付がX軸方向、項目がY軸方向に並ぶ
+  function parseRotatedLayout(pageData, year, month, dateRow) {
+    const pageText = pageData.text;
+    const rows = pageData.rows;
+
+    // 従業員コード（別Y座標にある）
     let staffId = '';
     const codeLabelRow = rows.find(r => r.items.some(i => /^従業員コード/.test(i.text)));
     if (codeLabelRow) {
@@ -5000,14 +4379,13 @@ function convertCentric() {
       if (candidates.length > 0) staffId = candidates[0].text;
     }
     if (!staffId) {
-      // cMap が読めずラベルが取れない場合のフォールバック
-      // ページ上で「2026年 04月」の近くにある4桁以上の数字を探す
-      const idMatch = pageText.match(/\b(\d{4,5})\b/);
-      if (idMatch) staffId = idMatch[1];
+      const yearStr = String(year);
+      const matches = [...pageText.matchAll(/\b(\d{4,5})\b/g)];
+      for (const mm of matches) { if (mm[1] !== yearStr) { staffId = mm[1]; break; } }
     }
     if (!staffId) return { error: '従業員コードが抽出できません' };
 
-    // 氏名
+    // 氏名（別Y座標にある）
     let staffName = '';
     const nameLabelRow = rows.find(r => r.items.some(i => i.text === '名前'));
     if (nameLabelRow) {
@@ -5022,9 +4400,7 @@ function convertCentric() {
       if (candidates.length > 0) staffName = candidates[0].text.trim();
     }
 
-    // 日付ヘッダー行
-    const dateRow = rows.find(r => r.items.filter(i => /^\d{2}\/\d{2}/.test(i.text)).length >= 5);
-    if (!dateRow) return { staffId, staffName, year, month, records: [] };
+    // 日付ごとのX座標マップ
     const dateXMap = {};
     dateRow.items.forEach(it => {
       const m = it.text.match(/^(\d{2})\/(\d{2})/);
@@ -5039,14 +4415,10 @@ function convertCentric() {
       }
       return bestDiff <= 10 ? bestDay : -1;
     };
-
-    // ラベルのY座標を取得
     const findLabelY = (labelText) => {
       const r = rows.find(r => r.items.some(i => i.text === labelText));
       return r ? r.y : null;
     };
-
-    // ラベルに最も近い「日付列にデータがある行」を探す（最大Y距離30）
     const findDataRowNearLabel = (labelText, maxDist) => {
       const labelY = findLabelY(labelText);
       if (labelY === null) return null;
@@ -5057,8 +4429,6 @@ function convertCentric() {
       if (Math.abs(top.y - labelY) > (maxDist || 30)) return null;
       return top;
     };
-
-    // 日付列ごとに値を集める
     const collectByDate = (row) => {
       const map = {};
       if (!row) return map;
@@ -5081,8 +4451,6 @@ function convertCentric() {
     const kihonMap = collectByDate(kihonRow);
     const restMapPdf = collectByDate(restRow);
 
-    // paid_extra ゾーン: 所定データ行と休憩データ行の間にある全アイテムを日付ごとに合算
-    // PDFのコンパクションで所定外/残業/深夜系/休日系が同一Yに混在することがあるため
     const paidExtraMap = {};
     if (kihonRow && restRow) {
       const yLow = Math.min(kihonRow.y, restRow.y) + 5;
@@ -5119,13 +4487,156 @@ function convertCentric() {
       const clockIn = cleanPunch(punchInMap[day]);
       const clockOut = cleanPunch(punchOutMap[day]);
       if (!clockIn || !clockOut) return;
-
       records.push({
-        year, month, day,
-        clockIn, clockOut,
+        year, month, day, clockIn, clockOut,
         basicMin: parseHHMM(kihonMap[day]),
         paidExtraMin: paidExtraMap[day] || 0,
         restMinPdf: parseHHMM(restMapPdf[day])
+      });
+    });
+    return { staffId, staffName, year, month, records };
+  }
+
+  // ========== 縦向きレイアウト（新: 6月PDF）==========
+  // 日付がY軸方向、項目がX軸方向に並ぶ（通常のテーブル）
+  function parsePortraitLayout(pageData, year, month) {
+    const pageText = pageData.text;
+    const rows = pageData.rows;
+    const yearStr = String(year);
+
+    // ヘルパー: HH.MM 文字列を分に変換
+    const parseHHMM = s => {
+      if (!s) return 0;
+      const m = String(s).match(/(\d+)\.(\d+)/);
+      return m ? hhmmDotToMin(m[1], m[2]) : 0;
+    };
+    const cleanPunch = s => {
+      if (!s) return '';
+      const m = String(s).match(/(\d{1,2}:\d{2})/);
+      return m ? m[1] : '';
+    };
+    const findItemNearX = (items, x, tol) => {
+      let best = null, bestD = tol + 1;
+      for (const it of items) {
+        const d = Math.abs(it.x - x);
+        if (d < bestD) { best = it; bestD = d; }
+      }
+      return best;
+    };
+
+    // 従業員コード: 「従業員コード」ラベルと同じ行の後続項目から数字を抽出
+    let staffId = '';
+    const codeLabelRow = rows.find(r => r.items.some(i => /従業員コード/.test(i.text)));
+    if (codeLabelRow) {
+      const codeItem = codeLabelRow.items.find(i => /従業員コード/.test(i.text));
+      const codeIdx = codeLabelRow.items.indexOf(codeItem);
+      // 同じ行の後続項目から: 8422 のような数字を探す
+      for (let j = codeIdx + 1; j < codeLabelRow.items.length; j++) {
+        const t = codeLabelRow.items[j].text.trim();
+        const m = t.match(/[:：]?\s*(\d{4,5})/);
+        if (m && m[1] !== yearStr) { staffId = m[1]; break; }
+      }
+    }
+    if (!staffId) {
+      // ページ全体から4-5桁の数字（年以外）を探す
+      const matches = [...pageText.matchAll(/\b(\d{4,5})\b/g)];
+      for (const mm of matches) { if (mm[1] !== yearStr) { staffId = mm[1]; break; } }
+    }
+    if (!staffId) return { error: '従業員コードが抽出できません' };
+
+    // 氏名: 「名前」ラベルと同じ行の後続項目から抽出
+    let staffName = '';
+    const nameLabelRow = rows.find(r => r.items.some(i => i.text === '名前' || i.text === '氏名'));
+    if (nameLabelRow) {
+      const nameItem = nameLabelRow.items.find(i => i.text === '名前' || i.text === '氏名');
+      const nameIdx = nameLabelRow.items.indexOf(nameItem);
+      const codeItemInRow = nameLabelRow.items.findIndex(i => /従業員コード/.test(i.text));
+      const endIdx = codeItemInRow > nameIdx ? codeItemInRow : nameLabelRow.items.length;
+      for (let j = nameIdx + 1; j < endIdx; j++) {
+        const t = nameLabelRow.items[j].text.trim();
+        // ": 佐和田 直美" のパターン。または直接氏名
+        const m = t.match(/^[:：]\s*(.+)/) || t.match(/^([\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff][\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\s　]+)$/);
+        if (m) {
+          let val = m[1].trim();
+          // 数字を含む場合は除外
+          if (/\d/.test(val)) continue;
+          staffName = val;
+          break;
+        }
+      }
+    }
+
+    // 日付テーブルのヘッダー行を探す (「日付」「出勤(方法)」「所定」「休憩」を含む)
+    const headerRow = rows.find(r => {
+      const texts = r.items.map(i => i.text);
+      return texts.some(t => t === '日付') &&
+             texts.some(t => /出勤/.test(t)) &&
+             texts.some(t => t === '休憩');
+    });
+    if (!headerRow) return { staffId, staffName, year, month, records: [] };
+
+    // 各列のX座標を取得
+    const colX = {};
+    headerRow.items.forEach(i => {
+      if (i.text === '日付') colX.date = i.x;
+      else if (/^出勤/.test(i.text)) colX.clockIn = i.x;
+      else if (/^退勤/.test(i.text)) colX.clockOut = i.x;
+      else if (i.text === 'スケジュール') colX.schedule = i.x;
+      else if (i.text === '休暇区分') colX.absent = i.x;
+      else if (i.text === '所定') colX.kihon = i.x;
+      else if (i.text === '休憩') colX.rest = i.x;
+      else if (i.text === '備考') colX.remark = i.x;
+    });
+    if (colX.date === undefined || colX.kihon === undefined || colX.rest === undefined) {
+      return { staffId, staffName, year, month, records: [] };
+    }
+
+    // データ行: ヘッダーより下（Y < headerRow.y）で、日付列近くに MM/DD(曜) がある行
+    const dataRows = rows.filter(r =>
+      r.y < headerRow.y &&
+      r.items.some(i =>
+        /^\d{2}\/\d{2}\([月火水木金土日]?\)/.test(i.text) &&
+        Math.abs(i.x - colX.date) < 25
+      )
+    );
+
+    const records = [];
+    dataRows.forEach(r => {
+      const dateItem = r.items.find(i => /^\d{2}\/\d{2}/.test(i.text));
+      if (!dateItem) return;
+      const dm = dateItem.text.match(/^(\d{2})\/(\d{2})/);
+      const day = parseInt(dm[2]);
+
+      // 欠勤スキップ
+      if (r.items.some(i => /欠勤/.test(i.text))) return;
+
+      // 打刻抽出（X位置で判定）
+      const clockInItem = findItemNearX(r.items.filter(i => Math.abs(i.x - colX.clockIn) < 30), colX.clockIn, 30);
+      const clockOutItem = findItemNearX(r.items.filter(i => Math.abs(i.x - colX.clockOut) < 30), colX.clockOut, 30);
+      const clockIn = clockInItem ? cleanPunch(clockInItem.text) : '';
+      const clockOut = clockOutItem ? cleanPunch(clockOutItem.text) : '';
+      if (!clockIn || !clockOut) return;
+
+      // 所定
+      const kihonItem = findItemNearX(r.items.filter(i => Math.abs(i.x - colX.kihon) < 30), colX.kihon, 30);
+      const basicMin = kihonItem ? parseHHMM(kihonItem.text) : 0;
+
+      // 休憩
+      const restItem = findItemNearX(r.items.filter(i => Math.abs(i.x - colX.rest) < 30), colX.rest, 30);
+      const restMinPdf = restItem ? parseHHMM(restItem.text) : 0;
+
+      // paid_extra: 所定列と休憩列の間にある HH.MM 値を合算
+      let paidExtraMin = 0;
+      r.items.forEach(it => {
+        if (it.x > colX.kihon + 20 && it.x < colX.rest - 15) {
+          const m = String(it.text).match(/(\d+)\.(\d+)/);
+          if (m) paidExtraMin += hhmmDotToMin(m[1], m[2]);
+        }
+      });
+
+      records.push({
+        year, month, day, clockIn, clockOut,
+        basicMin, paidExtraMin, restMinPdf
       });
     });
 
